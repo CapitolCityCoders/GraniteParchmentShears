@@ -6,12 +6,15 @@ export default class Menu extends React.Component{
     super();
   }
 
+  // render links to Create and Join components
   render() {
     return (
-      <div>
+      <div className="main-menu">
         <h1>The Rock Shop</h1>
-          <Link to="/create" activeClassName="active"><button>New Game</button></Link>
-          <Link to="/join" activeClassName="active"><button>Join Game</button></Link>
+        <div className="button-container">
+          <Link to="/create"><button>New Game</button></Link>
+          <Link to="/join"><button>Join Game</button></Link>
+        </div>
       </div>
     );
   }

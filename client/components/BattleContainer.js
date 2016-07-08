@@ -37,7 +37,7 @@ export default class BattleContainer extends React.Component{
 //---------------------------------------------------------------//
 	handleRockThrow2(e){
 		e.preventDefault()
-		this.setState({icon2: "/images.rock.png"})
+		this.setState({icon2: "/images/rock.png"})
 		//send rock status to database for player 2
 	}
 	handlePaperThrow2(e){
@@ -103,9 +103,9 @@ export default class BattleContainer extends React.Component{
 							<img src = {this.state.icon2}/>
 						</div>
 						<div>
-							<button>Rock</button>
-							<button>Paper</button>
-							<button>Scissors</button>
+							<button onClick={this.handleRockThrow2.bind(this)}>Rock</button>
+							<button onClick={this.handlePaperThrow2.bind(this)}>Paper</button>
+							<button onClick={this.handleScissorThrow2.bind(this)}>Scissors</button>
 						</div>
 					</div>
 				</div>

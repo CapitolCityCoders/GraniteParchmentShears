@@ -1,8 +1,10 @@
 var express = require('express');
 var path = require('path');
+var history = require('connect-history-api-fallback');
 var browserify = require('browserify-middleware');
 var app = express();
 
+app.use(history());
 app.use(express.static(path.join(__dirname, "../client/public")));
 
 app.get('/app-bundle.js',

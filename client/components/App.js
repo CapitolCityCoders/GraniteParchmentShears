@@ -1,17 +1,14 @@
 import React from 'react';
 
-import PetShopWindow from './PetShopWindow';
-import AuthPanel from './AuthPanel';
-
 export default class App extends React.Component{
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
   }
 
   render(){
     return (
       <div>
-
+        asdf
       </div>
     );
   }

@@ -10,10 +10,8 @@ export default class Menu extends React.Component{
     return (
       <div>
         <h1>The Rock Shop</h1>
-        <ul role="nav">
-          <li><Link to="/create" activeClassName="active">New Game</Link></li>
-          <li><Link to="/join" activeClassName="active">Join Game</Link></li>
-        </ul>
+          <Link to="/create" activeClassName="active"><button>New Game</button></Link>
+          <Link to="/join" activeClassName="active"><button>Join Game</button></Link>
       </div>
     );
   }

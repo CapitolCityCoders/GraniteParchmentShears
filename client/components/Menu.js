@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 
 export default class Menu extends React.Component{
   constructor(){
@@ -21,9 +21,13 @@ export default class Menu extends React.Component{
     this.setState({username: e.currentTarget.value});
   }
 
+  // generate new access code and reroute to there
   handleCreate(e) {
     e.preventDefault();
-    // create lobby
+    const accessCode = this.generateAccessCode();
+    // add logic to add new game to database
+    console.log(accessCode);
+    browserHistory.push(`/${accessCode}`);
   }
 
   handleJoin(e) {
@@ -34,6 +38,16 @@ export default class Menu extends React.Component{
   handleViewChange(view, e) {
     e.preventDefault()
     this.setState({view: view});
+  }
+
+  // generate random access code of 4 letters
+  generateAccessCode() {
+    let code = "";
+    const possible = "abcdefghijklmnopqrstuvwxyz";
+    for(let i = 0; i < 4; i++){
+      code += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return code;
   }
 
   // show main menu buttons
@@ -96,7 +110,7 @@ export default class Menu extends React.Component{
   // show buttons based on view in state 
   render() {
     return (
-      <div className="main-menu">
+      <div className="container six columns offset-by-three">
         <h1>The Rock Shop</h1>
         <hr />
         {

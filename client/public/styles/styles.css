@@ -1,7 +1,10 @@
 body {
   text-align: center;
+  padding-top: 200px;
 }
 
+/* for testing div placements 
+*/
 div {
   border: 1px solid yellow;
 }
@@ -27,9 +30,25 @@ div {
   margin: auto;
 }
 
+a {
+    color: #999;
+}
+
 .button-container button {
   margin: 0 15px;
 }
+
+.container {
+  text-align: center;
+  padding: 10px;
+}
+
+
+/*
+  =========================================================
+  Menu
+  =========================================================
+*/
 
 input[type="text"] {
   display: block;
@@ -38,8 +57,73 @@ input[type="text"] {
   max-width: 280px;
   height: 48px;
   margin: 10px auto;
+}
+
+.lobby-player-list {
+    margin-top: -15px;
+    margin-bottom: -10px;
+    counter-reset:li; /* Initiate a counter */
+    margin-left:0; /* Remove the default left margin */
+    padding-left:0; /* Remove the default left padding */
+}
+
+.lobby-player-list > li {
+    text-align: left;
+    position:relative; /* Create a positioning context */
+    margin:0 0 6px 2em; /* Give each list item a left margin to make room for the numbers */
+    padding:4px 8px; /* Add some spacing around the content */
+    list-style:none; /* Disable the normal item numbering */
+    background:transparent;
+    background-color: #f9f9f9;
+}
+
+.lobby-player-list > li:before {
+    content:counter(li); /* Use the counter as content */
+    counter-increment:li; /* Increment the counter by 1 */
+    /* Position and style the number */
+    position:absolute;
+    top:0;
+    left:-2em;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+    width:2em;
+    margin-right:8px;
+    padding: 5px 4px 3px 4px;
+    background:transparent;
+    font-weight:bold;
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    text-align:center;
+    background-color: #f9f9f9;
+}
+
+.btn-remove-player {
+    float: right;
+    position: relative;
+    right: 1px;
+}
+
+.btn-edit-player {
+    float: right;
+}
+
+/*
+  =========================================================
+  Game
+  =========================================================
+*/
   
-.container {
-  text-align: center;
-  padding: 10px;
+.about {
+	padding-top: 20px;
+}
+
+.footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+
+.arena {
+	height:200px;
+	width:200px;
 }

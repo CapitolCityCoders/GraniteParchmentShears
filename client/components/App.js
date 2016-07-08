@@ -1,15 +1,17 @@
-import React from 'react';
-var BattleContainer = require('./BattleContainer')
+// import React from 'react';
+// var BattleContainer = require('./BattleContainer')
+
+// import BattleContainer from 
 
 
-export default class App extends React.Component{
-  constructor(){
-    super();
-  }
+// export default class App extends React.Component{
+//   constructor(){
+//     super();
+//   }
 
-  render(){
-    return (
-      	<BattleContainer />
-    );
-  }
-}
+//   render(){
+//     return (
+//       	<BattleContainer />
+//     );
+//   }
+// }

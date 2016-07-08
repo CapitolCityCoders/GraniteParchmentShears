@@ -17,6 +17,7 @@ div {
   position:absolute;
   bottom:0;
   width:100%;
+  display: none;
 }
 
 .arena {
@@ -126,4 +127,10 @@ input[type="text"] {
 .arena {
 	height:200px;
 	width:200px;
+}
+
+img{
+  width: 150px;
+  height: 150px;
+  border: none;
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+var BattleContainer = require('./BattleContainer')
+
 
 export default class App extends React.Component{
   constructor(){
@@ -7,9 +9,7 @@ export default class App extends React.Component{
 
   render(){
     return (
-      <div>
-
-      </div>
+      	<BattleContainer />
     );
   }
 }

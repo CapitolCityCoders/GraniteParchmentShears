@@ -1,10 +1,26 @@
-var app = require('express')();
+var express = require('express');
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+//var io = require('socket.io')(server);
+//var db = require('db')
+var app = express()
 
 var path = require('path');
 var history = require('connect-history-api-fallback');
 var browserify = require('browserify-middleware');
+
+
+
+
+
+// SocketIO Configuration
+//var io = require('socket.io').listen(app);
+//
+//io.sockets.on('connection', function(socket) {
+//  socket.on('user note', function (note) {
+//    console.log(note);
+//  });
+//});
+
 
 // ALTERNATIVE SocketIO Configuration
 // server.listen(80);
@@ -20,14 +36,6 @@ var browserify = require('browserify-middleware');
 //   });
 // });
 
-// SocketIO Configuration
-//var io = require('socket.io').listen(app);
-//
-//io.sockets.on('connection', function(socket) {
-//  socket.on('user note', function (note) {
-//    console.log(note);
-//  });
-//});
 
 
 

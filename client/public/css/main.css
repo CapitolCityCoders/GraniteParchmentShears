@@ -1,0 +1,23 @@
+.container {
+  text-align: center;
+  padding: 10px;
+}
+
+div{
+	border: 1px solid red;
+}
+
+.about {
+	padding-top: 20px;
+}
+
+.footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
+}
+
+.arena {
+	height:200px;
+	width:200px;
+}

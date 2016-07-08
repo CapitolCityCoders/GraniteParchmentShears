@@ -1,20 +1,30 @@
-var React = require('react');
+import React from 'react'
 var path = require('path');
 
-var rockPath = path + __dirname + "/../public/images/rock.png"
 
-function BattleContainer(props){
-	return (
+export default class BattleContainer extends React.Component{
+	constructor(){
+		super();
+		this.state={
+			view: '',
+			username: ''
+		}
 
-		<div>
+	}
 
-			<div className="title container">
-				<div>
-					<h2>Rock Paper Scissors</h2>
+	handleViewChange(view,e){
+		e.preventDefault();
+		this.setState({view: view});
+	}
+
+	render(){
+		return(
+			<div>
+				<div className="title container">
+					<div>
+						<h2>Rock Paper Scissors</h2>
+					</div>
 				</div>
-			</div>
-
-			<div className="game container">
 
 				<div className="rounds container">
 					<div className="four columns">
@@ -31,9 +41,7 @@ function BattleContainer(props){
 				<div className="status container">
 					<div className="four columns offset-by-four columns">GAME INFO</div>
 				</div>
-
 				<div className="players container">
-
 					<div className="playerOne six columns">
 						<div>
 							<h5>Player One Nickname</h5>
@@ -61,9 +69,7 @@ function BattleContainer(props){
 							<button>Scissors</button>
 						</div>
 					</div>
-
 				</div>
-			</div>
 
 			<div className="footer">
 
@@ -107,10 +113,9 @@ function BattleContainer(props){
 				</div>
 
 			</div>
-
 		</div>
-
-	)
+		);
+	}
 }
 
-module.exports = BattleContainer;
+

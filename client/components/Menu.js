@@ -36,6 +36,16 @@ export default class Menu extends React.Component{
     this.setState({view: view});
   }
 
+  // generate random access code of 4 letters
+  generateAccessCode() {
+    let code = "";
+    const possible = "abcdefghijklmnopqrstuvwxyz";
+    for(let i = 0; i < 4; i++){
+      code += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return code;
+  }
+
   // show main menu buttons
   menuView() {
     return (

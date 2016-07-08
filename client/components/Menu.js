@@ -34,9 +34,9 @@ export default class Menu extends React.Component{
   handleViewChange(view, e) {
     e.preventDefault()
     this.setState({view: view});
-    console.log(this.state.view)
   }
 
+  // show main menu buttons
   menuView() {
     return (
       <div className="button-container">
@@ -46,6 +46,7 @@ export default class Menu extends React.Component{
     );
   }
 
+  // show create game username input and buttons 
   createView() {
     return (
       <form className="create-game">
@@ -64,6 +65,7 @@ export default class Menu extends React.Component{
     );
   }
 
+  // show join game username and access code input and buttons 
   joinView() {
     return (
       <form className="join-game">
@@ -91,7 +93,7 @@ export default class Menu extends React.Component{
   }
 
 
-  // render links to Create and Join components
+  // show buttons based on view in state 
   render() {
     return (
       <div className="main-menu">

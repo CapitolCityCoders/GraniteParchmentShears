@@ -12,5 +12,6 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={Menu} />
     <Route path="/battle" component={BattleContainer} />
+
   </Router>
 ), document.getElementById('app'))

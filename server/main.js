@@ -19,9 +19,14 @@ app.get('/app-bundle.js',
   })
 );
 
+//  socket.io is listening for queues triggered by
+//    players, then emits information to both
+//  TO DO: synch it up with all player actions so
+//    displays match across players in real time
+
 io.on('connection', function(socket){
-	socket.on('ready', function(playerDetails){
-		console.log(playerDetails)
+	socket.on('player ready', function(playerDetails){
+		io.emit('game ready', playerDetails)
 	})
 })
 

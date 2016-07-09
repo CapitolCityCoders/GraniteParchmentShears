@@ -12,9 +12,6 @@ export default class Menu extends React.Component{
     };
   }
 
-
-
-
   // two-way binding for access code input
   handleAccessCodeChange(e) {
     this.setState({accessCode: e.currentTarget.value});
@@ -36,8 +33,13 @@ export default class Menu extends React.Component{
 
   handleJoin(e) {
     e.preventDefault();
+
+    //  initiates socket.io
     var socket = io()
-    socket.emit('ready', {
+
+    //  emits player ready to server, which then
+    //    emits game ready to all players
+    socket.emit('player ready', {
       username: this.state.username,
       accessCode: this.state.accessCode
     })

@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link, browserHistory } from 'react-router'
+import * as db from '../models/menu'
+
 var io = require('../../node_modules/socket.io-client/socket.io.js')
 
 export default class Menu extends React.Component{
@@ -27,7 +29,10 @@ export default class Menu extends React.Component{
     e.preventDefault();
     const accessCode = this.generateAccessCode();
     // add logic to add new game to database
-    console.log(accessCode);
+    db.generateNewGame(accessCode)
+      .then(newGameId => {
+        console.log('new game id: ', newGameId[0])
+      })
     browserHistory.push(`/${accessCode}`);
   }
 

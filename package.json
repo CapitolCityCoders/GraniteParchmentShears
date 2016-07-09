@@ -2,7 +2,7 @@
   "name": "react-pet-shop",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "start": "nodemon ./server/main.js --ignore client/",
     "test": "echo \"Error: no test specified\" && exit 1"

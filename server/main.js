@@ -33,3 +33,16 @@ io.on('connection', function(socket){
 var port = process.env.PORT || 4000;
 http.listen(port);
 console.log("Listening on localhost: " + port);
+
+app.post('/api/games', (req,res) => {
+  collectRequestBody(req, (accessCode) => {
+    db('games').insert({access_code: accessCode, status: 'waiting'})
+      .then(gameId => {
+        res.send(gameId);
+      });
+  })
+});
+
+var port = process.env.PORT || 4000;
+app.listen(port);
+console.log("Listening on localhost:" + port);

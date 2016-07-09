@@ -1,14 +1,16 @@
+var app = require('express')();
 var express = require('express');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var path = require('path');
 var bodyParser = require('body-parser');
-var history = require('connect-history-api-fallback');
 var browserify = require('browserify-middleware');
+var history = require('connect-history-api-fallback');
 var db = require('./db');
 
-var app = express();
 module.exports = app;
 
-app.use(history());
+app.use(history())
 app.use(express.static(path.join(__dirname, "../client/public")));
 
 app.get('/app-bundle.js',
@@ -17,6 +19,12 @@ app.get('/app-bundle.js',
   })
 );
 
+io.on('connection', function(socket){
+	socket.on('ready', function(playerDetails){
+		console.log(playerDetails)
+	})
+})
+
 var port = process.env.PORT || 4000;
-app.listen(port);
-console.log("Listening on localhost:" + port);
+http.listen(port);
+console.log("Listening on localhost: " + port);

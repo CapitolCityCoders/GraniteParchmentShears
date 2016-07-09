@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, browserHistory } from 'react-router'
+var io = require('../../node_modules/socket.io-client/socket.io.js')
 
 export default class Menu extends React.Component{
   constructor(){
@@ -35,6 +36,11 @@ export default class Menu extends React.Component{
 
   handleJoin(e) {
     e.preventDefault();
+    var socket = io()
+    socket.emit('ready', {
+      username: this.state.username,
+      accessCode: this.state.accessCode
+    })
     // join lobby
   }
 

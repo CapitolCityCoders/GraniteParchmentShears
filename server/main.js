@@ -1,8 +1,12 @@
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser');
 var history = require('connect-history-api-fallback');
 var browserify = require('browserify-middleware');
+var db = require('./db');
+
 var app = express();
+module.exports = app;
 
 app.use(history());
 app.use(express.static(path.join(__dirname, "../client/public")));

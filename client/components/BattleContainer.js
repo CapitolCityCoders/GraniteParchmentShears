@@ -57,11 +57,6 @@ export default class BattleContainer extends React.Component{
 	render(){
 		return(
 			<div>
-				<div className="title container">
-					<div>
-						<h2>Rock Paper Scissors</h2>
-					</div>
-				</div>
 
 				<div className="rounds container">
 					<div className="four columns">
@@ -110,7 +105,7 @@ export default class BattleContainer extends React.Component{
 					</div>
 				</div>
 
-			<div className="footer">
+			<div className="about">
 
 				<div className="title container">
 					<div className="four columns offset-by-four columns">

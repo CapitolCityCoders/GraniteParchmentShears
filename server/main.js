@@ -89,8 +89,12 @@ app.get('/app-bundle.js',
 //    displays match across players in real time
 
 io.on('connection', function(socket){
-	socket.on('join game', (gameId) => {
+	socket.on('join game', gameId => {
 		io.emit('join game', gameId)
+	})
+
+	socket.on('start game', gameId => {
+		io.emit('start game', gameId)
 	})
 })
 

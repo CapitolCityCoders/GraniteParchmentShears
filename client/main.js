@@ -5,6 +5,7 @@ import { Router, Route, browserHistory } from 'react-router'
 
 // Import components
 import Menu from './components/Menu';
+import Game from './components/Game';
 import BattleContainer from './components/BattleContainer';
 import Lobby from './components/Lobby';
 
@@ -13,6 +14,6 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={Menu} />
     <Route path="/battle" component={BattleContainer} />
-    <Route path="/:accessCode" component={Lobby} />
+    <Route path="/:accessCode" component={Game} />
   </Router>
 ), document.getElementById('app'))

@@ -14,21 +14,24 @@ export default class Lobby extends React.Component{
 
   componentDidMount() {
     this.socket = io();
+    this.userId = +sessionStorage.getItem('userId');
+    this.gameId = +sessionStorage.getItem('gameId');
+
+
     this.refreshGameStatus();
     this.populatePlayers();
     // listens for 'join game' broadcasts
     // refreshes player list if gameId in broadcast matches current gameId
     this.socket.on('join game', (gameId) => {
-      if (gameId === +sessionStorage.getItem('gameId')) { 
+      if (gameId === this.gameId) { 
         this.populatePlayers();
         this.refreshGameStatus();
       }
-        
     });
   }
 
   populatePlayers() {
-    db.userList(sessionStorage.getItem('gameId'))
+    db.userList(this.gameId)
       .then(players => {
         this.setState({players: players});
       });
@@ -41,20 +44,27 @@ export default class Lobby extends React.Component{
       });
   }
 
+  handleNameChange() {
+    // db call to update player name 
+  }
+
+  handleStartGame() {
+    this.socket.emit('start game', this.gameId)
+    this.props.startGame();
+  }
+
   render() {
     return (
       <section className="container six columns offset-by-three">
         {this.state.gameStatus === 'waiting' ?
           <h4>Waiting for opponent...</h4> :
           this.state.gameStatus === 'full' ?
-          <h4>Waiting for players to ready up</h4> :
-          this.state.gameStatus === 'ready' ?
-          <h4>Both players ready</h4> :
+          <h4>Game ready</h4> :
           null}
 
         <div className="access-code">
           Access Code: 
-          <span> {this.props.params.accessCode} </span>
+          <span> {this.props.accessCode} </span>
         </div>
 
         <hr />
@@ -64,10 +74,16 @@ export default class Lobby extends React.Component{
             <li key={player.id}>
               {player.name} 
 
-              {/* add if current player logic */}
-              <a href="#" className="btn-edit-player">
-                <i className="fa fa-pencil"></i>
-              </a>
+              {/* show edit button if current player */}
+              {player.id === this.userId ?
+                <a 
+                  href="#" 
+                  className="btn-edit-player"
+                  onClick={this.handleNameChange.bind(this)}
+                >
+                  <i className="fa fa-pencil"></i>
+                </a> :
+                null}
 
               {/* add if not current player logic
               <a href="#" className="btn-remove-player">
@@ -82,11 +98,9 @@ export default class Lobby extends React.Component{
 
         <div className="button-container">
           {this.state.gameStatus === 'waiting' ?
-            <button disabled>Ready</button> :
+            <button disabled>Start Game</button> :
             this.state.gameStatus === 'full' ?
-            <button>Ready</button> :
-            this.state.gameStatus === 'ready' ?
-            <button>Start Game</button> :
+            <button onClick={this.handleStartGame.bind(this)}>Start Game</button> :
             null}
           <Link to="/"><button>Leave Game</button></Link>
         </div>

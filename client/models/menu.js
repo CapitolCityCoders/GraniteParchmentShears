@@ -70,6 +70,21 @@ export function updateGameStatus(gameId, status) {
     .then();
 }
 
+// updates player status
+export function updateUserStatus(userId, status) {
+  return fetch('/api/userStatus', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify({
+      userId: userId,
+      status: status
+    })
+  })
+    .then();
+}
+
 export function getGameById(gameId) {
   return fetch('/api/getGameById', {
     method: 'POST',

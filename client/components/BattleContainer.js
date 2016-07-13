@@ -19,13 +19,18 @@ export default class BattleContainer extends React.Component{
 	handleRockThrow1(e){
 		e.preventDefault()
 		this.setState({icon1: '/images/rock.png'})
-		//update throw count
+		//update throw count 
 			// this.state.throw ++
-		//check throw count
+		//check throw count 
 			// this.state.throw ? 
-		// check if player 2 thrown
-			// Game.check2Throw
-		//send rock status (post) to database for player 1
+		// check if player 2 thrown 
+			 Game.check2Throw()
+			 	.then(data => {
+			 		console.log("player2 throw", data)
+			 	})
+				// if thrown not waiting 
+					// call resolution fxn
+		//send rock status (post) to database for player 1 
 		Game.player1Throw('rock')
 	}
 

@@ -81,13 +81,21 @@ app.use(express.static(path.join(__dirname, "../client/public")));
 //------------ post player1 throw-------------//
 //--------------------------------------------//
 app.post('api/p1throw')
+//db('users').insert('throw').where(userid = 1)
 
 
 //------------ post player2 throw------------//
 //-------------------------------------------//
 app.post('api/p2throw')
+//db('users').insert('throw').where(userid = 2)
 
-
+//----------Get player2 status-------------//
+app.get('api/p2throw', (res,req) => {
+	db.select('player_throw').from('users').where('name', '=' {player2 username})
+	.then(data => {
+		res.send(data)
+	});
+});
 
 app.get('/app-bundle.js',
  browserify('./client/main.js', {

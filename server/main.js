@@ -77,6 +77,18 @@ app.post('/api/userStatus', (req, res) => {
 app.use(history());
 app.use(express.static(path.join(__dirname, "../client/public")));
 
+
+//------------ post player1 throw-------------//
+//--------------------------------------------//
+app.post('api/p1throw')
+
+
+//------------ post player2 throw------------//
+//-------------------------------------------//
+app.post('api/p2throw')
+
+
+
 app.get('/app-bundle.js',
  browserify('./client/main.js', {
     transform: [ [ require('babelify'), { presets: ["es2015", "react"] } ] ]

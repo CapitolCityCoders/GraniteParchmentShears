@@ -2,7 +2,7 @@ import React from 'react'
 var path = require('path');
 
 import { Link } from 'react-router'
-import * as Game from './models/game'
+import * as Game from '../models/game'
 
 export default class BattleContainer extends React.Component{
 	constructor(){
@@ -19,7 +19,13 @@ export default class BattleContainer extends React.Component{
 	handleRockThrow1(e){
 		e.preventDefault()
 		this.setState({icon1: '/images/rock.png'})
-		//send rock status to database for player 1
+		//update throw count
+			// this.state.throw ++
+		//check throw count
+			// this.state.throw ? 
+		// check if player 2 thrown
+			// Game.check2Throw
+		//send rock status (post) to database for player 1
 		Game.player1Throw('rock')
 	}
 

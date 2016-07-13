@@ -47,11 +47,11 @@ export default class BattleContainer extends React.Component {
 //----------------------Resolution Logic-----------------//
 //---------------------------------------------------------------//
 
-	// resolveGame function
-
+// resolveGame function
 
 // compare player 1 status to player 2 status (with Join Table)
 	//if player 1 score && player 2 score != 2
+	if (player1_score && player2_score != 2) {
 
 		//if player 1 == player 2
 			// don't add score
@@ -65,12 +65,18 @@ export default class BattleContainer extends React.Component {
 			// player 2 score increase
 			// reset player statuses
 	// else 
+	} else {
 		// if player 1 score == 2 
+		if (player1_score == 2) {
 			// call endGame function (not yet implemented)
+			
 			// reset player statuses to waiting
+			
+		}
 		// if player 2 score == 2
 			// call endGame function (not yet implemented)
 			// reset player statuses to waiting
+	}
 
 
 //------------------------Render------------------------//

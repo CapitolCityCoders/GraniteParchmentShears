@@ -2,7 +2,7 @@ import React from 'react'
 var path = require('path');
 
 import { Link } from 'react-router'
-import Menu from './Menu'
+import * as Game from './models/game'
 
 export default class BattleContainer extends React.Component{
 	constructor(){

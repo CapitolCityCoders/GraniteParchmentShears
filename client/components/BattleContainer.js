@@ -20,18 +20,21 @@ export default class BattleContainer extends React.Component{
 		e.preventDefault()
 		this.setState({icon1: '/images/rock.png'})
 		//send rock status to database for player 1
+		Game.player1Throw('rock')
 	}
 
 	handlePaperThrow1(e){
 		e.preventDefault()
 		this.setState({icon1: "/images/paper.png" })
 		//send paper status to database for player 1
+		Game.player1Throw('paper')
 	}
 
 	handleScissorThrow1(e){
 		e.preventDefault()
 		this.setState({icon1:"/images/scissors.png" })
 		//send scissor status to database for player 1
+		Game.player1Throw('scissors')
 	}
 //----------------------Player Two Throw Handling-----------------//
 //---------------------------------------------------------------//
@@ -39,17 +42,22 @@ export default class BattleContainer extends React.Component{
 		e.preventDefault()
 		this.setState({icon2: "/images/rock.png"})
 		//send rock status to database for player 2
+		Game.player2Throw('rock')
+
 	}
 	handlePaperThrow2(e){
 		e.preventDefault()
 		this.setState({icon2: "/images/paper.png" })
 		//send paper status to database for player 2
+		Game.player2Throw('paper')
 	}
 
 	handleScissorThrow2(e){
 		e.preventDefault()
 		this.setState({icon2:"/images/scissors.png" })
 		//send scissor status to database for player 2
+		Game.player2Throw('scissors')
+
 	}
 
 //------------------------Render------------------------//

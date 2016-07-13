@@ -79,7 +79,7 @@ export default class Menu extends React.Component{
         const game = gameList.find(e => e.access_code === this.state.accessCode);
 
         // check if entered access code exists 
-        if (game) {
+        if (game && game.status === 'waiting') {
           db.generateNewUser(game.id, this.state.username)
             .then(userId => {
               userId = userId[0];
@@ -87,10 +87,14 @@ export default class Menu extends React.Component{
               // set current userId to local storage
               sessionStorage.setItem('gameId', game.id);
               sessionStorage.setItem('userId', userId);
-              browserHistory.push(`/${this.state.accessCode}`);
+
+              // set game status to full
+              db.updateGameStatus(game.id, 'full').then();
 
               // emits join game to other players
               this.socket.emit('join game', game.id)
+
+              browserHistory.push(`/${this.state.accessCode}`);
             })
         } else {
           // show error message

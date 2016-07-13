@@ -40,8 +40,38 @@ export function gameList() {
 }
 
 // get players in a certain game
-export function playerList(gameId) {
-  return fetch('/api/playerList', {
+export function userList(gameId) {
+  return fetch('/api/userList', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify({
+      gameId: gameId,
+    })
+  })
+    .then(data => {
+      return data.json()
+    });
+}
+
+// updates game status
+export function updateGameStatus(gameId, status) {
+  return fetch('/api/gameStatus', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify({
+      gameId: gameId,
+      status: status
+    })
+  })
+    .then();
+}
+
+export function getGameById(gameId) {
+  return fetch('/api/getGameById', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.post('/api/newGame', (req, res) => {
   db('games').insert({
     access_code: req.body.accessCode, 
-    status: 'setup'
+    status: 'waiting'
   })
     .then(gameId => {
       res.send(gameId)
@@ -45,11 +45,31 @@ app.get('/api/gameList', (req, res) => {
 });
 
 // returns array of player objects that match a given gameId
-app.post('/api/playerList', (req, res) => {
+app.post('/api/userList', (req, res) => {
   db('users').where('game_id', req.body.gameId)
     .then(rows => {
       res.send(rows);
     });
+});
+
+// returns the game that matches a given gameId
+app.post('/api/getGameById', (req, res) => {
+  db('games').where('id', req.body.gameId)
+    .then(rows => {
+      res.send(rows);
+    });
+});
+
+// updates game status that matches a given gameId
+app.post('/api/gameStatus', (req, res) => {
+  db('games').where('id', req.body.gameId).update('status', req.body.status)
+    .then()
+});
+
+// updates user status that matches a given userId
+app.post('/api/userStatus', (req, res) => {
+  db('users').where('id', req.body.userId).update('status', req.body.status)
+    .then();
 });
 
 // use history api fallback middleware after defining db routes
@@ -69,8 +89,6 @@ app.get('/app-bundle.js',
 //    displays match across players in real time
 
 io.on('connection', function(socket){
-  console.log('New client connected');
-
 	socket.on('join game', (gameId) => {
 		io.emit('join game', gameId)
 	})

@@ -1,23 +1,18 @@
 body {
   text-align: center;
-  padding-top: 200px;
+  padding-top: 15%;
 }
 
 /* for testing div placements 
 */
 div {
-  border: 1px solid yellow;
+  border: 1px solid white;
+  /*padding: 1%;*/
 }
 
 .about {
-  padding-top: 20px;
-}
-
-.footer {
-  position:absolute;
-  bottom:0;
+  padding-top: 10%;
   width:100%;
-  display: none;
 }
 
 .arena {
@@ -113,16 +108,6 @@ input[type="text"] {
   Game
   =========================================================
 */
-  
-.about {
-	padding-top: 20px;
-}
-
-.footer {
-  position:absolute;
-  bottom:0;
-  width:100%;
-}
 
 .arena {
 	height:200px;

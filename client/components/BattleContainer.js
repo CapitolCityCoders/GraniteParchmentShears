@@ -47,18 +47,30 @@ export default class BattleContainer extends React.Component {
 //----------------------Resolution Logic-----------------//
 //---------------------------------------------------------------//
 
-// check to see both players status = thrown
-// while player 1 score and player 2 score < 2
-	// compare player 1 throw to player 2 throw
-	// if player 1 beats player 2
-		// player 1 score increase
-		// reset player statuses
-	// if player 2 beats player 1
-		// player 2 score increase
-		// reset player statuses
-	// if score of player 1 or player 2
-// declare player w/ score 2 as winner
+	// resolveGame function
 
+
+// compare player 1 status to player 2 status (with Join Table)
+	//if player 1 score && player 2 score != 2
+
+		//if player 1 == player 2
+			// don't add score
+			// reset player statuses to waiting
+
+		// if player 1 beats player 2
+			// player 1 score increase
+			// reset player statuses to waiting 
+
+		// if player 2 beats player 1
+			// player 2 score increase
+			// reset player statuses
+	// else 
+		// if player 1 score == 2 
+			// call endGame function (not yet implemented)
+			// reset player statuses to waiting
+		// if player 2 score == 2
+			// call endGame function (not yet implemented)
+			// reset player statuses to waiting
 
 
 //------------------------Render------------------------//

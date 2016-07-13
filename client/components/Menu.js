@@ -29,20 +29,36 @@ export default class Menu extends React.Component{
     e.preventDefault();
     let gameGenerated = false;
     let accessCode = generateAccessCode();
-    // if access code does not already exist
-    // create new game and route to lobby with that access code
+
+    // get current games' access codes
     db.getGames()
       .then(accessCodes => {
+        // check if generated access code already exists 
         while (!gameGenerated) {
           if (!accessCodes.includes(accessCode)) {
-            db.generateNewGame(accessCode, this.state.username)
-              .then(newGameId => {
-                localStorage.setItem('gameId', newGameId[0]);
-                console.log('new game created: ', newGameId[0])
-                browserHistory.push(`/${accessCode}`);
-                return;
+            // create new game using access code
+            db.generateNewGame(accessCode)
+              .then(gameId => {
+                // select first index because sql query returns array of rows
+                gameId = gameId[0];
+
+                // set current gameId to local storage
+                localStorage.setItem('gameId', gameId);
+                return gameId;
+              })
+              .then(gameId => {
+                // create new user using new gameId
+                db.generateNewUser(gameId, this.state.username)
+                  .then(userId => {
+                    userId = userId[0];
+
+                    // set current userId to local storage
+                    localStorage.setItem('userId', userId);
+                    browserHistory.push(`/${accessCode}`);
+                  })
               })
             gameGenerated = true;
+          // re generate access code if already exist
           } else {
             accessCode = generateAccessCode();
           }

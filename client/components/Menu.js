@@ -27,13 +27,25 @@ export default class Menu extends React.Component{
   // generate new access code and reroute to there
   handleCreate(e) {
     e.preventDefault();
-    const accessCode = this.generateAccessCode();
-    // add logic to add new game to database
-    db.generateNewGame(accessCode)
-      .then(newGameId => {
-        console.log('new game id: ', newGameId[0])
+    let gameGenerated = false;
+    let newAccessCode = generateAccessCode();
+    // if access code does not already exist
+    // create new game and route to lobby with that access code
+    db.getGames()
+      .then(accessCodes => {
+        console.log('list of codes', accessCodes)
+        while (!gameGenerated) {
+          if (!accessCodes.includes(newAccessCode)) {
+            db.generateNewGame(newAccessCode)
+              .then(newGameId => {
+                console.log('new game id: ', newGameId[0])
+              })
+            browserHistory.push(`/${newAccessCode}`);
+          } else {
+            newAccessCode = generateAccessCode();
+          }
+        }
       })
-    browserHistory.push(`/${accessCode}`);
   }
 
   handleJoin(e) {
@@ -54,16 +66,6 @@ export default class Menu extends React.Component{
   handleViewChange(view, e) {
     e.preventDefault()
     this.setState({view: view});
-  }
-
-  // generate random access code of 4 letters
-  generateAccessCode() {
-    let code = "";
-    const possible = "abcdefghijklmnopqrstuvwxyz";
-    for(let i = 0; i < 4; i++){
-      code += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return code;
   }
 
   // show main menu buttons
@@ -142,4 +144,14 @@ export default class Menu extends React.Component{
       </div>
     );
   }
+}
+
+// generate random access code of 4 letters
+function generateAccessCode() {
+  let code = "";
+  const possible = "abcdefghijklmnopqrstuvwxyz";
+  for(let i = 0; i < 4; i++){
+    code += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return code;
 }

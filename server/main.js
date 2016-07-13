@@ -11,6 +11,27 @@ var db = require('./db');
 module.exports = app;
 
 app.use(history())
+app.use(bodyParser.json());
+
+// using accessCode from request body, create new game record in db
+app.post('/api/games', (req, res) => {
+  db('games').insert({access_code: req.body.accessCode, status: 'waiting'})
+    .then(gameId => {
+      res.send(gameId);
+    });
+});
+
+// select accessCodes of existing games, returns array
+app.get('/api/games', (req, res) => {
+  db.select('access_code').from('games')
+    .then(rows => {
+      res.send(rows.map(game => game.access_code));
+    });
+});
+
+// use history api fallback middleware after defining db routes
+// to not interfere get requests
+app.use(history());
 app.use(express.static(path.join(__dirname, "../client/public")));
 
 app.get('/app-bundle.js',

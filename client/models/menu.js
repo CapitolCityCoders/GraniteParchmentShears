@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-fetch';
 
 export function generateNewGame(accessCode) {
   return fetch('/api/games', {
@@ -10,7 +10,18 @@ export function generateNewGame(accessCode) {
       accessCode: accessCode
     })
   })
-    .then((gameId) => {
-      return gameId.json();
+    .then(gameId => gameId.json());
+}
+
+export function getGames() {
+  return fetch('/api/games', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    } 
+  })
+    .then(data => {
+      console.log(data)
+      return data.json()
     });
 }

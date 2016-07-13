@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       table.timestamps();
     }),
     knex.schema.createTable('users', function(table){
+      table.increments('id').primary();
       table.string('name', 25);
       table.string('player_status');
       table.string('game_id', 25).references('id').inTable('games');

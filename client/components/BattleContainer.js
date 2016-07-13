@@ -4,6 +4,8 @@ var path = require('path');
 import { Link } from 'react-router'
 import Menu from './Menu'
 
+// TODO: Import Models here
+
 export default class BattleContainer extends React.Component{
   constructor(){
     super();

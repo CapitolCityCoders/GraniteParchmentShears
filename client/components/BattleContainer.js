@@ -36,7 +36,7 @@ export default class BattleContainer extends React.Component{
       // update throw
       this.setState({throw: thrw});
       // send throw to db with lookup by userId
-      Game.playerThrow(thrw, localStorage.getItem('userId'));
+      Game.playerThrow(thrw, sessionStorage.getItem('userId'));
     }
   }
 

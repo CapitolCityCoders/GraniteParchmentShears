@@ -3,8 +3,6 @@ import { Link, browserHistory } from 'react-router'
 
 import * as db from '../models/menu'
 
-var io = require('../../node_modules/socket.io-client/socket.io.js')
-
 export default class Menu extends React.Component{
   constructor(){
     super();
@@ -13,6 +11,10 @@ export default class Menu extends React.Component{
       username: '',
       view: 'menu', 
     };
+  }
+
+  componentDidMount() {
+    this.socket = io();
   }
 
   // two-way binding for access code input
@@ -31,9 +33,10 @@ export default class Menu extends React.Component{
     let gameGenerated = false;
     let accessCode = generateAccessCode();
 
-    // get current games' access codes
-    db.getGames()
-      .then(accessCodes => {
+    // get current list of games
+    db.gameList()
+      .then(gameList => {
+        const accessCodes = gameList.map(game => game.access_code);
         // check if generated access code already exists 
         while (!gameGenerated) {
           if (!accessCodes.includes(accessCode)) {
@@ -44,7 +47,7 @@ export default class Menu extends React.Component{
                 gameId = gameId[0];
 
                 // set current gameId to local storage
-                localStorage.setItem('gameId', gameId);
+                sessionStorage.setItem('gameId', gameId);
                 return gameId;
               })
               .then(gameId => {
@@ -54,7 +57,7 @@ export default class Menu extends React.Component{
                     userId = userId[0];
 
                     // set current userId to local storage
-                    localStorage.setItem('userId', userId);
+                    sessionStorage.setItem('userId', userId);
                     browserHistory.push(`/${accessCode}`);
                   })
               })
@@ -70,16 +73,30 @@ export default class Menu extends React.Component{
   handleJoin(e) {
     e.preventDefault();
 
-    //  initiates socket.io
-    var socket = io()
+    // get current list of games
+    db.gameList()
+      .then(gameList => {
+        const game = gameList.find(e => e.access_code === this.state.accessCode);
 
-    //  emits player ready to server, which then
-    //    emits game ready to all players
-    socket.emit('player ready', {
-      username: this.state.username,
-      accessCode: this.state.accessCode
-    })
-    // join lobby
+        // check if entered access code exists 
+        if (game) {
+          db.generateNewUser(game.id, this.state.username)
+            .then(userId => {
+              userId = userId[0];
+
+              // set current userId to local storage
+              sessionStorage.setItem('gameId', game.id);
+              sessionStorage.setItem('userId', userId);
+              browserHistory.push(`/${this.state.accessCode}`);
+
+              // emits join game to other players
+              this.socket.emit('join game', game.id)
+            })
+        } else {
+          // show error message
+          console.log('game not found')
+        }
+      });
   }
 
   handleViewChange(view, e) {

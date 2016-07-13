@@ -27,8 +27,8 @@ export function generateNewUser(gameId, name) {
     .then(userId => userId.json());
 }
 
-export function getGames() {
-  return fetch('/api/games', {
+export function gameList() {
+  return fetch('/api/gameList', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

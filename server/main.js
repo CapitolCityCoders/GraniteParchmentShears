@@ -36,15 +36,15 @@ app.post('/api/newUser', (req, res) => {
     })
 });
 
-// select accessCodes of existing games, returns array
-app.get('/api/games', (req, res) => {
-  db.select('access_code').from('games')
+// returns array of game objects
+app.get('/api/gameList', (req, res) => {
+  db.select('*').from('games')
     .then(rows => {
-      res.send(rows.map(game => game.access_code));
+      res.send(rows);
     });
 });
 
-// select accessCodes of existing games, returns array
+// returns array of player objects that match a given gameId
 app.post('/api/playerList', (req, res) => {
   db('users').where('game_id', req.body.gameId)
     .then(rows => {
@@ -69,11 +69,13 @@ app.get('/app-bundle.js',
 //    displays match across players in real time
 
 io.on('connection', function(socket){
-	socket.on('player ready', function(playerDetails){
-		io.emit('game ready', playerDetails)
+  console.log('New client connected');
+
+	socket.on('join game', (gameId) => {
+		io.emit('join game', gameId)
 	})
 })
 
 var port = process.env.PORT || 4000;
-app.listen(port);
+http.listen(port);
 console.log("Listening on localhost:" + port);

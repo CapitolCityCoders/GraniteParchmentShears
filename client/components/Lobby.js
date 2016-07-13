@@ -8,13 +8,22 @@ export default class Lobby extends React.Component{
     super();
     this.state = {
       players: []
-    }
+    };
   }
 
   componentDidMount() {
-    db.playerList(localStorage.getItem('gameId'))
+    this.socket = io();
+    this.populatePlayers();
+    // listens for 'join game' broadcasts
+    // refreshes player list if gameId in broadcast matches current gameId
+    this.socket.on('join game', (gameId) => {
+      if (gameId === +sessionStorage.getItem('gameId')) this.populatePlayers();
+    });
+  }
+
+  populatePlayers() {
+    db.playerList(sessionStorage.getItem('gameId'))
       .then(players => {
-        console.log('players list: ', players);
         this.setState({players: players});
       });
   }

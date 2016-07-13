@@ -10,28 +10,29 @@ var db = require('./db');
 
 module.exports = app;
 
-app.use(history())
 app.use(bodyParser.json());
 
-// using accessCode from request body, create new game record in db
-app.post('/api/games', (req, res) => {
+// taking accessCode from request body, create new game record in db
+app.post('/api/newGame', (req, res) => {
   db('games').insert({
     access_code: req.body.accessCode, 
     status: 'setup'
   })
     .then(gameId => {
-      return db('users').insert({
-        game_id: gameId, 
-        username: req.body.username,
-        status: 'waiting',
-        score: 0
-      })
-        .then(userId => {
-          res.send({
-            gameId: gameId[0],
-            userId: userId[0]
-          })
-        })
+      res.send(gameId)
+    })
+});
+
+// taking gameId and username from request body, create new user record in db
+app.post('/api/newUser', (req, res) => {
+  db('users').insert({
+    game_id: req.body.gameId,
+    name: req.body.name,
+    score: 0,
+    status: 'waiting'
+  })
+    .then(userId => {
+      res.send(userId)
     })
 });
 
@@ -64,19 +65,6 @@ io.on('connection', function(socket){
 		io.emit('game ready', playerDetails)
 	})
 })
-
-var port = process.env.PORT || 4000;
-http.listen(port);
-console.log("Listening on localhost: " + port);
-
-app.post('/api/games', (req,res) => {
-  collectRequestBody(req, (accessCode) => {
-    db('games').insert({access_code: accessCode, status: 'waiting'})
-      .then(gameId => {
-        res.send(gameId);
-      });
-  })
-});
 
 var port = process.env.PORT || 4000;
 app.listen(port);

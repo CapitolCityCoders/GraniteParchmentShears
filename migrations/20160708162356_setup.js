@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('users', function(table){
       table.increments('id').primary();
       table.string('game_id').references('id').inTable('games');
-      table.string('username');
+      table.string('name');
       table.integer('score');
       table.string('status');
       table.timestamps();

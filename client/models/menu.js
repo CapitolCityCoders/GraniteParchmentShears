@@ -13,17 +13,18 @@ export function generateNewGame(accessCode) {
     .then(gameId => gameId.json());
 }
 
-export function generateNewPlayer(username) {
-  return fetch('/api/newPlayer', {
+export function generateNewUser(gameId, name) {
+  return fetch('/api/newUser', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     }, 
     body: JSON.stringify({
+      gameId: gameId,
       name: name
     })
   })
-    .then(playerId => playerId.json());
+    .then(userId => userId.json());
 }
 
 export function getGames() {

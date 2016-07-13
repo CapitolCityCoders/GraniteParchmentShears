@@ -28,22 +28,23 @@ export default class Menu extends React.Component{
   handleCreate(e) {
     e.preventDefault();
     let gameGenerated = false;
-    let newAccessCode = generateAccessCode();
+    let accessCode = generateAccessCode();
     // if access code does not already exist
     // create new game and route to lobby with that access code
     db.getGames()
       .then(accessCodes => {
         while (!gameGenerated) {
-          if (!accessCodes.includes(newAccessCode)) {
-            db.generateNewGame(newAccessCode, this.state.username)
-              .then(newIds => {
-                localStorage.setItem('userId', newIds.userId);
-                localStorage.setItem('gameId', newIds.gameId);
-                browserHistory.push(`/${newAccessCode}`);
+          if (!accessCodes.includes(accessCode)) {
+            db.generateNewGame(accessCode, this.state.username)
+              .then(newGameId => {
+                localStorage.setItem('gameId', newGameId[0]);
+                console.log('new game created: ', newGameId[0])
+                browserHistory.push(`/${accessCode}`);
+                return;
               })
             gameGenerated = true;
           } else {
-            newAccessCode = generateAccessCode();
+            accessCode = generateAccessCode();
           }
         }
       })

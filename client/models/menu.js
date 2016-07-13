@@ -1,13 +1,14 @@
 import fetch from 'isomorphic-fetch';
 
-export function generateNewGame(accessCode) {
+export function generateNewGame(accessCode, username) {
   return fetch('/api/games', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     }, 
     body: JSON.stringify({
-      accessCode: accessCode
+      accessCode: accessCode,
+      username: username
     })
   })
     .then(gameId => gameId.json());

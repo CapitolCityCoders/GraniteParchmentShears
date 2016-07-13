@@ -15,10 +15,24 @@ app.use(bodyParser.json());
 
 // using accessCode from request body, create new game record in db
 app.post('/api/games', (req, res) => {
-  db('games').insert({access_code: req.body.accessCode, status: 'waiting'})
+  db('games').insert({
+    access_code: req.body.accessCode, 
+    status: 'setup'
+  })
     .then(gameId => {
-      res.send(gameId);
-    });
+      return db('users').insert({
+        game_id: gameId, 
+        username: req.body.username,
+        status: 'waiting',
+        score: 0
+      })
+        .then(userId => {
+          res.send({
+            gameId: gameId[0],
+            userId: userId[0]
+          })
+        })
+    })
 });
 
 // select accessCodes of existing games, returns array

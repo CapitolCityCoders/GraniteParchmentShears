@@ -36,11 +36,13 @@ export default class Menu extends React.Component{
         console.log('list of codes', accessCodes)
         while (!gameGenerated) {
           if (!accessCodes.includes(newAccessCode)) {
-            db.generateNewGame(newAccessCode)
-              .then(newGameId => {
-                console.log('new game id: ', newGameId[0])
+            db.generateNewGame(newAccessCode, this.state.username)
+              .then(newIds => {
+                localStorage.setItem('userId', newIds.userId);
+                localStorage.setItem('gameId', newIds.gameId);
+                browserHistory.push(`/${newAccessCode}`);
               })
-            browserHistory.push(`/${newAccessCode}`);
+            gameGenerated = true;
           } else {
             newAccessCode = generateAccessCode();
           }

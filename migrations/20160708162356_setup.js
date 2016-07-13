@@ -3,15 +3,15 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('games', function(table){
       table.increments('id').primary();
-      table.string('access_code', 4);
-      table.string('status', 25);
+      table.string('access_code');
+      table.string('status');
       table.timestamps();
     }),
     knex.schema.createTable('users', function(table){
       table.increments('id').primary();
-      table.string('game_id', 25).references('id').inTable('games');
-      table.string('name', 25);
-      table.integer('score', 10);
+      table.string('game_id').references('id').inTable('games');
+      table.string('username');
+      table.integer('score');
       table.string('status');
       table.timestamps();
     })

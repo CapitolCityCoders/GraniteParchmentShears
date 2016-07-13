@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable('games', function(table){
@@ -24,6 +23,3 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTable('users')
   ])
 };
-
-// games=# CREATE TABLE games (id INT PRIMARY KEY, access_code VARCHAR(25),
-//   status VARCHAR(75), p1_score INTEGER, p2_score INTEGER)

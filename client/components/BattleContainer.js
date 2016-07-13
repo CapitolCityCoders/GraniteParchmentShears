@@ -4,8 +4,7 @@ var path = require('path');
 
 import { Link } from 'react-router'
 import Menu from './Menu'
-
-// TODO: Import Models here
+import * as Game from '../models/game'
 
 export default class BattleContainer extends React.Component{
   constructor(){
@@ -16,8 +15,6 @@ export default class BattleContainer extends React.Component{
     }
   }
 
-//-----------------------Player One Throw Handling-----------------//
-//----------------------------------------------------------------//
   getIcon(thrw) {
     if (thrw === 'rock') {
       return '/images/rock.png';
@@ -40,54 +37,6 @@ export default class BattleContainer extends React.Component{
       Game.playerThrow(thrw, sessionStorage.getItem('userId'));
     }
   }
-
-
-//   handleRockThrow1(e){
-//    e.preventDefault()
-//    this.setState({icon1: '/images/rock.png'});
-//     this.setState({p1_throw: 'rock'});
-
-//     Game.player1Throw('rock');
-
-
-//    //update throw count
-//      // this.state.throw ++
-//    //check throw count
-//      // this.state.throw ?
-//    // check if player 2 thrown
-//      // Game.check2Throw
-//    //send rock status (post) to database for player 1
-//  }
-
-//  handlePaperThrow1(e){
-//    e.preventDefault()
-//    this.setState({icon1: "/images/paper.png" })
-//    //send paper status to database for player 1
-//  }
-
-//  handleScissorThrow1(e){
-//    e.preventDefault()
-//    this.setState({icon1:"/images/scissors.png" })
-//    //send scissor status to database for player 1
-//  }
-// //----------------------Player Two Throw Handling-----------------//
-// //---------------------------------------------------------------//
-//  handleRockThrow2(e){
-//    e.preventDefault()
-//    this.setState({icon2: "/images/rock.png"})
-//    //send rock status to database for player 2
-//  }
-//  handlePaperThrow2(e){
-//    e.preventDefault()
-//    this.setState({icon2: "/images/paper.png" })
-//    //send paper status to database for player 2
-//  }
-
-//  handleScissorThrow2(e){
-//    e.preventDefault()
-//    this.setState({icon2:"/images/scissors.png" })
-//    //send scissor status to database for player 2
-//  }
 
 //------------------------Render------------------------//
 //------------------------------------------------------//

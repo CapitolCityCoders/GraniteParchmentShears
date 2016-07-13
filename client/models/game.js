@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-export function player1Throw(thrw){
+export function playerThrow(thrw, userId){
 	return fetch('/api/users',{
 		method: 'POST',
 		headers: {
@@ -39,7 +39,7 @@ export function player1Throw(thrw){
 // 	.then(data => {
 // 		console.log(data)
 // 		return data.json()
-		
+
 // 	});
 
 // }

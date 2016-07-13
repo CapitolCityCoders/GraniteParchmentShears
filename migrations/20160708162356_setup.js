@@ -5,14 +5,13 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('access_code', 4);
       table.string('status', 25);
-      table.integer('player1_score');
-      table.integer('player2_score');
       table.timestamps();
     }),
     knex.schema.createTable('users', function(table){
       table.string('name', 25);
-      table.string('player_throw', 25);
+      table.string('player_status');
       table.string('game_id', 25).references('id').inTable('games');
+      table.integer('score', 10);
       table.timestamps();
     })
   ])

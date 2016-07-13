@@ -33,7 +33,6 @@ export default class Menu extends React.Component{
     // create new game and route to lobby with that access code
     db.getGames()
       .then(accessCodes => {
-        console.log('list of codes', accessCodes)
         while (!gameGenerated) {
           if (!accessCodes.includes(newAccessCode)) {
             db.generateNewGame(newAccessCode, this.state.username)

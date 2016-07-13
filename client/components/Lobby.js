@@ -49,7 +49,12 @@ export default class Lobby extends React.Component{
   }
 
   handleStartGame() {
+    // set game status to inProgress
+    db.updateGameStatus(this.gameId, 'inProgress').then();
+
+    // socket emit for other player to update state and start game
     this.socket.emit('start game', this.gameId)
+
     this.props.startGame();
   }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, browserHistory } from 'react-router'
+var io = require('../../node_modules/socket.io-client/socket.io.js')
 
 export default class Menu extends React.Component{
   constructor(){
@@ -10,9 +11,6 @@ export default class Menu extends React.Component{
       view: 'menu', 
     };
   }
-
-
-
 
   // two-way binding for access code input
   handleAccessCodeChange(e) {
@@ -35,6 +33,16 @@ export default class Menu extends React.Component{
 
   handleJoin(e) {
     e.preventDefault();
+
+    //  initiates socket.io
+    var socket = io()
+
+    //  emits player ready to server, which then
+    //    emits game ready to all players
+    socket.emit('player ready', {
+      username: this.state.username,
+      accessCode: this.state.accessCode
+    })
     // join lobby
   }
 

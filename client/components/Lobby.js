@@ -1,9 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router'
 
+import * as db from '../models/menu'
+
 export default class Lobby extends React.Component{
-  constructor(){
+  constructor() {
     super();
+    this.state = {
+      players: []
+    }
+  }
+
+  componentDidMount() {
+    db.playerList(localStorage.getItem('gameId'))
+      .then(players => {
+        console.log('players list: ', players);
+        this.setState({players: players});
+      });
   }
 
   render() {
@@ -19,22 +32,22 @@ export default class Lobby extends React.Component{
         <hr />
 
         <ol className="lobby-player-list">
-          <li>
-            player placeholder
+          {this.state.players.map(player => 
+            <li key={player.id}>
+              {player.name} 
 
-            {/* add if current player logic */}
-            <a href="#" className="btn-edit-player">
-              <i className="fa fa-pencil"></i>
-            </a>
+              {/* add if current player logic */}
+              <a href="#" className="btn-edit-player">
+                <i className="fa fa-pencil"></i>
+              </a>
 
-            {/* add if not current player logic
-            <a href="#" className="btn-remove-player">
-              <i className="fa fa-close"></i>
-            </a>
-            */}
+              {/* add if not current player logic
+              <a href="#" className="btn-remove-player">
+                <i className="fa fa-close"></i>
+              </a>
+              */}
 
-          </li>
-
+            </li>)}
         </ol>
 
         <hr />

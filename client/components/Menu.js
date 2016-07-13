@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, browserHistory } from 'react-router'
+
 import * as db from '../models/menu'
 
 var io = require('../../node_modules/socket.io-client/socket.io.js')

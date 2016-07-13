@@ -35,7 +35,22 @@ export function getGames() {
     } 
   })
     .then(data => {
-      console.log(data)
+      return data.json()
+    });
+}
+
+// get players in a certain game
+export function playerList(gameId) {
+  return fetch('/api/playerList', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify({
+      gameId: gameId,
+    })
+  })
+    .then(data => {
       return data.json()
     });
 }

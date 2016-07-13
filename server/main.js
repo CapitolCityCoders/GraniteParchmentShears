@@ -44,6 +44,14 @@ app.get('/api/games', (req, res) => {
     });
 });
 
+// select accessCodes of existing games, returns array
+app.post('/api/playerList', (req, res) => {
+  db('users').where('game_id', req.body.gameId)
+    .then(rows => {
+      res.send(rows);
+    });
+});
+
 // use history api fallback middleware after defining db routes
 // to not interfere get requests
 app.use(history());

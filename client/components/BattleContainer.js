@@ -23,15 +23,20 @@ export default class BattleContainer extends React.Component{
 			// this.state.throw ++
 		//check throw count 
 			// this.state.throw ? 
-		// check if player 2 thrown 
-			 Game.check2Throw()
-			 	.then(data => {
-			 		console.log("player2 throw", data)
-			 	})
-				// if thrown not waiting 
-					// call resolution fxn
+
 		//send rock status (post) to database for player 1 
 		Game.player1Throw('rock')
+			.then(function(){
+				// check if player 2 thrown 
+					console.log("player1throw success")
+					 // Game.check2Throw()
+					 // 	.then(data => {
+					 // 		console.log("player2 throw", data)
+					 // 		// call resolution fxn
+					 // 	})
+						// if thrown not waiting 				
+			})
+								
 	}
 
 	handlePaperThrow1(e){

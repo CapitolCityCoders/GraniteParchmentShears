@@ -72,10 +72,44 @@ app.post('/api/userStatus', (req, res) => {
     .then();
 });
 
+//------------ post player1 throw-------------//
+//--------------------------------------------//
+app.post('/api/users', (req,res) => {
+  let move = req.body.move;
+  let userId = req.body.userId;
+
+  // insert the move under status where id === userId
+  db('users').where('id', userId).update({status: move})
+    .then(() => {
+      console.log(`Inserted ${move} into Users at userId: ${userId}`)
+      res.send({move});
+	    // res.sendStatus(200);
+    })
+    .catch(function (err) {
+      console.error(err);
+      res.sendStatus(500);
+    });
+
+});
+
+//------------ post player2 throw------------//
+//-------------------------------------------//
+app.post('api/p2throw')
+//db('users').insert('throw').where('name', '=', {player2 username})
+
+//----------Get player2 status-------------//
+app.get('api/p2throw', (res,req) => {
+	// db.select('player_throw').from('users').where('name', '=' {player2 username})
+	// .then(data => {
+	// 	res.send(data)
+	// });
+});
+
 // use history api fallback middleware after defining db routes
 // to not interfere get requests
 app.use(history());
 app.use(express.static(path.join(__dirname, "../client/public")));
+
 
 app.get('/app-bundle.js',
  browserify('./client/main.js', {
@@ -85,8 +119,6 @@ app.get('/app-bundle.js',
 
 //  socket.io is listening for queues triggered by
 //    players, then emits information to both
-//  TO DO: synch it up with all player actions so
-//    displays match across players in real time
 
 io.on('connection', function(socket){
 	socket.on('join game', gameId => {

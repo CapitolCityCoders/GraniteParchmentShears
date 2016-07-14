@@ -1,155 +1,73 @@
 import React from 'react'
-var path = require('path');
 
-import { Link } from 'react-router'
 import Menu from './Menu'
+import Player from './Player'
+// opponent
+import Mike from './Mike'
+import Banner from './Banner'
+import Scoreboard from './Scoreboard'
+import About from './About'
 
-export default class BattleContainer extends React.Component{
-	constructor(){
-		super();
-		this.state = {
-			icon1: '',
-			icon2: '',
-		}
+import * as Game from '../models/game'
 
-	}
+export default class BattleContainer extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      playerIcon: '',
+      move: 'waiting'
+    }
+  }
 
-//-----------------------Player One Throw Handling-----------------//
-//----------------------------------------------------------------//
-	handleRockThrow1(e){
-		e.preventDefault()
-		this.setState({icon1: '/images/rock.png'})
-		//send rock status to database for player 1
-	}
+  getIcon(move) {
+    if (move === 'rock') {
+      return '/images/rock.png';
+    } else if (move === 'paper') {
+      return '/images/paper.png';
+    } else if (move === 'scissors') {
+      return '/images/scissors.png'
+    }
+  }
 
-	handlePaperThrow1(e){
-		e.preventDefault()
-		this.setState({icon1: "/images/paper.png" })
-		//send paper status to database for player 1
-	}
+  handleMove(move, e) {
+    e.preventDefault();
+    // on move, set icon graphic
+    this.setState({icon: this.getIcon(move)});
+    // if move has not been made
 
-	handleScissorThrow1(e){
-		e.preventDefault()
-		this.setState({icon1:"/images/scissors.png" })
-		//send scissor status to database for player 1
-	}
-//----------------------Player Two Throw Handling-----------------//
-//---------------------------------------------------------------//
-	handleRockThrow2(e){
-		e.preventDefault()
-		this.setState({icon2: "/images/rock.png"})
-		//send rock status to database for player 2
-	}
-	handlePaperThrow2(e){
-		e.preventDefault()
-		this.setState({icon2: "/images/paper.png" })
-		//send paper status to database for player 2
-	}
-
-	handleScissorThrow2(e){
-		e.preventDefault()
-		this.setState({icon2:"/images/scissors.png" })
-		//send scissor status to database for player 2
-	}
+    // Commented out if below for ease in testing/production
+    // if (this.props.move === 'waiting') {
+      // update move
+      this.setState({move: move});
+      // send move to db with lookup by userId
+      Game.playerMove(move, sessionStorage.getItem('userId'));
+    // }
+  }
 
 //------------------------Render------------------------//
 //------------------------------------------------------//
-	render(){
-		return(
-			<div>
+  render() {
+    return(
+      <div>
+        <Scoreboard />
+        <Banner />
 
-				<div className="rounds container">
-					<div className="four columns">
-						<div>Round One</div>
-					</div>
-					<div className="four columns">
-						<div>Round Two</div>
-					</div>
-					<div className="four columns">
-						<div>Round Three</div>
-					</div>
-				</div>
+        <div className="players container">
+          {/* current player component */}
+          <Player
+            handleMove={this.handleMove.bind(this)}
+            icon={this.state.playerIcon}
+          />
+          {/* opponent component */}
+          <Mike 
+          />
+        </div>
 
-				<div className="status container">
-					<div className="four columns offset-by-four columns">GAME INFO</div>
-				</div>
-				
-				<div className="players container">
-					<div className="playerOne six columns">
-						<div>
-							<h5>Player One Nickname</h5>
-						</div>
-						<div className="arena container">							
-							<img src = {this.state.icon1}/>
-						</div>
-						<div>
-							<button onClick={this.handleRockThrow1.bind(this)}>Rock</button>
-							<button onClick={this.handlePaperThrow1.bind(this)}>Paper</button>
-							<button onClick={this.handleScissorThrow1.bind(this)}>Scissors</button>
-						</div>
-					</div>
-
-					<div className="playerTwo six columns">
-						<div>
-							<h5>Player Two Nickname</h5>
-						</div>
-						<div className="arena container">
-							
-							<img src = {this.state.icon2}/>
-						</div>
-						<div>
-							<button onClick={this.handleRockThrow2.bind(this)}>Rock</button>
-							<button onClick={this.handlePaperThrow2.bind(this)}>Paper</button>
-							<button onClick={this.handleScissorThrow2.bind(this)}>Scissors</button>
-						</div>
-					</div>
-				</div>
-
-			<div className="about">
-
-				<div className="title container">
-					<div className="four columns offset-by-four columns">
-						<div>ABOUT</div>
-					</div>
-				</div>
-
-				<div className="devs container">
-					<div className="two columns offset-by-one column">
-						<div>
-							<h6>Amanda's Headshot</h6>
-						</div>
-						<p>some other stuff</p>
-					</div>
-					<div className="two columns">
-						<div>
-							<h6>Kenny's Headshot</h6>
-						</div>
-						<p>some other stuff</p>
-					</div>
-					<div className="two columns">
-						<div>
-							<h6>Mike's Headshot</h6>
-						</div>
-						<p>some other stuff</p>
-					</div>
-					<div className="two columns">
-						<div>
-							<h6>Shane's Headshot</h6>
-						</div>
-						<p>some other stuff</p>
-					</div>
-					<div className="two columns">
-						<div>
-							<h6>Tom's Headshot</h6>
-						</div>
-						<p>some other stuff</p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		);
-	}
+        {/* we should make About a modal */}
+        <About />
+    </div>
+    );
+  }
 }
 
 

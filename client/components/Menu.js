@@ -1,16 +1,9 @@
-<<<<<<< 450b4fd98d31457dc0d4b4ff002d058e530b1869
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
 
 import Create from './Create';
 import Join from './Join';
 import * as db from '../models/menu';
-=======
-
-import React from 'react'
-import { Link, browserHistory } from 'react-router'
-var io = require('../../node_modules/socket.io-client/socket.io.js')
->>>>>>> working on resolve logic, commit for rebase
 
 export default class Menu extends React.Component{
   constructor(){

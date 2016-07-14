@@ -51,7 +51,7 @@ export default class BattleContainer extends React.Component {
  	console.log("CONSOLELOG")
 
 // compare player 1 status to player 2 status via Join Table
-	knex.select('*').from('users').join('games', {'games.id' : 'users.game_id'})
+	db.select('*').from('users').join('games', {'games.id' : 'users.game_id'})
 		.where('games.id', gameId)
 	//if player 1 score && player 2 score != 2
 	.then(function (table) {

@@ -62,7 +62,9 @@ export default class BattleContainer extends React.Component {
         </div>
 
         {/* we should make About a modal */}
-        <About />
+
+        { /* <About /> */ }
+
     </div>
     );
   }

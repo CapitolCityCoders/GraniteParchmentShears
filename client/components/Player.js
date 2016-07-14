@@ -12,11 +12,8 @@ export default class Player extends React.Component {
   componentDidMount(){
     Game.playerById(sessionStorage.getItem('userId'))
       .then((data) => {
-        console.log(data)
         this.setState({player: data[0].name})
-        console.log(this.state.player)
       })
-      console.log("game Id: ",sessionStorage.getItem('gameId'))
   }
 
 

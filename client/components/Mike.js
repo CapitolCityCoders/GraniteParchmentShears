@@ -5,7 +5,7 @@ export default class Mike extends React.Component {
     return (
       <div className="opponent six columns">
         <div>
-          <h5>Player One Nickname</h5>
+          <h5>Opponent Nickname</h5>
         </div>
         <div className="arena container">
           <img src = {this.props.icon}/>

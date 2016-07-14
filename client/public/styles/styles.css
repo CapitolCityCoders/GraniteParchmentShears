@@ -112,6 +112,15 @@ input[type="text"] {
 .arena {
 	height:200px;
 	width:200px;
+  border-radius: 10px;
+}
+
+.player .arena {
+  background-color: #ecffe6;
+}
+
+.opponent .arena {
+  background-color: #ffe5ea;
 }
 
 .opponent button:hover {

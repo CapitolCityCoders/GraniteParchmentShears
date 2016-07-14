@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+require('es6-promise').polyfill();
 
 export function playerThrow(thrw, userId){
 	return fetch('/api/users',{
@@ -10,9 +11,12 @@ export function playerThrow(thrw, userId){
 			thrw: thrw
 		})
 	})
-	.then(function(data){
-		console.log("game.js: ", data);
-	});
+	.then(function(response){
+		console.log("game.js: ", response.body);
+	})
+  .catch(function(error){
+    console.log(error);
+  });
 
 }
 

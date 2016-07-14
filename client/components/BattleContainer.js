@@ -80,16 +80,8 @@ export default class BattleContainer extends React.Component{
               <h5>Player Two Nickname</h5>
             </div>
             <div className="arena container">
-// TODO: display player2 throw when it is made.
-              <img src = {this.state.icon2}/>
             </div>
-            // <div>
-      //       // TODO: change onClick functions below
-            //  <button onClick={this.handleRockThrow2.bind(this)}>Rock</button>
-            //  <button onClick={this.handlePaperThrow2.bind(this)}>Paper</button>
-            //  <button onClick={this.handleScissorThrow2.bind(this)}>Scissors</button>
-            // </div>
-          </div>
+           </div>
         </div>
 
       <div className="about">

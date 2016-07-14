@@ -47,13 +47,18 @@ export default class BattleContainer extends React.Component {
 //----------------------Resolution Logic-----------------//
 //---------------------------------------------------------------//
 
-// resolveGame function
+let resolveGame = function(gameId) {
 
-// compare player 1 status to player 2 status (with Join Table)
+// compare player 1 status to player 2 status via Join Table
+	knex.select('*').from('users').join('games', {'games.id' : 'users.game_id'})
+		.where('games.id', gameId)
 	//if player 1 score && player 2 score != 2
-	if (player1_score && player2_score != 2) {
+	.then (function (table) {
+		// returns array of objects (should only ever be 2, one for each player)
+		// figure out how to console.log!!
+		if (player1_score && player2_score != 2) {
 
-		//if player 1 == player 2
+		//if player 1 score == player 2 score
 			// don't add score
 			// reset player statuses to waiting
 
@@ -71,13 +76,14 @@ export default class BattleContainer extends React.Component {
 			// call endGame function (not yet implemented)
 			
 			// reset player statuses to waiting
-			
+			knex('users').select('id').where({name: player1})
+				.then(function())
 		}
 		// if player 2 score == 2
 			// call endGame function (not yet implemented)
 			// reset player statuses to waiting
 	}
-
+}
 
 //------------------------Render------------------------//
 //------------------------------------------------------//

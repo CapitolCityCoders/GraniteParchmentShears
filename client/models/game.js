@@ -24,7 +24,20 @@ export function playerMove(move, userId){
   });
 
 }
-
+export function playerById(userId){
+  return fetch('/api/playerStatus', {
+    method: 'POST',
+    headers: {
+      'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId
+    })
+  })
+  .then(function(data) {
+    return data.json()
+  })
+}
 // export function player2Throw(thrw){
 // 	return fetch('/api/p2throw', {
 // 		method: 'POST',

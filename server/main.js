@@ -92,18 +92,15 @@ app.post('/api/users', (req,res) => {
 
 });
 
-//------------ post player2 throw------------//
+//------------ get player status------------//
 //-------------------------------------------//
-app.post('api/p2throw')
-//db('users').insert('throw').where('name', '=', {player2 username})
-
-//----------Get player2 status-------------//
-app.get('api/p2throw', (res,req) => {
-	// db.select('player_throw').from('users').where('name', '=' {player2 username})
-	// .then(data => {
-	// 	res.send(data)
-	// });
-});
+app.post('/api/playerStatus', (req,res) => {
+  let userId = req.body.userId
+  db.select('*').from('users').where('id', userId)
+    .then((data) => {
+      res.send(data)
+    })
+})
 
 // use history api fallback middleware after defining db routes
 // to not interfere get requests

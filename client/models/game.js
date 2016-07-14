@@ -1,18 +1,19 @@
 import fetch from 'isomorphic-fetch';
 require('es6-promise').polyfill();
 
-export function playerThrow(thrw, userId){
+export function playerMove(move, userId){
 	return fetch('/api/users',{
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify({
-			thrw: thrw
+			move: move,
+      userId: userId
 		})
 	})
 	.then(function(response){
-		console.log("game.js: ", response.body);
+		console.log("game.js: ", response);
 	})
   .catch(function(error){
     console.log(error);

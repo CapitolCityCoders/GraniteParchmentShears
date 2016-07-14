@@ -75,12 +75,22 @@ app.post('/api/userStatus', (req, res) => {
 //------------ post player1 throw-------------//
 //--------------------------------------------//
 app.post('/api/users', (req,res) => {
-//db('users').insert('throw').where('name', '=', {player1 username})
-	//res.send()
-	console.log("recieved at server: ",req.body.thrw)
-	res.send()
-})
+  let move = req.body.move;
+  let userId = req.body.userId;
 
+  // insert the move under player_status where id === userId
+  db('users').where('id', userId).update({player_status: move})
+    .then(() => {
+      console.log(`Inserted ${move} into Users at userId: ${userId}`)
+      res.send(move);
+	    res.sendStatus(200);
+    })
+    .catch(function (err) {
+      console.error(err);
+      res.sendStatus(500);
+    });
+
+});
 
 //------------ post player2 throw------------//
 //-------------------------------------------//

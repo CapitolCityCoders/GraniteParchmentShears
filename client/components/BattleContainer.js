@@ -11,31 +11,33 @@ export default class BattleContainer extends React.Component{
     super();
     this.state = {
       icon: '',
-      throw: 'waiting'
+      move: 'waiting'
     }
   }
 
-  getIcon(thrw) {
-    if (thrw === 'rock') {
+  getIcon(move) {
+    if (move === 'rock') {
       return '/images/rock.png';
-    } else if (thrw === 'paper') {
+    } else if (move === 'paper') {
       return '/images/paper.png';
-    } else if (thrw === 'scissors') {
+    } else if (move === 'scissors') {
       return '/images/scissors.png'
     }
   }
 
-  handleThrow(thrw, e) {
+  handleMove(move, e) {
     e.preventDefault();
-    // on throw, set icon graphic
-    this.setState({icon: this.getIcon(thrw)});
-    // if throw has not been made
-    if (this.props.throw !== 'waiting') {
-      // update throw
-      this.setState({throw: thrw});
-      // send throw to db with lookup by userId
-      Game.playerThrow(thrw, sessionStorage.getItem('userId'));
-    }
+    // on move, set icon graphic
+    this.setState({icon: this.getIcon(move)});
+    // if move has not been made
+
+    // Commented out if below for ease in testing/production
+    // if (this.props.move === 'waiting') {
+      // update move
+      this.setState({move: move});
+      // send move to db with lookup by userId
+      Game.playerMove(move, sessionStorage.getItem('userId'));
+    // }
   }
 
 //------------------------Render------------------------//
@@ -69,9 +71,9 @@ export default class BattleContainer extends React.Component{
               <img src = {this.state.icon}/>
             </div>
             <div>
-              <button onClick={this.handleThrow.bind(this, 'rock')}>Rock</button>
-              <button onClick={this.handleThrow.bind(this, 'paper')}>Paper</button>
-              <button onClick={this.handleThrow.bind(this, 'scissors')}>Scissors</button>
+              <button onClick={this.handleMove.bind(this, 'rock')}>Rock</button>
+              <button onClick={this.handleMove.bind(this, 'paper')}>Paper</button>
+              <button onClick={this.handleMove.bind(this, 'scissors')}>Scissors</button>
             </div>
           </div>
 

@@ -82,8 +82,8 @@ app.post('/api/users', (req,res) => {
   db('users').where('id', userId).update({player_status: move})
     .then(() => {
       console.log(`Inserted ${move} into Users at userId: ${userId}`)
-      res.send(move);
-	    res.sendStatus(200);
+      res.send({move});
+	    // res.sendStatus(200);
     })
     .catch(function (err) {
       console.error(err);

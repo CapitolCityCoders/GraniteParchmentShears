@@ -12,9 +12,13 @@ export function playerMove(move, userId){
       userId: userId
 		})
 	})
-	.then(function(response){
-		console.log("game.js: ", response);
-	})
+  // the two .thens below are the only way
+  // that I could get the response to console.log correctly
+  .then(function(response) {
+    return response.json()
+  }).then(function(json) {
+    console.log('in game.js: parsed json', json)
+  })
   .catch(function(error){
     console.log(error);
   });

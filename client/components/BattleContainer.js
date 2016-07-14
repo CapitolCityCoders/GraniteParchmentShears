@@ -5,7 +5,6 @@ import Player from './Player'
 // opponent
 import Mike from './Mike'
 import Banner from './Banner'
-import Scoreboard from './Scoreboard'
 import About from './About'
 
 import * as Game from '../models/game'
@@ -49,7 +48,6 @@ export default class BattleContainer extends React.Component {
   render() {
     return(
       <div>
-        <Scoreboard />
         <Banner />
 
         <div className="players container">
@@ -59,7 +57,7 @@ export default class BattleContainer extends React.Component {
             icon={this.state.playerIcon}
           />
           {/* opponent component */}
-          <Mike 
+          <Mike
           />
         </div>
 

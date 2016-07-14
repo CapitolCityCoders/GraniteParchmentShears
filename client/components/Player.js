@@ -3,7 +3,7 @@ import React from 'react'
 export default class Player extends React.Component {
   render() {
     return (
-      <div className="playerOne six columns">
+      <div className="player six columns">
         <div>
           <h5>Player One Nickname</h5>
         </div>

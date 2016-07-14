@@ -114,6 +114,10 @@ input[type="text"] {
 	width:200px;
 }
 
+.opponent button:hover {
+  
+}
+
 img{
   width: 150px;
   height: 150px;

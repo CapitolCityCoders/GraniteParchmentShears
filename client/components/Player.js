@@ -8,7 +8,7 @@ export default class Player extends React.Component {
           <h5>Player One Nickname</h5>
         </div>
         <div className="arena container">
-          <img src = {this.props.icon}/>
+          <img src = {this.props.playerIcon}/>
         </div>
         <div>
           <button onClick={this.props.handleMove.bind(null, 'rock')}>Rock</button>

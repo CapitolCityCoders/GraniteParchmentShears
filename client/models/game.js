@@ -22,6 +22,9 @@ export function playerMove(move, userId){
   .catch(function(error){
     console.log(error);
   });
+}
+
+export function getOpponentMove() {
 
 }
 

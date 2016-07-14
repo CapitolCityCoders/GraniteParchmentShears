@@ -39,9 +39,20 @@ export default class BattleContainer extends React.Component {
       // update move
       this.setState({move: move});
       // send move to db with lookup by userId
-      Game.playerMove(move, sessionStorage.getItem('userId'));
+      Game.playerMove(move, sessionStorage.getItem('userId'))
+        .then(
+
+
+          // call Tom's function
+        );
     // }
   }
+
+  hasOpponentMoved() {
+    // send get request to get opponent's move status
+    Game.getOpponentMove()
+  }
+
 
 //------------------------Render------------------------//
 //------------------------------------------------------//
@@ -54,7 +65,7 @@ export default class BattleContainer extends React.Component {
           {/* current player component */}
           <Player
             handleMove={this.handleMove.bind(this)}
-            icon={this.state.playerIcon}
+            playerIcon={this.state.playerIcon}
           />
           {/* opponent component */}
           <Mike

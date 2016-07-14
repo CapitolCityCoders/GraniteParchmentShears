@@ -78,8 +78,8 @@ app.post('/api/users', (req,res) => {
   let move = req.body.move;
   let userId = req.body.userId;
 
-  // insert the move under player_status where id === userId
-  db('users').where('id', userId).update({player_status: move})
+  // insert the move under status where id === userId
+  db('users').where('id', userId).update({status: move})
     .then(() => {
       console.log(`Inserted ${move} into Users at userId: ${userId}`)
       res.send({move});

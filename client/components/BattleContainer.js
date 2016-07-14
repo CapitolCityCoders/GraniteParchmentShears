@@ -1,16 +1,20 @@
-// Shane's BattleContainer
 import React from 'react'
-var path = require('path');
 
-import { Link } from 'react-router'
 import Menu from './Menu'
+import Player from './Player'
+// opponent
+import Mike from './Mike'
+import Banner from './Banner'
+import Scoreboard from './Scoreboard'
+import About from './About'
+
 import * as Game from '../models/game'
 
-export default class BattleContainer extends React.Component{
+export default class BattleContainer extends React.Component {
   constructor(){
     super();
     this.state = {
-      icon: '',
+      playerIcon: '',
       move: 'waiting'
     }
   }
@@ -42,92 +46,25 @@ export default class BattleContainer extends React.Component{
 
 //------------------------Render------------------------//
 //------------------------------------------------------//
-  render(){
+  render() {
     return(
       <div>
-
-        <div className="rounds container">
-          <div className="four columns">
-            <div>Round One</div>
-          </div>
-          <div className="four columns">
-            <div>Round Two</div>
-          </div>
-          <div className="four columns">
-            <div>Round Three</div>
-          </div>
-        </div>
-
-        <div className="status container">
-          <div className="four columns offset-by-four columns">GAME INFO</div>
-        </div>
+        <Scoreboard />
+        <Banner />
 
         <div className="players container">
-          <div className="playerOne six columns">
-            <div>
-              <h5>Player One Nickname</h5>
-            </div>
-            <div className="arena container">
-              <img src = {this.state.icon}/>
-            </div>
-            <div>
-              <button onClick={this.handleMove.bind(this, 'rock')}>Rock</button>
-              <button onClick={this.handleMove.bind(this, 'paper')}>Paper</button>
-              <button onClick={this.handleMove.bind(this, 'scissors')}>Scissors</button>
-            </div>
-          </div>
-
-          <div className="playerTwo six columns">
-            <div>
-              <h5>Player Two Nickname</h5>
-            </div>
-            <div className="arena container">
-            </div>
-           </div>
+          {/* current player component */}
+          <Player
+            handleMove={this.handleMove.bind(this)}
+            icon={this.state.playerIcon}
+          />
+          {/* opponent component */}
+          <Mike 
+          />
         </div>
 
-      <div className="about">
-
-        <div className="title container">
-          <div className="four columns offset-by-four columns">
-            <div>ABOUT</div>
-          </div>
-        </div>
-
-        <div className="devs container">
-          <div className="two columns offset-by-one column">
-            <div>
-              <h6>Amanda's Headshot</h6>
-            </div>
-            <p>some other stuff</p>
-          </div>
-          <div className="two columns">
-            <div>
-              <h6>Kenny's Headshot</h6>
-            </div>
-            <p>some other stuff</p>
-          </div>
-          <div className="two columns">
-            <div>
-              <h6>Mike's Headshot</h6>
-            </div>
-            <p>some other stuff</p>
-          </div>
-          <div className="two columns">
-            <div>
-              <h6>Shane's Headshot</h6>
-            </div>
-            <p>some other stuff</p>
-          </div>
-          <div className="two columns">
-            <div>
-              <h6>Tom's Headshot</h6>
-            </div>
-            <p>some other stuff</p>
-          </div>
-        </div>
-
-      </div>
+        {/* we should make About a modal */}
+        <About />
     </div>
     );
   }

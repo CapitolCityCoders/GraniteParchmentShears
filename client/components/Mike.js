@@ -3,11 +3,17 @@ import React from 'react'
 export default class Mike extends React.Component {
   render() {
     return (
-      <div className="playerTwo six columns">
+      <div className="opponent six columns">
         <div>
-          <h5>Player Two Nickname</h5>
+          <h5>Player One Nickname</h5>
         </div>
         <div className="arena container">
+          <img src = {this.props.icon}/>
+        </div>
+        <div>
+          <button disabled>Rock</button>
+          <button disabled>Paper</button>
+          <button disabled>Scissors</button>
         </div>
       </div>
     );

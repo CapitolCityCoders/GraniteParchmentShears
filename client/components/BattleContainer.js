@@ -32,7 +32,7 @@ export default class BattleContainer extends React.Component {
   handleMove(move, e) {
     e.preventDefault();
     // on move, set icon graphic
-    this.setState({icon: this.getIcon(move)});
+    this.setState({playerIcon: this.getIcon(move)});
     // if move has not been made
 
     // Commented out if below for ease in testing/production

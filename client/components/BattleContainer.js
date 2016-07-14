@@ -48,7 +48,12 @@ export default class BattleContainer extends React.Component {
   render() {
     return(
       <div>
-        <Banner />
+        {/* placeholder props for round winners for testing */}
+        <Banner 
+          round1={'player'}
+          round2={'opponent'}
+          round3={''}
+        />
 
         <div className="players container">
           {/* current player component */}

@@ -7,24 +7,13 @@
   <link rel="stylesheet" href="/styles/normalize.css"/>
   <link rel="stylesheet" href="/styles/skeleton.css"/>
   <link rel="stylesheet" href="/styles/styles.css"/>
-  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 </head>
 <body>
 
   <div id="app"></div>
 
+  <script src="/socket.io/socket.io.js"></script>
   <script src="/app-bundle.js"></script>
-  <script type="text/javascript">
-  	// initiates socket.io
-  	var socket = io()
-
-  	// listens for game ready event from p2
-  	// console.log is placeholder for the action 
-  	//    to start the game.
-  	socket.on('game ready', function(playerDetails){
-  	  console.log(playerDetails)
-  	})
-  </script>
 
 </body>
 </html>

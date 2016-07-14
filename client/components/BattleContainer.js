@@ -15,8 +15,8 @@ export default class BattleContainer extends React.Component {
     this.state = {
       playerIcon: '',
       move: 'waiting',
-      player: {},
-      opponent: {},
+      player: '',
+      opponent: '',
     }
   }
 

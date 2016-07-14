@@ -16,6 +16,7 @@ export default class Player extends React.Component {
         this.setState({player: data[0].name})
         console.log(this.state.player)
       })
+      console.log("game Id: ",sessionStorage.getItem('gameId'))
   }
 
 

@@ -60,13 +60,13 @@ app.post('/api/getGameById', (req, res) => {
     });
 });
 
-// updates game status that matches a given gameId
+//----- updates game status that matches a given gameId----//
 app.post('/api/gameStatus', (req, res) => {
   db('games').where('id', req.body.gameId).update('status', req.body.status)
     .then()
 });
 
-// updates user status that matches a given userId
+//--- updates user status that matches a given userId-----//
 app.post('/api/userStatus', (req, res) => {
   db('users').where('id', req.body.userId).update('status', req.body.status)
     .then();
@@ -97,6 +97,16 @@ app.post('/api/users', (req,res) => {
 app.post('/api/playerStatus', (req,res) => {
   let userId = req.body.userId
   db.select('*').from('users').where('id', userId)
+    .then((data) => {
+      res.send(data)
+    })
+})
+//------------ get opponent status------------//
+//-------------------------------------------//
+app.post('/api/oppStatus', (req,res) => {
+  let userId = req.body.userId
+  let gameId = req.body.gameId
+  db.select('name').from('users').where('game_id', '=', gameId).whereNot('id', '=', userId)
     .then((data) => {
       res.send(data)
     })

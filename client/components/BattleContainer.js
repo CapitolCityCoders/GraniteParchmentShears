@@ -47,16 +47,17 @@ export default class BattleContainer extends React.Component {
 //----------------------Resolution Logic-----------------//
 //---------------------------------------------------------------//
 
-let resolveGame = function(gameId) {
+ resolveGame(gameId) {
+ 	console.log("CONSOLELOG")
 
 // compare player 1 status to player 2 status via Join Table
 	knex.select('*').from('users').join('games', {'games.id' : 'users.game_id'})
 		.where('games.id', gameId)
 	//if player 1 score && player 2 score != 2
-	.then (function (table) {
+	.then(function (table) {
 		// returns array of objects (should only ever be 2, one for each player)
 		// figure out how to console.log!!
-		if (player1_score && player2_score != 2) {
+		console.log("TABLE", table);
 
 		//if player 1 score == player 2 score
 			// don't add score
@@ -70,23 +71,25 @@ let resolveGame = function(gameId) {
 			// player 2 score increase
 			// reset player statuses
 	// else 
-	} else {
-		// if player 1 score == 2 
-		if (player1_score == 2) {
-			// call endGame function (not yet implemented)
+	// } else {
+	// 	// if player 1 score == 2 
+	// 	if (player1_score == 2) {
+	// 		// call endGame function (not yet implemented)
 			
-			// reset player statuses to waiting
-			knex('users').select('id').where({name: player1})
-				.then(function())
-		}
-		// if player 2 score == 2
-			// call endGame function (not yet implemented)
-			// reset player statuses to waiting
-	}
+	// 		// reset player statuses to waiting
+	// 		knex('users').select('id').where({name: player1})
+	// 			.then(function())
+	// 	}
+	// 	// if player 2 score == 2
+	// 		// call endGame function (not yet implemented)
+	// 		// reset player statuses to waiting
+	// }
+}).catch(function(err){console.log("ERROR", err)});
 }
 
 //------------------------Render------------------------//
 //------------------------------------------------------//
+
   render() {
     return(
       <div>
@@ -109,6 +112,6 @@ let resolveGame = function(gameId) {
     </div>
     );
   }
-}
+
 
 

@@ -32,7 +32,7 @@ export default class BattleContainer extends React.Component {
   handleMove(move, e) {
     e.preventDefault();
     // on move, set icon graphic
-    this.setState({icon: this.getIcon(move)});
+    this.setState({playerIcon: this.getIcon(move)});
     // if move has not been made
 
     // Commented out if below for ease in testing/production
@@ -48,17 +48,12 @@ export default class BattleContainer extends React.Component {
 //---------------------------------------------------------------//
 
  resolveGame(gameId) {
- 	console.log("CONSOLELOG")
+ 	console.log("RESOLVEGAME in BattleContainer.js line 51")
+
+ 	Game.resolveGame( gameId )
 
 // compare player 1 status to player 2 status via Join Table
-	db.select('*').from('users').join('games', {'games.id' : 'users.game_id'})
-		.where('games.id', gameId)
 	//if player 1 score && player 2 score != 2
-	.then(function (table) {
-		// returns array of objects (should only ever be 2, one for each player)
-		// figure out how to console.log!!
-		console.log("TABLE", table);
-
 		//if player 1 score == player 2 score
 			// don't add score
 			// reset player statuses to waiting
@@ -69,22 +64,15 @@ export default class BattleContainer extends React.Component {
 
 		// if player 2 beats player 1
 			// player 2 score increase
-			// reset player statuses
+			// reset player statuses to waiting
 	// else 
-	// } else {
-	// 	// if player 1 score == 2 
-	// 	if (player1_score == 2) {
-	// 		// call endGame function (not yet implemented)
-			
-	// 		// reset player statuses to waiting
-	// 		knex('users').select('id').where({name: player1})
-	// 			.then(function())
-	// 	}
-	// 	// if player 2 score == 2
-	// 		// call endGame function (not yet implemented)
-	// 		// reset player statuses to waiting
-	// }
-}).catch(function(err){console.log("ERROR", err)});
+		// if player 1 score == 2 
+			// call endGame function (not yet implemented)
+			// reset player statuses to waiting
+	 	// if player 2 score == 2
+			// call endGame function (not yet implemented)
+	 		// reset player statuses to waiting
+	// 
 }
 
 //------------------------Render------------------------//
@@ -93,6 +81,7 @@ export default class BattleContainer extends React.Component {
   render() {
     return(
       <div>
+
         <Scoreboard />
         <Banner />
 
@@ -113,5 +102,5 @@ export default class BattleContainer extends React.Component {
     );
   }
 
-
+}
 

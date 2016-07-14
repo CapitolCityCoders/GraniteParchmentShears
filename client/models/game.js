@@ -16,13 +16,36 @@ export function playerMove(move, userId){
   // that I could get the response to console.log correctly
   .then(function(response) {
     return response.json()
-  }).then(function(json) {
+  })
+  .then(function(json) {
     console.log('in game.js: parsed json', json)
   })
   .catch(function(error){
     console.log(error);
   });
+}
 
+
+export function resolveGame(gameId) {
+  return fetch('/api/resolveGame', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    // post of game ID we want to base as jointable
+    body: JSON.stringify({
+      gameId: gameId
+    })
+  })
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(table) {
+    console.log("TABLE FROM GAME.JS line 44", table)
+  .catch(function(error){
+    consoe.log("ERROR FROM GAME.JS line 46", error)
+  })
+  });
 }
 
 // export function player2Throw(thrw){

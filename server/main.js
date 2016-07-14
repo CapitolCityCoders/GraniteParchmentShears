@@ -12,6 +12,25 @@ module.exports = app;
 
 app.use(bodyParser.json());
 
+// resolveGame   // not sure yet how/if to get the JoinedTable from line 21 below over to BattleContainer.js and 
+                  // into resolveGame function to then do if/then/else who won logic (which should be easy?)
+app.post('/api/resolveGame', (req, res) => {
+  console.log("REQ in SERVER/MAIN.JS line 18", req)
+  let gameId = req.body.id;
+  console.log("GAMEID in SERVER/MAIN.JS line 18", gameId)
+  // jointable to then use as comparison base for if/then/else who won logic in BattleContainer.js
+  db.select('*').from('users').join('games', {'games.id' : 'users.game_id'})
+    .where('games.id', gameId)
+    .then(table => {
+      res.send(table)
+    })
+    .catch(function(err) {
+      console.log("ERROR in SERVER/MAIN.JS line 26", err);
+      res.sendStatus(500);
+    });
+});
+
+
 // taking accessCode from request body, create new game record in db
 app.post('/api/newGame', (req, res) => {
   db('games').insert({

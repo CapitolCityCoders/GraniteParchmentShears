@@ -36,8 +36,7 @@ export default class BattleContainer extends React.Component {
     // listen for resolve round broadcast
     this.socket.on('resolve round', gameId => {
       if (gameId === this.gameId) { 
-        console.log('time to resolve round')
-        // update both player and opponent in order to check winner
+        // update both player and opponent states before checking for winner
         return Promise.all([
           this.updatePlayer(),
           this.updateOpponent()
@@ -87,15 +86,20 @@ export default class BattleContainer extends React.Component {
   }
 
   resolveRound() {
+    // check winner
     const playerMove = this.state.player.status;
     const opponentMove = this.state.opponent.status;
     const result = rpsWinner(playerMove, opponentMove);
 
+    // show opponent move icon
     this.setState({opponentIcon: getIcon(opponentMove)});
 
+    // if tie, reset everything but don't increment round
     if (result === 'tie') {
       this.setState({status: 'tie'});
       setTimeout(this.resetRound.bind(this), 3000);
+    // if player or opponent wins, set winner in winners array for scoreboard to display
+    // increment round
     } else if (result === 'win') {
       this.state.winners[this.state.round-1] = 'player';
       this.setState({status: 'player', round: this.state.round + 1});
@@ -107,6 +111,7 @@ export default class BattleContainer extends React.Component {
     }
   }
 
+  // reset states for next set of moves
   resetRound() {
     this.setState({
       playerIcon: '',
@@ -122,7 +127,6 @@ export default class BattleContainer extends React.Component {
   render() {
     return(
       <div>
-        {/* placeholder props for round winners for testing */}
         <Scoreboard 
           round={this.state.round}
           winners={this.state.winners}
@@ -150,7 +154,6 @@ export default class BattleContainer extends React.Component {
 
         {/* we should make About a modal */}
         { /* <About /> */ }
-
     </div>
     );
   }

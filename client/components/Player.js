@@ -1,11 +1,16 @@
 import React from 'react'
+import * as Game from '../models/game'
 
 export default class Player extends React.Component {
+  constructor(){
+    super();
+  }
+
   render() {
     return (
       <div className="player six columns">
         <div>
-          <h5>Player One Nickname</h5>
+          <h5>{this.props.player.name}</h5>
         </div>
         <div className="arena container">
           <img src = {this.props.icon}/>

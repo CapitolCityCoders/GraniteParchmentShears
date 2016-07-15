@@ -127,8 +127,67 @@ input[type="text"] {
   
 }
 
-img{
+img {
   width: 150px;
   height: 150px;
   border: none;
+}
+
+/*
+  =========================================================
+  Game - Banner
+  =========================================================
+*/
+
+.scoreboard .circle {
+  border: 1px solid black;
+  border-radius: 50%;
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  margin: 0 10px;
+}
+
+.scoreboard .circle.player {
+  background-color: #9fff80;
+}
+
+.scoreboard .circle.opponent {
+  background-color: #ff6666;
+}
+
+.scoreboard .current { 
+  margin: 0 auto;
+  border-radius: 50%;
+  z-index: 10;
+  background-color: transparent;
+  opacity: 0.1;
+  width: 50px;
+  height: 50px;
+  border: 1px solid black;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  /* Giving Animation Function */
+  -webkit-animation: pulse 2s linear infinite;
+  -moz-animation: pulse 2s linear infinite; 
+  border-image: initial;
+}
+
+@-webkit-keyframes pulse  {
+  0% {-webkit-transform: scale(1); opacity: 0;}
+  8% {-webkit-transform: scale(1); opacity: 0.6;}
+  15% {-webkit-transform: scale(1.1); opacity: 0.4;}
+  30% {-webkit-transform: scale(1.2); opacity: 0.2;}
+  100% {opacity: 0; -webkit-transform: scale(1.4);}
+}
+
+@-moz-keyframes pulse {
+  0% {-webkit-transform: scale(1); opacity: 0;}
+  8% {-webkit-transform: scale(1); opacity: 0.6;}
+  15% {-webkit-transform: scale(1.1); opacity: 0.4;}
+  30% {-webkit-transform: scale(1.2); opacity: 0.2;}
+  100% {opacity: 0; -webkit-transform: scale(1.4);}
 }

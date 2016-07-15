@@ -13,7 +13,7 @@ export default class Mike extends React.Component {
           <h5>{this.props.opponent.name}</h5>
         </div>
         <div className="arena container">
-          <img src = {this.props.icon}/>
+          <img src={this.props.icon}/>
         </div>
         <div>
           <button disabled>Rock</button>

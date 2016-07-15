@@ -14,9 +14,11 @@ export default class BattleContainer extends React.Component {
     super();
     this.state = {
       playerIcon: '',
+      opponentIcon: '',
       move: 'waiting',
       player: {},
       opponent: {},
+      currentRound: 1,
       round1: '',
       round2: '',
       round3: ''
@@ -35,7 +37,15 @@ export default class BattleContainer extends React.Component {
     // listen for resolve round broadcast
     this.socket.on('resolve round', gameId => {
       if (gameId === this.gameId) { 
-        console.log('time to resolve round');
+        console.log('time to resolve round')
+        // update both player and opponent in order to check winner
+        return Promise.all([
+          this.updatePlayer(),
+          this.updateOpponent()
+        ])
+          .then(() => {
+            this.resolveRound();
+          })
       }
     });
   }
@@ -46,12 +56,9 @@ export default class BattleContainer extends React.Component {
     this.setState({playerIcon: getIcon(move)});
     // send move to db with lookup by userId
     Game.playerMove(move, this.userId)
-      // update both player and opponent states
+      // update opponent to check status
       .then(() => {
-        return Promise.all([
-          this.updatePlayer(),
-          this.updateOpponent()
-        ]);
+        return this.updateOpponent();
       })
       // if opponent has moved, socket emit to opponent to resolve round 
       .then(() => {
@@ -80,6 +87,28 @@ export default class BattleContainer extends React.Component {
       });
   }
 
+  resolveRound() {
+    const playerMove = this.state.player.status;
+    const opponentMove = this.state.opponent.status;
+    const result = rpsWinner(playerMove, opponentMove);
+
+    this.setState({opponentIcon: getIcon(opponentMove)});
+
+    if (result === 'tie') {
+      console.log('tie')
+    } else if (result === 'win') {
+      console.log('player wins')
+    } else if (result === 'lose') {
+      console.log('opponent wins')
+    }
+  }
+
+  resetRoundState() {
+    this.setState({
+      
+    });
+  }
+
 //------------------------Render------------------------//
 //------------------------------------------------------//
   render() {
@@ -102,6 +131,7 @@ export default class BattleContainer extends React.Component {
           {/* opponent component */}
           <Mike
             opponent={this.state.opponent}
+            icon={this.state.opponentIcon}
           />
         </div>
 
@@ -121,4 +151,21 @@ function getIcon(move) {
   } else if (move === 'scissors') {
     return '/images/scissors.png'
   }
+}
+
+
+// move a wins against move b if the difference is equal to 1 or -2
+// tie if 0
+function rpsWinner(a, b) {
+  const moves = {
+    rock: 0,
+    paper: 1,
+    scissors: 2
+  };
+
+  const diff = moves[a] - moves[b];
+
+  return diff === 0 ? 'tie' 
+    : diff === 1 || diff === -2 ? 'win'
+    : 'lose';
 }

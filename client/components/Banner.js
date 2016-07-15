@@ -5,12 +5,10 @@ export default class Banner extends React.Component {
     return (
       <div className="status container">
         <div className="scoreboard four columns offset-by-four columns">
-          {[this.props.round1,
-            this.props.round2,
-            this.props.round3].map((round, idx, arr) => 
+          {this.props.winners.map((round, idx, arr) => 
             <div className={'circle ' + round} key={idx}>
-              {/* determine which is the current round */}
-              {arr[idx] === '' && (idx === 0 || arr[idx-1] !== '') ?
+              {/* animation for the current round */}
+              {idx === this.props.round - 1 ?
                 <div className="current"></div> :
                 null}
             </div>

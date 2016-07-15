@@ -18,10 +18,8 @@ export default class BattleContainer extends React.Component {
       move: 'waiting',
       player: {},
       opponent: {},
-      currentRound: 1,
-      round1: '',
-      round2: '',
-      round3: ''
+      round: 1,
+      winners: ['', '', ''],
     }
   }
 
@@ -96,17 +94,26 @@ export default class BattleContainer extends React.Component {
 
     if (result === 'tie') {
       console.log('tie')
+      setTimeout(this.resetRound.bind(this), 3000);
     } else if (result === 'win') {
       console.log('player wins')
+      this.state.winners[this.state.round-1] = 'player';
+      this.setState({round: this.state.round + 1});
+      setTimeout(this.resetRound.bind(this), 3000);
     } else if (result === 'lose') {
       console.log('opponent wins')
+      this.state.winners[this.state.round-1] = 'opponent';
+      this.setState({round: this.state.round + 1});
+      setTimeout(this.resetRound.bind(this), 3000);
     }
   }
 
-  resetRoundState() {
+  resetRound() {
     this.setState({
-      
+      playerIcon: '',
+      opponentIcon: ''
     });
+    Game.playerMove('waiting', this.userId).then();
   }
 
 //------------------------Render------------------------//
@@ -116,9 +123,8 @@ export default class BattleContainer extends React.Component {
       <div>
         {/* placeholder props for round winners for testing */}
         <Banner 
-          round1={this.state.round1}
-          round2={this.state.round2}
-          round3={this.state.round3}
+          round={this.state.round}
+          winners={this.state.winners}
         />
 
         <div className="players container">

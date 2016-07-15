@@ -14,18 +14,32 @@ export function playerMove(move, userId){
 	})
   // the two .thens below are the only way
   // that I could get the response to console.log correctly
-  .then(function(response) {
-    return response.json()
-  }).then(function(json) {
-    console.log('in game.js: parsed json', json)
-  })
-  .catch(function(error){
-    console.log(error);
-  });
+    .then(function(response) {
+      return response.json()
+    })
+    .catch(function(error){
+      console.log(error);
+    });
 }
 
-export function getOpponentMove() {
-
+export function getOpponentMove(userId, gameId) {
+  return fetch('/api/opponentMove', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId,
+      gameId: gameId
+    })
+  })
+    .then(data => {
+      console.log('37: in game.js: ', data.json())
+      return data.json()
+    })
+    .catch(function(error){
+      console.log(error);
+    });
 }
 
 // export function player2Throw(thrw){

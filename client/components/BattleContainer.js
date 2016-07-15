@@ -28,6 +28,18 @@ export default class BattleContainer extends React.Component {
     }
   }
 
+  hasOpponentMoved() {
+    // get gameId from session storage
+    let gameId = sessionStorage.getItem('gameId');
+    let userId = sessionStorage.getItem('userId');
+
+    // send get request to get opponent's move status
+    Game.getOpponentMove(gameId, userId)
+      .then(response => {
+        console.log('39: in BattleContainer: ', response);
+      });
+  }
+
   handleMove(move, e) {
     e.preventDefault();
     // on move, set icon graphic
@@ -42,16 +54,13 @@ export default class BattleContainer extends React.Component {
       Game.playerMove(move, sessionStorage.getItem('userId'))
         .then(
 
-
+          this.hasOpponentMoved()
           // call Tom's function
         );
     // }
+
   }
 
-  hasOpponentMoved() {
-    // send get request to get opponent's move status
-    Game.getOpponentMove()
-  }
 
 
 //------------------------Render------------------------//

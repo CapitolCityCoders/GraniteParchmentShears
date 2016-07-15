@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 // taking accessCode from request body, create new game record in db
 app.post('/api/newGame', (req, res) => {
   db('games').insert({
-    access_code: req.body.accessCode, 
+    access_code: req.body.accessCode,
     status: 'waiting'
   })
     .then(gameId => {
@@ -72,8 +72,9 @@ app.post('/api/userStatus', (req, res) => {
     .then();
 });
 
-//------------ post player1 throw-------------//
+//------------ post player throw-------------//
 //--------------------------------------------//
+// updates user status (with throw) that matches a given userId
 app.post('/api/users', (req,res) => {
   let move = req.body.move;
   let userId = req.body.userId;
@@ -89,21 +90,27 @@ app.post('/api/users', (req,res) => {
       console.error(err);
       res.sendStatus(500);
     });
-
 });
 
-//------------ post player2 throw------------//
-//-------------------------------------------//
-app.post('api/p2throw')
-//db('users').insert('throw').where('name', '=', {player2 username})
+//------------ Get Opponent Status -----------//
+//--------------------------------------------//
 
-//----------Get player2 status-------------//
-app.get('api/p2throw', (res,req) => {
-	// db.select('player_throw').from('users').where('name', '=' {player2 username})
-	// .then(data => {
-	// 	res.send(data)
-	// });
+app.post('/api/opponentMove', (req, res) => {
+  // in users table, where game id matches and userid does not,
+  // select status
+  db('users')
+      .where('game_id', req.body.gameId)
+      .whereNot('id',   req.body.userId)
+      .select('status')
+    .then(status => {
+      console.log(status);
+      res.send(status);
+    })
+    .catch(function(err){
+      console.log(err);
+    });
 });
+
 
 // use history api fallback middleware after defining db routes
 // to not interfere get requests

@@ -9,7 +9,8 @@ export default class Banner extends React.Component {
             this.props.round2,
             this.props.round3].map((round, idx, arr) => 
             <div className={'circle ' + round} key={idx}>
-              {arr[idx] === '' && arr[idx-1] !== '' ?
+              {/* determine which is the current round */}
+              {arr[idx] === '' && (idx === 0 || arr[idx-1] !== '') ?
                 <div className="current"></div> :
                 null}
             </div>

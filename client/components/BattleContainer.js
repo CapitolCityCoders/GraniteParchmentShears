@@ -16,7 +16,10 @@ export default class BattleContainer extends React.Component {
       playerIcon: '',
       move: 'waiting',
       player: {},
-      opponent: {}
+      opponent: {},
+      round1: '',
+      round2: '',
+      round3: ''
     }
   }
 
@@ -43,12 +46,14 @@ export default class BattleContainer extends React.Component {
     this.setState({playerIcon: getIcon(move)});
     // send move to db with lookup by userId
     Game.playerMove(move, this.userId)
+      // update both player and opponent states
       .then(() => {
         return Promise.all([
           this.updatePlayer(),
           this.updateOpponent()
         ]);
       })
+      // if opponent has moved, socket emit to opponent to resolve round 
       .then(() => {
         if (this.state.opponent.status === 'waiting') {
           console.log('opponent has not moved yet')
@@ -82,9 +87,9 @@ export default class BattleContainer extends React.Component {
       <div>
         {/* placeholder props for round winners for testing */}
         <Banner 
-          round1={'player'}
-          round2={'opponent'}
-          round3={''}
+          round1={this.state.round1}
+          round2={this.state.round2}
+          round3={this.state.round3}
         />
 
         <div className="players container">
@@ -101,7 +106,6 @@ export default class BattleContainer extends React.Component {
         </div>
 
         {/* we should make About a modal */}
-
         { /* <About /> */ }
 
     </div>

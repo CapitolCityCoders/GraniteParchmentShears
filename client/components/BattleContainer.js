@@ -20,7 +20,8 @@ export default class BattleContainer extends React.Component {
       opponent: {},
       round: 1,
       winners: ['', '', ''],
-      status: ''
+      status: '',
+      moveAllowed: true
     }
   }
 
@@ -36,6 +37,7 @@ export default class BattleContainer extends React.Component {
     // listen for resolve round broadcast
     this.socket.on('resolve round', gameId => {
       if (gameId === this.gameId) { 
+        this.setState({moveAllowed: false});
         // update both player and opponent states before checking for winner
         return Promise.all([
           this.updatePlayer(),
@@ -50,23 +52,22 @@ export default class BattleContainer extends React.Component {
 
 
   handleMove(move) {
-    // on move, set icon graphic
-    this.setState({playerIcon: getIcon(move)});
-    // send move to db with lookup by userId
-    Game.playerMove(move, this.userId)
-      // update opponent to check status
-      .then(() => {
-        return this.updateOpponent();
-      })
-      // if opponent has moved, socket emit to opponent to resolve round 
-      .then(() => {
-        if (this.state.opponent.status === 'waiting') {
-          console.log('opponent has not moved yet')
-        } else {
-          console.log('opponent has moved')
-          this.socket.emit('resolve round', this.gameId);
-        }
-      })
+    if (this.state.moveAllowed) {
+      // on move, set icon graphic
+      this.setState({playerIcon: getIcon(move)});
+      // send move to db with lookup by userId
+      Game.playerMove(move, this.userId)
+        // update opponent to check status
+        .then(() => {
+          return this.updateOpponent();
+        })
+        // if opponent has moved, socket emit to opponent to resolve round 
+        .then(() => {
+          if (this.state.opponent.status !== 'waiting') {
+            this.socket.emit('resolve round', this.gameId);
+          }
+        })
+    }
   }
 
   updatePlayer() {
@@ -116,7 +117,8 @@ export default class BattleContainer extends React.Component {
     this.setState({
       playerIcon: '',
       opponentIcon: '',
-      status: ''
+      status: '',
+      moveAllowed: true
     });
     Game.playerMove('waiting', this.userId).then();
   }

@@ -81,7 +81,6 @@ app.post('/api/users', (req,res) => {
   // insert the move under status where id === userId
   db('users').where('id', userId).update({status: move})
     .then(() => {
-      console.log(`Inserted ${move} into Users at userId: ${userId}`)
       res.send({move});
 	    // res.sendStatus(200);
     })
@@ -136,7 +135,6 @@ io.on('connection', function(socket){
 	})
 
 	socket.on('resolve round', gameId => {
-    console.log('resolve round emitted')
 		io.emit('resolve round', gameId)
 	})
 })

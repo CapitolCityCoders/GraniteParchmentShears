@@ -72,7 +72,7 @@ app.post('/api/userStatus', (req, res) => {
     .then();
 });
 
-//------------ post player1 throw-------------//
+//------------ post player throw-------------//
 //--------------------------------------------//
 app.post('/api/users', (req,res) => {
   let move = req.body.move;
@@ -83,6 +83,22 @@ app.post('/api/users', (req,res) => {
     .then(() => {
       res.send({move});
 	    // res.sendStatus(200);
+    })
+    .catch(function (err) {
+      console.error(err);
+      res.sendStatus(500);
+    });
+});
+
+//----------- increment player score----------//
+//--------------------------------------------//
+app.post('/api/incUserScore', (req,res) => {
+  let userId = req.body.userId;
+
+  // increment the score by 1 where id === userId
+  db('users').where('id', req.body.userId).increment('score', 1)
+    .then(() => {
+      res.send({userId});
     })
     .catch(function (err) {
       console.error(err);
@@ -136,6 +152,10 @@ io.on('connection', function(socket){
 
 	socket.on('resolve round', gameId => {
 		io.emit('resolve round', gameId)
+	})
+
+	socket.on('end game', data => {
+		io.emit('end game', data)
 	})
 })
 

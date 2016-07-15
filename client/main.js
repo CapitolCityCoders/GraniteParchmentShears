@@ -7,7 +7,6 @@ import { Router, Route, browserHistory } from 'react-router'
 import Menu from './components/Menu';
 import Game from './components/Game';
 import BattleContainer from './components/BattleContainer';
-import Lobby from './components/Lobby';
 
 // Render that component to the DOM!
 ReactDOM.render((

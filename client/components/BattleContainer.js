@@ -48,6 +48,13 @@ export default class BattleContainer extends React.Component {
           })
       }
     });
+
+    // listen for end game broadcast
+    this.socket.on('end game', data => {
+      if (data.gameId === this.gameId) { 
+        setTimeout(this.props.endGame.bind(null, data.winner), 3000);
+      }
+    });
   }
 
 
@@ -95,20 +102,14 @@ export default class BattleContainer extends React.Component {
     // show opponent move icon
     this.setState({opponentIcon: getIcon(opponentMove)});
 
-    // if tie, reset everything but don't increment round
     if (result === 'tie') {
+      // if tie, reset everything but don't increment round
       this.setState({status: 'tie'});
       setTimeout(this.resetRound.bind(this), 3000);
-    // if player or opponent wins, set winner in winners array for scoreboard to display
-    // increment round
     } else if (result === 'win') {
-      this.state.winners[this.state.round-1] = 'player';
-      this.setState({status: 'player', round: this.state.round + 1});
-      setTimeout(this.resetRound.bind(this), 3000);
+      this._playerWin();
     } else if (result === 'lose') {
-      this.state.winners[this.state.round-1] = 'opponent';
-      this.setState({status: 'opponent', round: this.state.round + 1});
-      setTimeout(this.resetRound.bind(this), 3000);
+      this._opponentWin();
     }
   }
 
@@ -121,6 +122,36 @@ export default class BattleContainer extends React.Component {
       moveAllowed: true
     });
     Game.playerMove('waiting', this.userId).then();
+  }
+
+  _playerWin() {
+    // set player as winner for banner and scoreboard props, inc round in state
+    this.state.winners[this.state.round-1] = 'player';
+    this.setState({status: 'player', round: this.state.round + 1});
+    // inc score in db by 1
+    Game.incPlayerScore(this.userId).then();
+
+    // if current player score is 1 (will be 2 after increment), then end game
+    if (this.state.player.score === 1) {
+      const playerName = this.state.player.name;
+      // emit end game with winner name to the other client
+      this.socket.emit('end game', {
+        gameId: this.gameId,
+        winner: playerName
+      });
+      // call end game for current client
+      setTimeout(this.props.endGame.bind(null, playerName), 3000); 
+    // else, reset for next round
+    } else {
+      setTimeout(this.resetRound.bind(this), 3000);
+    }
+  }
+
+  _opponentWin() {
+    // set opponent as winner for banner and scoreboard props, inc round in state
+    this.state.winners[this.state.round-1] = 'opponent';
+    this.setState({status: 'opponent', round: this.state.round + 1});
+    setTimeout(this.resetRound.bind(this), 3000);
   }
 
 

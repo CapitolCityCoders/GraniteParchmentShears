@@ -34,7 +34,7 @@ export function getOpponentMove(userId, gameId) {
     })
   })
     .then(data => {
-      console.log('37: in game.js: ', data.json())
+      //console.log('37: in game.js: ', data.json())
       return data.json()
     })
     .catch(function(error){

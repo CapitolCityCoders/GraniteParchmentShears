@@ -212,9 +212,10 @@ function rpsWinner(a, b) {
     scissors: 2
   };
 
-  const diff = moves[a] - moves[b];
+  // to handle negative numbers in modulo
+  const diff = (moves[a] - moves[b] + 3) % 3;
 
   return diff === 0 ? 'tie' 
-    : diff === 1 || diff === -2 ? 'win'
+    : diff === 1 ? 'win'
     : 'lose';
 }

@@ -5,7 +5,9 @@ export default class Banner extends React.Component {
     return (
       <div className="status container">
         <div className="banner four columns offset-by-four columns">
-          <h4>Round {this.props.round}</h4>
+          {this.props.status ?
+          null :
+          <h4>Round {this.props.round}</h4>}
           {this.props.status === 'tie' ?
             <h4>Tie</h4> :
             this.props.status === 'player' ?

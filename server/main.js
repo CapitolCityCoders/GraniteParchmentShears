@@ -134,6 +134,11 @@ io.on('connection', function(socket){
 	socket.on('start game', gameId => {
 		io.emit('start game', gameId)
 	})
+
+	socket.on('resolve round', gameId => {
+    console.log('resolve round emitted')
+		io.emit('resolve round', gameId)
+	})
 })
 
 var port = process.env.PORT || 4000;

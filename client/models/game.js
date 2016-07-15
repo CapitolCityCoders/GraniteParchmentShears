@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-require('es6-promise').polyfill();
 
 //---------------post player's move-----------//
 export function playerMove(move, userId){
@@ -12,14 +11,13 @@ export function playerMove(move, userId){
 			move: move,
       userId: userId
 		})
-	}).then(function(response) {
-    return response.json()
-  }).then(function(json) {
-    console.log('in game.js: parsed json', json)
-  })
-  .catch(function(error){
-    console.log(error);
-  });
+	})
+    .then(function(response) {
+      return response.json()
+    })
+    .catch(function(error){
+      console.error(error);
+    });
 }
 
 //-------------------get player name----------//

@@ -25,47 +25,53 @@ export default class BattleContainer extends React.Component {
     this.gameId = sessionStorage.getItem('gameId');
     this.userId = sessionStorage.getItem('userId');
 
-
+    // populate player and opponent state objects
     this.updatePlayer();
     this.updateOpponent();
+
+    // listen for resolve round broadcast
+    this.socket.on('resolve round', gameId => {
+      if (gameId === this.gameId) { 
+        console.log('time to resolve round');
+      }
+    });
   }
 
-  getIcon(move) {
-    if (move === 'rock') {
-      return '/images/rock.png';
-    } else if (move === 'paper') {
-      return '/images/paper.png';
-    } else if (move === 'scissors') {
-      return '/images/scissors.png'
-    }
-  }
 
-  handleMove(move, e) {
-    e.preventDefault();
+  handleMove(move) {
     // on move, set icon graphic
-    this.setState({playerIcon: this.getIcon(move)});
-    // if move has not been made
-
-    // Commented out if below for ease in testing/production
-    // if (this.props.move === 'waiting') {
-      // update move
-      this.setState({move: move});
-      // send move to db with lookup by userId
-      Game.playerMove(move, sessionStorage.getItem('userId'));
-    // }
+    this.setState({playerIcon: getIcon(move)});
+    // send move to db with lookup by userId
+    Game.playerMove(move, this.userId)
+      .then(() => {
+        return Promise.all([
+          this.updatePlayer(),
+          this.updateOpponent()
+        ]);
+      })
+      .then(() => {
+        if (this.state.opponent.status === 'waiting') {
+          console.log('opponent has not moved yet')
+        } else {
+          console.log('opponent has moved')
+          this.socket.emit('resolve round', this.gameId);
+        }
+      })
   }
 
   updatePlayer() {
-    Game.getPlayerById(this.userId)
+    return Game.getPlayerById(this.userId)
       .then(data => {
         this.setState({player: data[0]});
+        return;
       });
   }
 
   updateOpponent() {
-    Game.getOpponentByPlayerId(this.userId, this.gameId)
+    return Game.getOpponentByPlayerId(this.userId, this.gameId)
       .then(data => {
         this.setState({opponent: data[0]});
+        return;
       });
   }
 
@@ -103,4 +109,12 @@ export default class BattleContainer extends React.Component {
   }
 }
 
-
+function getIcon(move) {
+  if (move === 'rock') {
+    return '/images/rock.png';
+  } else if (move === 'paper') {
+    return '/images/paper.png';
+  } else if (move === 'scissors') {
+    return '/images/scissors.png'
+  }
+}

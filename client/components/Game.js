@@ -3,12 +3,14 @@ import React from 'react';
 import * as db from '../models/menu';
 import Lobby from './Lobby';
 import BattleContainer from './BattleContainer';
+import End from './End';
 
 export default class Game extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: 'lobby'
+      view: 'lobby',
+      winner: ''
     };
   }
 
@@ -30,6 +32,13 @@ export default class Game extends React.Component {
     this.setState({view: 'battle'});
   }
 
+  endGame(winner) {
+    this.setState({
+      view: 'end',
+      winner: winner
+    });
+  }
+
   render() {
     return (
       <div>
@@ -37,8 +46,13 @@ export default class Game extends React.Component {
         <Lobby 
           accessCode={this.props.params.accessCode} 
           startGame={this.startGame.bind(this)}
-        /> :
-        <BattleContainer />}
+        /> : this.state.view === 'battle' ?
+        <BattleContainer 
+          endGame={this.endGame.bind(this)} 
+        /> : 
+        <End 
+          winner={this.state.winner} 
+        />}
       </div>
     );
   }

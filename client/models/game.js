@@ -20,6 +20,25 @@ export function playerMove(move, userId){
     });
 }
 
+//-----------increment player score-----------//
+export function incPlayerScore(userId){
+	return fetch('/api/incUserScore',{
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+      userId: userId
+		})
+	})
+    .then(function(response) {
+      return response.json()
+    })
+    .catch(function(error){
+      console.error(error);
+    });
+}
+
 //-------------------get player name----------//
 export function getPlayerById(userId){
   return fetch('/api/getPlayerById', {

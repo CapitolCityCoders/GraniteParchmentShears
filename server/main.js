@@ -92,21 +92,21 @@ app.post('/api/users', (req,res) => {
 
 });
 
-//------------ get player status------------//
+//------------ get player object by id-------//
 //-------------------------------------------//
-app.post('/api/playerStatus', (req,res) => {
-  let userId = req.body.userId
+app.post('/api/getPlayerById', (req,res) => {
+  let userId = req.body.userId;
   db.select('*').from('users').where('id', userId)
     .then((data) => {
       res.send(data)
     })
 })
-//------------ get opponent status------------//
+//----- get opponent object by player id-----//
 //-------------------------------------------//
-app.post('/api/oppStatus', (req,res) => {
-  let userId = req.body.userId
-  let gameId = req.body.gameId
-  db.select('name').from('users').where('game_id', '=', gameId).whereNot('id', '=', userId)
+app.post('/api/getOpponentByPlayerId', (req,res) => {
+  let userId = req.body.userId;
+  let gameId = req.body.gameId;
+  db.select('*').from('users').where('game_id', '=', gameId).whereNot('id', '=', userId)
     .then((data) => {
       res.send(data)
     })
@@ -126,7 +126,6 @@ app.get('/app-bundle.js',
 
 //  socket.io is listening for queues triggered by
 //    players, then emits information to both
-
 io.on('connection', function(socket){
 	socket.on('join game', gameId => {
 		io.emit('join game', gameId)

@@ -23,8 +23,8 @@ export function playerMove(move, userId){
 }
 
 //-------------------get player name----------//
-export function playerById(userId){
-  return fetch('/api/playerStatus', {
+export function getPlayerById(userId){
+  return fetch('/api/getPlayerById', {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'
@@ -39,15 +39,15 @@ export function playerById(userId){
 }
 
 //-------------get opponent name--------------//
-export function opponentById(userId,gameId){
-  return fetch('/api/oppStatus', {
+export function getOpponentByPlayerId(userId, gameId){
+  return fetch('/api/getOpponentByPlayerId', {
     method: "POST",
     headers: {
       'Content-Type' : 'application/json'
     },
     body: JSON.stringify({
       userId: userId,
-      gameId: gameId,
+      gameId: gameId
     })
   })
   .then(function(data){

@@ -15,9 +15,19 @@ export default class BattleContainer extends React.Component {
     this.state = {
       playerIcon: '',
       move: 'waiting',
-      player: '',
-      opponent: '',
+      player: {},
+      opponent: {}
     }
+  }
+
+  componentDidMount() {
+    this.socket = io();
+    this.gameId = sessionStorage.getItem('gameId');
+    this.userId = sessionStorage.getItem('userId');
+
+
+    this.updatePlayer();
+    this.updateOpponent();
   }
 
   getIcon(move) {
@@ -45,6 +55,20 @@ export default class BattleContainer extends React.Component {
     // }
   }
 
+  updatePlayer() {
+    Game.getPlayerById(this.userId)
+      .then(data => {
+        this.setState({player: data[0]});
+      });
+  }
+
+  updateOpponent() {
+    Game.getOpponentByPlayerId(this.userId, this.gameId)
+      .then(data => {
+        this.setState({opponent: data[0]});
+      });
+  }
+
 //------------------------Render------------------------//
 //------------------------------------------------------//
   render() {
@@ -60,11 +84,13 @@ export default class BattleContainer extends React.Component {
         <div className="players container">
           {/* current player component */}
           <Player
+            player={this.state.player}
             handleMove={this.handleMove.bind(this)}
             icon={this.state.playerIcon}
           />
           {/* opponent component */}
           <Mike
+            opponent={this.state.opponent}
           />
         </div>
 

@@ -22,7 +22,7 @@ export function playerMove(move, userId){
     });
 }
 
-export function getOpponentMove(userId, gameId) {
+export function getOpponentMove(gameId, userId) {
   return fetch('/api/opponentMove', {
     method: 'POST',
     headers: {

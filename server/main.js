@@ -97,19 +97,14 @@ app.post('/api/users', (req,res) => {
 
 app.post('/api/opponentMove', (req, res) => {
   let gameId = req.body.gameId;
-  let typeGame = typeof gameId;
-  console.log('typeGame ' , typeGame);
-  console.log('gameId ' , gameId);
   let userId = req.body.userId;
-  console.log('userId ' , userId);
-  // in users table, where game id matches and userid does not,
-  // select status
+
   db('users')
       .where('game_id', gameId)
-      //.whereNot('id',   req.body.userId)
+      .whereNot('id',   userId)
       .select('status')
     .then(status => {
-      console.log(status);
+      console.log(`The opponent has a status of: ${status[0].status}`);
       res.send(status);
     })
     .catch(function(err){

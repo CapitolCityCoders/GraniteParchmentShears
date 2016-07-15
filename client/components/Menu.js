@@ -37,7 +37,7 @@ export default class Menu extends React.Component{
   // show buttons based on view in state 
   render() {
     return (
-      <div className="container six columns offset-by-three">
+      <div className="menu container six columns offset-by-three">
         <h1>The Rock Shop</h1>
         <hr />
         {

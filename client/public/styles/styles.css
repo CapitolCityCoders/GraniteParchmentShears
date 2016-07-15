@@ -1,6 +1,28 @@
+
+
 body {
   text-align: center;
-  padding-top: 10%;
+/*  padding-top: 15%;*/
+}
+
+.menu {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lobby {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.battle {
+  min-width: 692px;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* for testing div placements 
@@ -8,11 +30,6 @@ body {
 div {
   border: 1px solid white;
   /*padding: 1%;*/
-}
-
-.about {
-  padding-top: 10%;
-  width:100%;
 }
 
 .arena {

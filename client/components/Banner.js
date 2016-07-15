@@ -4,23 +4,15 @@ export default class Banner extends React.Component {
   render() {
     return (
       <div className="status container">
-        <div className="scoreboard four columns offset-by-four columns">
-          {this.props.winners.map((round, idx, arr) => 
-            <div className={'circle ' + round} key={idx}>
-              {/* animation for the current round */}
-              {idx === this.props.round - 1 ?
-                <div className="current"></div> :
-                null}
-            </div>
-          )}
-
-          {/*<div className="circle round-one player">
-          </div>
-          <div className="circle round-two">
-            <div className="current"></div>
-          </div>
-          <div className="circle round-three">
-          </div>*/}
+        <div className="banner four columns offset-by-four columns">
+          <h4>Round {this.props.round}</h4>
+          {this.props.status === 'tie' ?
+            <h4>Tie</h4> :
+            this.props.status === 'player' ?
+            <h4>{this.props.player.name} wins!</h4> :
+            this.props.status === 'opponent' ?
+            <h4>{this.props.opponent.name} wins!</h4> :
+            null}
         </div>
       </div>
     );

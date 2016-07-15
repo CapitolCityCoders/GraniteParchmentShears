@@ -5,6 +5,7 @@ import Player from './Player'
 // opponent
 import Mike from './Mike'
 import Banner from './Banner'
+import Scoreboard from './Scoreboard'
 import About from './About'
 
 import * as Game from '../models/game'
@@ -15,11 +16,11 @@ export default class BattleContainer extends React.Component {
     this.state = {
       playerIcon: '',
       opponentIcon: '',
-      move: 'waiting',
       player: {},
       opponent: {},
       round: 1,
       winners: ['', '', ''],
+      status: ''
     }
   }
 
@@ -93,17 +94,15 @@ export default class BattleContainer extends React.Component {
     this.setState({opponentIcon: getIcon(opponentMove)});
 
     if (result === 'tie') {
-      console.log('tie')
+      this.setState({status: 'tie'});
       setTimeout(this.resetRound.bind(this), 3000);
     } else if (result === 'win') {
-      console.log('player wins')
       this.state.winners[this.state.round-1] = 'player';
-      this.setState({round: this.state.round + 1});
+      this.setState({status: 'player', round: this.state.round + 1});
       setTimeout(this.resetRound.bind(this), 3000);
     } else if (result === 'lose') {
-      console.log('opponent wins')
       this.state.winners[this.state.round-1] = 'opponent';
-      this.setState({round: this.state.round + 1});
+      this.setState({status: 'opponent', round: this.state.round + 1});
       setTimeout(this.resetRound.bind(this), 3000);
     }
   }
@@ -111,10 +110,12 @@ export default class BattleContainer extends React.Component {
   resetRound() {
     this.setState({
       playerIcon: '',
-      opponentIcon: ''
+      opponentIcon: '',
+      status: ''
     });
     Game.playerMove('waiting', this.userId).then();
   }
+
 
 //------------------------Render------------------------//
 //------------------------------------------------------//
@@ -122,9 +123,15 @@ export default class BattleContainer extends React.Component {
     return(
       <div>
         {/* placeholder props for round winners for testing */}
-        <Banner 
+        <Scoreboard 
           round={this.state.round}
           winners={this.state.winners}
+        />
+        <Banner 
+          round={this.state.round}
+          status={this.state.status}
+          player={this.state.player}
+          opponent={this.state.opponent}
         />
 
         <div className="players container">

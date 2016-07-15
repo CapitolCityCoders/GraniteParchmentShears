@@ -13,7 +13,9 @@ export default class Player extends React.Component {
           <h5>{this.props.player.name}</h5>
         </div>
         <div className="arena container">
-          <img src = {this.props.icon}/>
+          {this.props.icon ?
+          <img src = {this.props.icon}/> :
+          <img src = "/images/qmark.png"/>}
         </div>
         <div>
           <button onClick={this.props.handleMove.bind(null, 'rock')}>Rock</button>

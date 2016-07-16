@@ -5,13 +5,7 @@ body {
 /*  padding-top: 15%;*/
 }
 
-.menu {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.lobby {
+.narrative {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);

@@ -16,6 +16,7 @@ body {
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
+  animation: fadeIn .75s;
 }
 
 .arena {
@@ -177,6 +178,28 @@ img {
   border-image: initial;
 }
 
+/*Animations*/
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-300px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
 @-webkit-keyframes pulse  {
   0% {-webkit-transform: scale(1); opacity: 0;}
   8% {-webkit-transform: scale(1); opacity: 0.6;}
@@ -191,4 +214,15 @@ img {
   15% {-webkit-transform: scale(1.1); opacity: 0.4;}
   30% {-webkit-transform: scale(1.2); opacity: 0.2;}
   100% {opacity: 0; -webkit-transform: scale(1.4);}
+}
+
+/*starting state of animation*/
+.fade-enter {
+  right: 1000px;
+}
+
+/*end state of animation*/
+.fade-enter-active {
+  right: 0px;
+  transition: .5s ease-in all;
 }

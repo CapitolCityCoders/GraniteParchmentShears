@@ -1,8 +1,7 @@
 
 
 body {
-  text-align: center;
-/*  padding-top: 15%;*/
+/*  text-align: center;*/
 }
 
 .narrative {
@@ -19,16 +18,10 @@ body {
   transform: translateX(-50%);
 }
 
-/* for testing div placements 
-*/
-div {
-  border: 1px solid white;
-  /*padding: 1%;*/
-}
-
 .arena {
   height:200px;
   width:200px;
+  margin-bottom: 10%;
 }
 
 .main-menu {
@@ -134,10 +127,6 @@ input[type="text"] {
   background-color: #ffe5ea;
 }
 
-.opponent button:hover {
-  
-}
-
 img {
   width: 150px;
   height: 150px;
@@ -167,8 +156,8 @@ img {
   background-color: #ff0000;
 }
 
-.scoreboard .current { 
-  margin: 0 auto;
+.scoreboard .current {
+  margin: -1px auto 0 -1px;
   border-radius: 50%;
   z-index: 10;
   background-color: transparent;
@@ -182,8 +171,8 @@ img {
   -ms-border-radius: 50%;
   border-radius: 50%;
   /* Giving Animation Function */
-  -webkit-animation: pulse 2s linear infinite;
-  -moz-animation: pulse 2s linear infinite; 
+  -webkit-animation: pulse 1.666s linear infinite;
+  -moz-animation: pulse 1.666s linear infinite; 
   border-image: initial;
 }
 

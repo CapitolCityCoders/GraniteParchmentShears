@@ -4,7 +4,7 @@ export default class Banner extends React.Component {
   render() {
     return (
       <div className="status container">
-        <div className="scoreboard four columns offset-by-four columns">
+        <div className="scoreboard">
           {/* takes winners array as a prop and adds either 'player' or 
           'opponent' as a class, to color*/}
           {this.props.winners.map((round, idx, arr) => 

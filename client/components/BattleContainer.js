@@ -159,7 +159,7 @@ export default class BattleContainer extends React.Component {
 //------------------------------------------------------//
   render() {
     return(
-      <div>
+      <div className="battle">
         <Scoreboard 
           round={this.state.round}
           winners={this.state.winners}

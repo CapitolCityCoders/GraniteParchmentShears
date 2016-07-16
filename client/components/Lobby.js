@@ -60,7 +60,7 @@ export default class Lobby extends React.Component{
 
   render() {
     return (
-      <section className="container six columns offset-by-three">
+      <section className="narrative container six columns offset-by-three">
         {this.state.gameStatus === 'waiting' ?
           <h4>Waiting for opponent...</h4> :
           this.state.gameStatus === 'full' ?

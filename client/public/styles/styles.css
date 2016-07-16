@@ -1,23 +1,28 @@
+
+
 body {
-  text-align: center;
-  padding-top: 15%;
+/*  text-align: center;*/
 }
 
-/* for testing div placements 
-*/
-div {
-  border: 1px solid white;
-  /*padding: 1%;*/
+.narrative {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.about {
-  padding-top: 10%;
-  width:100%;
+.battle {
+  min-width: 692px;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fadeIn .75s;
 }
 
 .arena {
   height:200px;
   width:200px;
+  margin-bottom: 10%;
 }
 
 .main-menu {
@@ -123,14 +128,11 @@ input[type="text"] {
   background-color: #ffe5ea;
 }
 
-.opponent button:hover {
-  
-}
-
 img {
   width: 150px;
   height: 150px;
   border: none;
+  margin-top: 15px;
 }
 
 /*
@@ -149,15 +151,15 @@ img {
 }
 
 .scoreboard .circle.player {
-  background-color: #9fff80;
+  background-color: #40ff00;
 }
 
 .scoreboard .circle.opponent {
-  background-color: #ff6666;
+  background-color: #ff0000;
 }
 
-.scoreboard .current { 
-  margin: 0 auto;
+.scoreboard .current {
+  margin: -1px auto 0 -1px;
   border-radius: 50%;
   z-index: 10;
   background-color: transparent;
@@ -171,9 +173,31 @@ img {
   -ms-border-radius: 50%;
   border-radius: 50%;
   /* Giving Animation Function */
-  -webkit-animation: pulse 2s linear infinite;
-  -moz-animation: pulse 2s linear infinite; 
+  -webkit-animation: pulse 1.666s linear infinite;
+  -moz-animation: pulse 1.666s linear infinite; 
   border-image: initial;
+}
+
+/*Animations*/
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-300px);
+  }
+  to {
+    transform: translateX(0px);
+  }
 }
 
 @-webkit-keyframes pulse  {
@@ -190,4 +214,15 @@ img {
   15% {-webkit-transform: scale(1.1); opacity: 0.4;}
   30% {-webkit-transform: scale(1.2); opacity: 0.2;}
   100% {opacity: 0; -webkit-transform: scale(1.4);}
+}
+
+/*starting state of animation*/
+.fade-enter {
+  right: 1000px;
+}
+
+/*end state of animation*/
+.fade-enter-active {
+  right: 0px;
+  transition: .5s ease-in all;
 }

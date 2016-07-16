@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 export default class End extends React.Component{
   render() {
     return (
-      <section className="container six columns offset-by-three">
+      <section className="narrative container six columns offset-by-three">
 
         <hr />
 

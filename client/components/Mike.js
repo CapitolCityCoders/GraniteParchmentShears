@@ -13,7 +13,9 @@ export default class Mike extends React.Component {
           <h5>{this.props.opponent.name}</h5>
         </div>
         <div className="arena container">
-          <img src={this.props.icon}/>
+          {this.props.icon ?
+          <img src = {(this.props.icon).split(".png")[0] + "-opponent.png"}/> :
+          <img src = "/images/qmark.png"/>}
         </div>
         <div>
           <button disabled>Rock</button>

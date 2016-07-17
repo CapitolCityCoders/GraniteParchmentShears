@@ -17,13 +17,13 @@ module.exports = app;
 app.use(express.static(path.join(__dirname, "../client/public")));
 // Parse the body of response
 app.use(bodyParser.json());
+
 // Generic error handling,
   // Commented out because express comes with default error handling
 // app.use(function(err, req, res, next) {
 //   console.error(err.stack);
 //   res.status(500).send('Something broke!');
 // });
-
 
 // taking accessCode from request body, create new game record in db
 app.post('/api/newGame', (req, res) => {

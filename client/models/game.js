@@ -1,5 +1,11 @@
 import fetch from 'isomorphic-fetch';
 
+// Is there a way to make GET requests AND send on db query search
+// parameters without having to make it a POST request and include
+// those parameters as properties in the body?
+  // Yes, you put the info on the url to send it through and then
+  // use "req.params" or "req.query" to grab the information with express
+
 //---------------post player's move-----------//
 export function playerMove(move, userId){
 	return fetch('/api/users',{

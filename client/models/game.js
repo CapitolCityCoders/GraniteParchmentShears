@@ -53,6 +53,9 @@ export function getPlayerById(userId){
   .then(function(data) {
     return data.json()
   })
+  .catch(function(error){
+    console.error(error);
+  });
 }
 
 //-------------get opponent name--------------//
@@ -70,6 +73,9 @@ export function getOpponentByPlayerId(userId, gameId){
   .then(function(data){
     return data.json()
   })
+  .catch(function(error){
+    console.error(error);
+  });
 }
 
 

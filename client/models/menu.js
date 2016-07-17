@@ -10,7 +10,10 @@ export function generateNewGame(accessCode) {
       accessCode: accessCode
     })
   })
-  .then(gameId => gameId.json());
+  .then(gameId => gameId.json())
+  .catch(function(error){
+    console.error(error);
+  });
 }
 
 export function generateNewUser(gameId, name) {
@@ -24,7 +27,10 @@ export function generateNewUser(gameId, name) {
       name: name
     })
   })
-    .then(userId => userId.json());
+  .then(userId => userId.json())
+  .catch(function(error){
+    console.error(error);
+  });
 }
 
 export function gameList() {
@@ -36,6 +42,9 @@ export function gameList() {
   })
   .then(data => {
     return data.json()
+  })
+  .catch(function(error){
+    console.error(error);
   });
 }
 
@@ -52,6 +61,9 @@ export function userList(gameId) {
   })
   .then(data => {
     return data.json()
+  })
+  .catch(function(error){
+    console.error(error);
   });
 }
 
@@ -67,7 +79,10 @@ export function updateGameStatus(gameId, status) {
       status: status
     })
   })
-  .then();
+  .then()
+  .catch(function(error){
+    console.error(error);
+  });
 }
 
 export function getGameById(gameId) {
@@ -82,5 +97,8 @@ export function getGameById(gameId) {
   })
   .then(data => {
     return data.json()
+  })
+  .catch(function(error){
+    console.error(error);
   });
 }

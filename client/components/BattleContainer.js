@@ -42,9 +42,9 @@ export default class BattleContainer extends React.Component {
           this.updatePlayer(),
           this.updateOpponent()
         ])
-          .then(() => {
-            this.resolveRound();
-          })
+        .then(() => {
+          this.resolveRound();
+        })
       }
     });
 

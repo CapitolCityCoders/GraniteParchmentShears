@@ -5,12 +5,12 @@ export function generateNewGame(accessCode) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       accessCode: accessCode
     })
   })
-    .then(gameId => gameId.json());
+  .then(gameId => gameId.json());
 }
 
 export function generateNewUser(gameId, name) {
@@ -18,7 +18,7 @@ export function generateNewUser(gameId, name) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       gameId: gameId,
       name: name
@@ -32,11 +32,11 @@ export function gameList() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
-    } 
+    }
   })
-    .then(data => {
-      return data.json()
-    });
+  .then(data => {
+    return data.json()
+  });
 }
 
 // get players in a certain game
@@ -45,14 +45,14 @@ export function userList(gameId) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       gameId: gameId,
     })
   })
-    .then(data => {
-      return data.json()
-    });
+  .then(data => {
+    return data.json()
+  });
 }
 
 // updates game status
@@ -61,13 +61,13 @@ export function updateGameStatus(gameId, status) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       gameId: gameId,
       status: status
     })
   })
-    .then();
+  .then();
 }
 
 export function getGameById(gameId) {
@@ -75,12 +75,12 @@ export function getGameById(gameId) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       gameId: gameId,
     })
   })
-    .then(data => {
-      return data.json()
-    });
+  .then(data => {
+    return data.json()
+  });
 }

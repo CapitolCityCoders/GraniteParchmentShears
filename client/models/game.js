@@ -12,12 +12,12 @@ export function playerMove(move, userId){
       userId: userId
 		})
 	})
-    .then(function(response) {
-      return response.json()
-    })
-    .catch(function(error){
-      console.error(error);
-    });
+  .then(function(response) {
+    return response.json()
+  })
+  .catch(function(error){
+    console.error(error);
+  });
 }
 
 //-----------increment player score-----------//
@@ -31,15 +31,15 @@ export function incPlayerScore(userId){
       userId: userId
 		})
 	})
-    .then(function(response) {
-      return response.json()
-    })
-    .catch(function(error){
-      console.error(error);
-    });
+  .then(function(response) {
+    return response.json()
+  })
+  .catch(function(error){
+    console.error(error);
+  });
 }
 
-//-------------------get player name----------//
+//--------------get player name---------------//
 export function getPlayerById(userId){
   return fetch('/api/getPlayerById', {
     method: 'POST',

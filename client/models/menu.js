@@ -11,9 +11,7 @@ export function generateNewGame(accessCode) {
     })
   })
   .then(gameId => gameId.json())
-  .catch(function(error){
-    console.error(error);
-  });
+  .catch(error => console.error(error));
 }
 
 export function generateNewUser(gameId, name) {
@@ -28,9 +26,7 @@ export function generateNewUser(gameId, name) {
     })
   })
   .then(userId => userId.json())
-  .catch(function(error){
-    console.error(error);
-  });
+  .catch(error => console.error(error));
 }
 
 export function gameList() {
@@ -40,12 +36,8 @@ export function gameList() {
       'Content-Type': 'application/json'
     }
   })
-  .then(data => {
-    return data.json()
-  })
-  .catch(function(error){
-    console.error(error);
-  });
+  .then(games => games.json())
+  .catch(error => console.error(error));
 }
 
 // get players in a certain game
@@ -59,12 +51,8 @@ export function userList(gameId) {
       gameId: gameId,
     })
   })
-  .then(data => {
-    return data.json()
-  })
-  .catch(function(error){
-    console.error(error);
-  });
+  .then(players => players.json())
+  .catch(error => console.error(error));
 }
 
 // updates game status
@@ -79,10 +67,8 @@ export function updateGameStatus(gameId, status) {
       status: status
     })
   })
-  .then()
-  .catch(function(error){
-    console.error(error);
-  });
+  .then(data => data.json())
+  .catch(error => console.error(error));
 }
 
 export function getGameById(gameId) {
@@ -95,10 +81,6 @@ export function getGameById(gameId) {
       gameId: gameId,
     })
   })
-  .then(data => {
-    return data.json()
-  })
-  .catch(function(error){
-    console.error(error);
-  });
+  .then(game => game.json())
+  .catch(error => console.error(error));
 }

@@ -12,12 +12,8 @@ export function playerMove(move, userId){
       userId: userId
 		})
 	})
-  .then(function(response) {
-    return response.json()
-  })
-  .catch(function(error){
-    console.error(error);
-  });
+  .then(data => data.json())
+  .catch(error => console.error(error));
 }
 
 //-----------increment player score-----------//
@@ -31,12 +27,8 @@ export function incPlayerScore(userId){
       userId: userId
 		})
 	})
-  .then(function(response) {
-    return response.json()
-  })
-  .catch(function(error){
-    console.error(error);
-  });
+  .then(data => data.json())
+  .catch(error => console.error(error));
 }
 
 //--------------get player name---------------//
@@ -50,12 +42,8 @@ export function getPlayerById(userId){
       userId: userId
     })
   })
-  .then(function(data) {
-    return data.json()
-  })
-  .catch(function(error){
-    console.error(error);
-  });
+  .then(data => data.json())
+  .catch(error => console.error(error));
 }
 
 //-------------get opponent name--------------//
@@ -70,12 +58,8 @@ export function getOpponentByPlayerId(userId, gameId){
       gameId: gameId
     })
   })
-  .then(function(data){
-    return data.json()
-  })
-  .catch(function(error){
-    console.error(error);
-  });
+  .then(data => data.json())
+  .catch(error => console.error(error));
 }
 
 

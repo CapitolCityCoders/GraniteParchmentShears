@@ -34,6 +34,11 @@ app.post('/api/newGame', (req, res) => {
   .then(gameId => {
     res.send(gameId)
   })
+  // We were handling errors this way:
+  .catch((err) => {
+    console.error(err);
+    res.sendStatus(500);
+  });
 });
 
 // taking gameId and username from request body, create new user record in db

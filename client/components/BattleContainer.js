@@ -6,7 +6,6 @@ import Player from './Player'
 import Mike from './Mike'
 import Banner from './Banner'
 import Scoreboard from './Scoreboard'
-import About from './About'
 
 import * as Game from '../models/game'
 
@@ -36,7 +35,7 @@ export default class BattleContainer extends React.Component {
 
     // listen for resolve round broadcast
     this.socket.on('resolve round', gameId => {
-      if (gameId === this.gameId) { 
+      if (gameId === this.gameId) {
         this.setState({moveAllowed: false});
         // update both player and opponent states before checking for winner
         return Promise.all([
@@ -51,7 +50,7 @@ export default class BattleContainer extends React.Component {
 
     // listen for end game broadcast
     this.socket.on('end game', data => {
-      if (data.gameId === this.gameId) { 
+      if (data.gameId === this.gameId) {
         setTimeout(this.props.endGame.bind(null, data.winner), 3000);
       }
     });
@@ -68,7 +67,7 @@ export default class BattleContainer extends React.Component {
         .then(() => {
           return this.updateOpponent();
         })
-        // if opponent has moved, socket emit to opponent to resolve round 
+        // if opponent has moved, socket emit to opponent to resolve round
         .then(() => {
           if (this.state.opponent.status !== 'waiting') {
             this.socket.emit('resolve round', this.gameId);
@@ -140,7 +139,7 @@ export default class BattleContainer extends React.Component {
         winner: playerName
       });
       // call end game for current client
-      setTimeout(this.props.endGame.bind(null, playerName), 3000); 
+      setTimeout(this.props.endGame.bind(null, playerName), 3000);
     // else, reset for next round
     } else {
       setTimeout(this.resetRound.bind(this), 3000);
@@ -160,11 +159,11 @@ export default class BattleContainer extends React.Component {
   render() {
     return(
       <div className="battle">
-        <Scoreboard 
+        <Scoreboard
           round={this.state.round}
           winners={this.state.winners}
         />
-        <Banner 
+        <Banner
           round={this.state.round}
           status={this.state.status}
           player={this.state.player}
@@ -184,9 +183,6 @@ export default class BattleContainer extends React.Component {
             icon={this.state.opponentIcon}
           />
         </div>
-
-        {/* we should make About a modal */}
-        { /* <About /> */ }
     </div>
     );
   }
@@ -215,7 +211,7 @@ function rpsWinner(a, b) {
   // to handle negative numbers in modulo
   const diff = (moves[a] - moves[b] + 3) % 3;
 
-  return diff === 0 ? 'tie' 
+  return diff === 0 ? 'tie'
     : diff === 1 ? 'win'
     : 'lose';
 }

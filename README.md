@@ -19,7 +19,6 @@ Uses a Menu component that routes to Game component based on access code.
       * Opponent
       * Scoreboard
       * Banner
-      * About (not yet implemented)
     * End
 
 ### Creating/Joining Game:

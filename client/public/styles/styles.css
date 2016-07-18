@@ -103,7 +103,7 @@ input[type="text"] {
 .battle {
   min-width: 692px;
   position: absolute;
-  top: 15%;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
   animation: fadeIn .75s;
@@ -201,18 +201,3 @@ img {
   30% {-webkit-transform: scale(1.2); opacity: 0.2;}
   100% {opacity: 0; -webkit-transform: scale(1.4);}
 }
-
-@media (min-width: 700px) {
-  h1 {
-    font-size: 8em
-  }
-  button {
-    font-size: 4em;
-    white-space: normal;
-    height: 400px;
-    width: 400px;
-  }
-}
-
-
-

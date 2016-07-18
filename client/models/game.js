@@ -8,8 +8,8 @@ import fetch from 'isomorphic-fetch';
 
 //---------------post player's move-----------//
 export function playerMove(move, userId){
-	return fetch('/api/users',{
-		method: 'POST',
+	return fetch('/api/userMove',{
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
 		},
@@ -25,7 +25,7 @@ export function playerMove(move, userId){
 //-----------increment player score-----------//
 export function incPlayerScore(userId){
 	return fetch('/api/incUserScore',{
-		method: 'POST',
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
 		},

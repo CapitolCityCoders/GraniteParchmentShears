@@ -58,7 +58,7 @@ export function userList(gameId) {
 // updates game status
 export function updateGameStatus(gameId, status) {
   return fetch('/api/gameStatus', {
-    method: 'POST',
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },

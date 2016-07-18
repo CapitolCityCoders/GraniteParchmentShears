@@ -79,22 +79,16 @@ app.post('/api/getGameById', (req, res) => {
 });
 
 //----- updates game status that matches a given gameId----//
-app.post('/api/gameStatus', (req, res) => {
+app.patch('/api/gameStatus', (req, res) => {
   db('games').where('id', req.body.gameId).update('status', req.body.status)
     .then(() => {
       res.send({});
     })
 });
 
-//--- updates user status that matches a given userId-----//
-app.post('/api/userStatus', (req, res) => {
-  db('users').where('id', req.body.userId).update('status', req.body.status)
-    .then()
-});
-
 //------------ post player throw-------------//
 //--------------------------------------------//
-app.post('/api/users', (req,res) => {
+app.patch('/api/userMove', (req, res) => {
   let move = req.body.move;
   let userId = req.body.userId;
 
@@ -126,7 +120,7 @@ app.delete('/api/games', (req,res) => {
 
 //----------- increment player score----------//
 //--------------------------------------------//
-app.post('/api/incUserScore', (req,res) => {
+app.patch('/api/incUserScore', (req,res) => {
   let userId = req.body.userId;
 
   // increment the score by 1 where id === userId

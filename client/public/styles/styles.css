@@ -1,34 +1,14 @@
+/*
+  =========================================================
+  Site Wide Styles
+  =========================================================
+*/
 
-
-body {
-/*  text-align: center;*/
-}
-
+/*Applies to all but Battle page*/
 .narrative {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-}
-
-.battle {
-  min-width: 692px;
-  position: absolute;
-  top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: fadeIn .75s;
-}
-
-.arena {
-  height:200px;
-  width:200px;
-  margin-bottom: 10%;
-}
-
-.main-menu {
-  padding-top: 20%;
-  max-width: 500px;
-  margin: auto;
 }
 
 a {
@@ -50,6 +30,12 @@ a {
   Menu
   =========================================================
 */
+
+.main-menu {
+  padding-top: 20%;
+  max-width: 500px;
+  margin: auto;
+}
 
 input[type="text"] {
   display: block;
@@ -114,9 +100,18 @@ input[type="text"] {
   =========================================================
 */
 
+.battle {
+  min-width: 692px;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fadeIn .75s;
+}
+
 .arena {
-	height:200px;
-	width:200px;
+  height:200px;
+  width:200px;
   border-radius: 10px;
 }
 
@@ -191,15 +186,6 @@ img {
   }
 }
 
-@keyframes slideRight {
-  from {
-    transform: translateX(-300px);
-  }
-  to {
-    transform: translateX(0px);
-  }
-}
-
 @-webkit-keyframes pulse  {
   0% {-webkit-transform: scale(1); opacity: 0;}
   8% {-webkit-transform: scale(1); opacity: 0.6;}
@@ -216,13 +202,21 @@ img {
   100% {opacity: 0; -webkit-transform: scale(1.4);}
 }
 
-/*starting state of animation*/
-.fade-enter {
-  right: 1000px;
-}
 
-/*end state of animation*/
-.fade-enter-active {
-  right: 0px;
-  transition: .5s ease-in all;
+/*Iphone 6*/
+@media only screen 
+  and (min-device-width : 375px) 
+  and (max-device-width : 667px) 
+  and (orientation : portrait) {
+    h1 {
+      font-size: 10em
+    }
+    button {
+      width: 100%;
+      height: 50%;
+      font-size: 40px
+    }
+    .button-container{
+      height: 600px;
+  }
 }

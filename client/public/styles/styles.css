@@ -202,21 +202,17 @@ img {
   100% {opacity: 0; -webkit-transform: scale(1.4);}
 }
 
-
-/*Iphone 6*/
-@media only screen 
-  and (min-device-width : 375px) 
-  and (max-device-width : 667px) 
-  and (orientation : portrait) {
-    h1 {
-      font-size: 10em
-    }
-    button {
-      width: 100%;
-      height: 50%;
-      font-size: 40px
-    }
-    .button-container{
-      height: 600px;
+@media (min-width: 700px) {
+  h1 {
+    font-size: 8em
+  }
+  button {
+    font-size: 4em;
+    white-space: normal;
+    height: 400px;
+    width: 400px;
   }
 }
+
+
+

@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 // });
 
 // taking accessCode from request body, create new game record in db
-app.post('/api/newGame', (req, res) => {
+app.post('/api/games', (req, res) => {
   db('games').insert({
     access_code: req.body.accessCode,
     status: 'waiting'
@@ -42,7 +42,7 @@ app.post('/api/newGame', (req, res) => {
 });
 
 // taking gameId and username from request body, create new user record in db
-app.post('/api/newUser', (req, res) => {
+app.post('/api/users', (req, res) => {
   db('users').insert({
     game_id: req.body.gameId,
     name: req.body.name,
@@ -55,7 +55,7 @@ app.post('/api/newUser', (req, res) => {
 });
 
 // returns array of game objects
-app.get('/api/gameList', (req, res) => {
+app.get('/api/games', (req, res) => {
   db.select('*').from('games')
     .then(rows => {
       res.send(rows);
@@ -63,16 +63,16 @@ app.get('/api/gameList', (req, res) => {
 });
 
 // returns array of player objects that match a given gameId
-app.post('/api/userList', (req, res) => {
-  db('users').where('game_id', req.body.gameId)
+app.get('/api/games/:gameId/users', (req, res) => {
+  db('users').where('game_id', req.params.gameId)
     .then(rows => {
       res.send(rows);
     })
 });
 
 // returns the game that matches a given gameId
-app.post('/api/getGameById', (req, res) => {
-  db('games').where('id', req.body.gameId)
+app.get('/api/games/:gameId', (req, res) => {
+  db('games').where('id', req.params.gameId)
     .then(rows => {
       res.send(rows);
     })

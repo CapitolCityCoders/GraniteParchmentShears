@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
 export function generateNewGame(accessCode) {
-  return fetch('/api/newGame', {
+  return fetch('/api/games', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ export function generateNewGame(accessCode) {
 }
 
 export function generateNewUser(gameId, name) {
-  return fetch('/api/newUser', {
+  return fetch('/api/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ export function generateNewUser(gameId, name) {
 }
 
 export function gameList() {
-  return fetch('/api/gameList', {
+  return fetch('/api/games', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -42,14 +42,11 @@ export function gameList() {
 
 // get players in a certain game
 export function userList(gameId) {
-  return fetch('/api/userList', {
-    method: 'POST',
+  return fetch('/api/games/' + gameId + '/users', {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      gameId: gameId,
-    })
+    }
   })
   .then(players => players.json())
   .catch(error => console.error(error));
@@ -72,14 +69,11 @@ export function updateGameStatus(gameId, status) {
 }
 
 export function getGameById(gameId) {
-  return fetch('/api/getGameById', {
-    method: 'POST',
+  return fetch('/api/games/' + gameId, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      gameId: gameId,
-    })
+    }
   })
   .then(game => game.json())
   .catch(error => console.error(error));

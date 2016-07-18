@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
+//---------------Create a new Game------------//
 export function generateNewGame(accessCode) {
   return fetch('/api/games', {
     method: 'POST',
@@ -14,6 +15,7 @@ export function generateNewGame(accessCode) {
   .catch(error => console.error(error));
 }
 
+//--------------Create a new User------------//
 export function generateNewUser(gameId, name) {
   return fetch('/api/users', {
     method: 'POST',
@@ -29,6 +31,7 @@ export function generateNewUser(gameId, name) {
   .catch(error => console.error(error));
 }
 
+//-----------get all games from db--------------//
 export function gameList() {
   return fetch('/api/games', {
     method: 'GET',
@@ -40,7 +43,7 @@ export function gameList() {
   .catch(error => console.error(error));
 }
 
-// get players in a certain game
+//-------get players in a certain game---------//
 export function userList(gameId) {
   return fetch('/api/games/' + gameId + '/users', {
     method: 'GET',
@@ -52,7 +55,7 @@ export function userList(gameId) {
   .catch(error => console.error(error));
 }
 
-// updates game status
+//------- updates game status -------------------//
 export function updateGameStatus(gameId, status) {
   return fetch('/api/gameStatus', {
     method: 'PATCH',
@@ -68,6 +71,7 @@ export function updateGameStatus(gameId, status) {
   .catch(error => console.error(error));
 }
 
+//----------Get a Game by ID---------//
 export function getGameById(gameId) {
   return fetch('/api/games/' + gameId, {
     method: 'GET',
@@ -79,6 +83,7 @@ export function getGameById(gameId) {
   .catch(error => console.error(error));
 }
 
+//------------Deletions-------------------//
 export function deleteGameById(gameId) {
   return fetch('/api/games', {
     method: 'DELETE',
@@ -106,3 +111,4 @@ export function deleteUserById(userId) {
   .then(data => data.json())
   .catch(error => console.error(error));
 }
+//-----------------------------------------//

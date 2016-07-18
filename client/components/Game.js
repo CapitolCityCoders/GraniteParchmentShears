@@ -5,6 +5,7 @@ import Lobby from './Lobby';
 import BattleContainer from './BattleContainer';
 import End from './End';
 
+//-------------------------Sets up Pre-Battle Views--------------//
 export default class Game extends React.Component {
   constructor() {
     super();

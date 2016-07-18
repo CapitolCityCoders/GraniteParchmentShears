@@ -27,6 +27,13 @@ export default class Lobby extends React.Component{
         this.refreshGameStatus();
       }
     });
+
+    socket.on('leave game', (gameId) => {
+      if (gameId === +sessionStorage.getItem('gameId')) { 
+        this.populatePlayers();
+        this.refreshGameStatus();
+      }
+    });
   }
 
   populatePlayers() {
@@ -55,6 +62,25 @@ export default class Lobby extends React.Component{
     socket.emit('start game', this.gameId)
 
     this.props.startGame();
+  }
+
+  handleLeaveGame() {
+    // if player is the only one in the game, delete user and game record from db
+    // else delete current user record from db and 
+    // socket emit leave game to make the other client refresh player list
+    if (this.state.players.length === 1) {
+      db.deleteUserById(this.userId).then();
+      db.deleteGameById(this.gameId).then();
+      sessionStorage.removeItem('gameId');
+      sessionStorage.removeItem('userId');
+    } else {
+      db.updateGameStatus(this.gameId, 'waiting').then(() => {
+        db.deleteUserById(this.userId).then();
+        sessionStorage.removeItem('gameId');
+        sessionStorage.removeItem('userId');
+        socket.emit('leave game', this.gameId);
+      });
+    }
   }
 
   render() {
@@ -106,7 +132,11 @@ export default class Lobby extends React.Component{
             this.state.gameStatus === 'full' ?
             <button onClick={this.handleStartGame.bind(this)}>Start Game</button> :
             null}
-          <Link to="/"><button>Leave Game</button></Link>
+          <Link to="/">
+            <button onClick={this.handleLeaveGame.bind(this)}>
+              Leave Game
+            </button>
+          </Link>
         </div>
 
       </section>

@@ -81,7 +81,9 @@ app.post('/api/getGameById', (req, res) => {
 //----- updates game status that matches a given gameId----//
 app.post('/api/gameStatus', (req, res) => {
   db('games').where('id', req.body.gameId).update('status', req.body.status)
-    .then()
+    .then(() => {
+      res.send({});
+    })
 });
 
 //--- updates user status that matches a given userId-----//
@@ -100,6 +102,24 @@ app.post('/api/users', (req,res) => {
   db('users').where('id', userId).update({status: move})
     .then(() => {
       res.send({move});
+	    // res.sendStatus(200);
+    })
+});
+
+// delete user by id
+app.delete('/api/users', (req,res) => {
+  db('users').where('id', req.body.userId).del()
+    .then(() => {
+      res.send({});
+	    // res.sendStatus(200);
+    })
+});
+
+// delete game by id
+app.delete('/api/games', (req,res) => {
+  db('games').where('id', req.body.gameId).del()
+    .then(() => {
+      res.send({});
 	    // res.sendStatus(200);
     })
 });
@@ -152,6 +172,10 @@ app.get('/app-bundle.js',
 io.on('connection', function(socket){
 	socket.on('join game', gameId => {
 		io.emit('join game', gameId)
+	})
+
+	socket.on('leave game', gameId => {
+		io.emit('leave game', gameId)
 	})
 
 	socket.on('start game', gameId => {

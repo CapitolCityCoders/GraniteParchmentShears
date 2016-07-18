@@ -84,3 +84,31 @@ export function getGameById(gameId) {
   .then(game => game.json())
   .catch(error => console.error(error));
 }
+
+export function deleteGameById(gameId) {
+  return fetch('/api/games', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      gameId: gameId,
+    })
+  })
+  .then(data => data.json())
+  .catch(error => console.error(error));
+}
+
+export function deleteUserById(userId) {
+  return fetch('/api/users', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId,
+    })
+  })
+  .then(data => data.json())
+  .catch(error => console.error(error));
+}

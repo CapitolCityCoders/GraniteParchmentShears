@@ -20,7 +20,7 @@ export default class Game extends React.Component {
     
     // listens for 'start game' broadcasts
     // changes view for current client if this gameId matches broadcast gameId
-    this.socket.on('start game', gameId => {
+    socket.on('start game', gameId => {
       if (gameId === this.gameId) { 
         this.startGame();
       }

@@ -98,7 +98,8 @@ app.patch('/api/userMove', (req, res) => {
   // insert the move under status where id === userId
   db('users').where('id', userId).update({status: move})
     .then(() => {
-      res.send({move});
+      res.send({});
+	    // res.sendStatus(200);
     })
 });
 

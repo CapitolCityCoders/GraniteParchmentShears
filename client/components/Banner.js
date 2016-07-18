@@ -11,9 +11,15 @@ export default class Banner extends React.Component {
           {this.props.status === 'tie' ?
             <h4>Tie</h4> :
             this.props.status === 'player' ?
-            <h4>{this.props.player.name} wins!</h4> :
+            <h4>
+              {this.props.godHand ? <span>GOD HAND! </span> : null }
+              {this.props.player.name} wins!
+            </h4> :
             this.props.status === 'opponent' ?
-            <h4>{this.props.opponent.name} wins!</h4> :
+            <h4>
+              {this.props.godHand ? <span>GOD HAND! </span> : null }
+              {this.props.opponent.name} wins!
+            </h4> :
             null}
         </div>
       </div>

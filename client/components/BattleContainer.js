@@ -19,7 +19,8 @@ export default class BattleContainer extends React.Component {
       round: 1,
       winners: ['', '', ''],
       status: '',
-      moveAllowed: true
+      moveAllowed: true,
+      godHand: false
     }
   }
 
@@ -68,9 +69,18 @@ export default class BattleContainer extends React.Component {
         // if opponent has moved, socket emit to opponent to resolve round
         .then(() => {
           if (this.state.opponent.status !== 'waiting') {
-            socket.emit('resolve round', this.gameId);
+            // chance for god hands
+            const playerMove = Math.random() < 0.1 ? 'godHand' : move;
+            const opponentMove = Math.random() < 0.1 ? 'godHand' : this.state.opponent.status;
+            Promise.all([
+              Game.playerMove(playerMove, this.userId),
+              Game.playerMove(opponentMove, this.state.opponent.id)
+            ])
+              .then(() => {
+                socket.emit('resolve round', this.gameId);
+              });
           }
-        })
+        });
     }
   }
 
@@ -94,9 +104,17 @@ export default class BattleContainer extends React.Component {
     // check winner
     const playerMove = this.state.player.status;
     const opponentMove = this.state.opponent.status;
-    const result = rpsWinner(playerMove, opponentMove);
+    let result; 
 
-    // show opponent move icon
+    if (playerMove === 'godHand' || opponentMove === 'godHand') {
+      result = checkGodHand(playerMove, opponentMove);
+      this.setState({godHand: true });
+    } else {
+      result = rpsWinner(playerMove, opponentMove);
+    }
+
+    // update icons if changed
+    this.setState({playerIcon: getIcon(playerMove)});
     this.setState({opponentIcon: getIcon(opponentMove)});
 
     if (result === 'tie') {
@@ -116,7 +134,8 @@ export default class BattleContainer extends React.Component {
       playerIcon: '',
       opponentIcon: '',
       status: '',
-      moveAllowed: true
+      moveAllowed: true,
+      godHand: false
     });
     Game.playerMove('waiting', this.userId).then();
   }
@@ -166,6 +185,7 @@ export default class BattleContainer extends React.Component {
           status={this.state.status}
           player={this.state.player}
           opponent={this.state.opponent}
+          godHand={this.state.godHand}
         />
 
         <div className="players container">
@@ -193,9 +213,25 @@ function getIcon(move) {
     return '/images/paper.png';
   } else if (move === 'scissors') {
     return '/images/scissors.png'
+  } else if (move === 'godHand') {
+    return '/images/godhands.png'
   }
 }
 
+function checkGodHand(a, b) {
+  const moves = {
+    rock: 0,
+    paper: 0,
+    scissors: 0,
+    godHand: 1
+  };
+
+  const diff = moves[a] - moves[b];
+
+  return diff === 0 ? 'tie'
+    : diff === 1 ? 'win'
+    : 'lose';
+}
 
 // move a wins against move b if the difference is equal to 1 or -2
 // tie if 0

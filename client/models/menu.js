@@ -5,12 +5,13 @@ export function generateNewGame(accessCode) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       accessCode: accessCode
     })
   })
-    .then(gameId => gameId.json());
+  .then(gameId => gameId.json())
+  .catch(error => console.error(error));
 }
 
 export function generateNewUser(gameId, name) {
@@ -18,13 +19,14 @@ export function generateNewUser(gameId, name) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       gameId: gameId,
       name: name
     })
   })
-    .then(userId => userId.json());
+  .then(userId => userId.json())
+  .catch(error => console.error(error));
 }
 
 export function gameList() {
@@ -32,11 +34,10 @@ export function gameList() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
-    } 
+    }
   })
-    .then(data => {
-      return data.json()
-    });
+  .then(games => games.json())
+  .catch(error => console.error(error));
 }
 
 // get players in a certain game
@@ -45,14 +46,13 @@ export function userList(gameId) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       gameId: gameId,
     })
   })
-    .then(data => {
-      return data.json()
-    });
+  .then(players => players.json())
+  .catch(error => console.error(error));
 }
 
 // updates game status
@@ -61,13 +61,14 @@ export function updateGameStatus(gameId, status) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       gameId: gameId,
       status: status
     })
   })
-    .then();
+  .then(data => data.json())
+  .catch(error => console.error(error));
 }
 
 export function getGameById(gameId) {
@@ -75,12 +76,11 @@ export function getGameById(gameId) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-    }, 
+    },
     body: JSON.stringify({
       gameId: gameId,
     })
   })
-    .then(data => {
-      return data.json()
-    });
+  .then(game => game.json())
+  .catch(error => console.error(error));
 }

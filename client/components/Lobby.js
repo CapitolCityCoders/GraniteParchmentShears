@@ -13,7 +13,6 @@ export default class Lobby extends React.Component{
   }
 
   componentDidMount() {
-    this.socket = io();
     this.userId = +sessionStorage.getItem('userId');
     this.gameId = +sessionStorage.getItem('gameId');
 
@@ -22,7 +21,7 @@ export default class Lobby extends React.Component{
     this.populatePlayers();
     // listens for 'join game' broadcasts
     // refreshes player list if gameId in broadcast matches current gameId
-    this.socket.on('join game', (gameId) => {
+    socket.on('join game', (gameId) => {
       if (gameId === this.gameId) { 
         this.populatePlayers();
         this.refreshGameStatus();
@@ -53,7 +52,7 @@ export default class Lobby extends React.Component{
     db.updateGameStatus(this.gameId, 'inProgress').then();
 
     // socket emit for other player to update state and start game
-    this.socket.emit('start game', this.gameId)
+    socket.emit('start game', this.gameId)
 
     this.props.startGame();
   }

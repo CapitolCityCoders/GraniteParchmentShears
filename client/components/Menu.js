@@ -15,10 +15,6 @@ export default class Menu extends React.Component{
     };
   }
 
-  componentDidMount() {
-    this.socket = io();
-  }
-
   // two-way binding for access code input
   handleAccessCodeChange(e) {
     this.setState({accessCode: e.currentTarget.value});

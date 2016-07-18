@@ -1,13 +1,13 @@
 {
-  "name": "react-pet-shop",
+  "name": "TheRockShop",
   "version": "1.0.0",
-  "description": "",
+  "description": "A two player game of Rock-Paper-Scissors.",
   "main": "main.js",
   "scripts": {
     "start": "nodemon ./server/main.js --ignore client/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Nathan Schwartz <Nathan.Schwartz95@gmail.com>",
+  "author": "GraniteParchmentShears",
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.9.1",

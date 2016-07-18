@@ -6,10 +6,10 @@ import fetch from 'isomorphic-fetch';
   // Yes, you put the info on the url to send it through and then
   // use "req.params" or "req.query" to grab the information with express
 
-//---------------post player's move-----------//
+//------update player's status to move-------//
 export function playerMove(move, userId){
-	return fetch('/api/users',{
-		method: 'POST',
+	return fetch('/api/userMove',{
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
 		},
@@ -25,7 +25,7 @@ export function playerMove(move, userId){
 //-----------increment player score-----------//
 export function incPlayerScore(userId){
 	return fetch('/api/incUserScore',{
-		method: 'POST',
+		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json'
 		},
@@ -37,35 +37,26 @@ export function incPlayerScore(userId){
   .catch(error => console.error(error));
 }
 
-//--------------get player name---------------//
+//--------------get player by id-------------//
 export function getPlayerById(userId){
-  return fetch('/api/getPlayerById', {
-    method: 'POST',
+  return fetch('/api/users/' + userId, {
+    method: 'GET',
     headers: {
       'Content-Type' : 'application/json'
-    },
-    body: JSON.stringify({
-      userId: userId
-    })
+    }
   })
   .then(data => data.json())
   .catch(error => console.error(error));
 }
 
-//-------------get opponent name--------------//
+//--------get opponent by player id-----------//
 export function getOpponentByPlayerId(userId, gameId){
-  return fetch('/api/getOpponentByPlayerId', {
-    method: "POST",
+  return fetch('/api/users/' + userId + '/opponent/' + gameId, {
+    method: "GET",
     headers: {
       'Content-Type' : 'application/json'
-    },
-    body: JSON.stringify({
-      userId: userId,
-      gameId: gameId
-    })
+    }
   })
   .then(data => data.json())
   .catch(error => console.error(error));
 }
-
-

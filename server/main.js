@@ -141,8 +141,8 @@ app.get('/api/users/:id', (req,res) => {
 //------get opponent object by player id-----//
 //-------------------------------------------//
 app.get('/api/users/:userId/opponent/:gameId', (req,res) => {
-  let userId = req.params.userId;
-  let gameId = req.params.gameId;
+  var userId = req.params.userId;
+  var gameId = req.params.gameId;
   db.select('*').from('users').where('game_id', '=', gameId).whereNot('id', '=', userId)
     .then((data) => {
       res.send(data)

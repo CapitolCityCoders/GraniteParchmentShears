@@ -15,7 +15,6 @@ export default class Game extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io();
     this.userId = +sessionStorage.getItem('userId');
     this.gameId = +sessionStorage.getItem('gameId');
     

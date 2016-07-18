@@ -1,5 +1,5 @@
 {
-  "name": "The Rock Shop",
+  "name": "TheRockShop",
   "version": "1.0.0",
   "description": "A two player game of Rock-Paper-Scissors.",
   "main": "main.js",

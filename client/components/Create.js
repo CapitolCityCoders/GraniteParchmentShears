@@ -8,10 +8,6 @@ export default class Join extends React.Component {
     super();
   }
 
-  componentDidMount() {
-    this.socket = io();
-  }
-
   // generate new access code and reroute to there
   handleCreate(e) {
     e.preventDefault();

@@ -25,7 +25,6 @@ export default class BattleContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.socket = io();
     this.gameId = sessionStorage.getItem('gameId');
     this.userId = sessionStorage.getItem('userId');
 
@@ -34,7 +33,7 @@ export default class BattleContainer extends React.Component {
     this.updateOpponent();
 
     // listen for resolve round broadcast
-    this.socket.on('resolve round', gameId => {
+    socket.on('resolve round', gameId => {
       if (gameId === this.gameId) {
         this.setState({moveAllowed: false});
         // update both player and opponent states before checking for winner
@@ -49,7 +48,7 @@ export default class BattleContainer extends React.Component {
     });
 
     // listen for end game broadcast
-    this.socket.on('end game', data => {
+    socket.on('end game', data => {
       if (data.gameId === this.gameId) {
         setTimeout(this.props.endGame.bind(null, data.winner), 3000);
       }
@@ -70,7 +69,7 @@ export default class BattleContainer extends React.Component {
         // if opponent has moved, socket emit to opponent to resolve round
         .then(() => {
           if (this.state.opponent.status !== 'waiting') {
-            this.socket.emit('resolve round', this.gameId);
+            socket.emit('resolve round', this.gameId);
           }
         })
     }
@@ -134,7 +133,7 @@ export default class BattleContainer extends React.Component {
     if (this.state.player.score === 1) {
       const playerName = this.state.player.name;
       // emit end game with winner name to the other client
-      this.socket.emit('end game', {
+      socket.emit('end game', {
         gameId: this.gameId,
         winner: playerName
       });

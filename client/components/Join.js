@@ -8,10 +8,6 @@ export default class Join extends React.Component {
     super();
   }
 
-  componentDidMount() {
-    this.socket = io();
-  }
-
   handleJoin(e) {
     e.preventDefault();
 
@@ -34,7 +30,7 @@ export default class Join extends React.Component {
               db.updateGameStatus(game.id, 'full').then();
 
               // emits join game to other players
-              this.socket.emit('join game', game.id)
+              socket.emit('join game', game.id)
 
               browserHistory.push(`/${this.props.accessCode}`);
             })

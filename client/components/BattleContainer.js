@@ -2,8 +2,7 @@ import React from 'react'
 
 import Menu from './Menu'
 import Player from './Player'
-// opponent
-import Mike from './Mike'
+import Mike from './Mike' // opponent
 import Banner from './Banner'
 import Scoreboard from './Scoreboard'
 
@@ -111,7 +110,7 @@ export default class BattleContainer extends React.Component {
     }
   }
 
-  // reset states for next set of moves
+  //--------reset states for next set of moves-------//
   resetRound() {
     this.setState({
       playerIcon: '',

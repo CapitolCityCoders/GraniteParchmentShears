@@ -32,13 +32,23 @@ Uses a Menu component that routes to Game component based on access code.
  * If players tie, gameplay will continue in current round
 
 
-### Next Product Iterations:
+### Future Features:
  * Spectators / more than 2 players in room
- *Rematch functionality
- *Player Stats
- *Implement Gulp
+ * Rematch functionality
+ * Player Stats
+ * Implement Gulp
+ * Edit Name button functionality
 
 
 ### Outstanding Bugs:
  * When refreshed inGame, goes to Lobby
  * Sockets left open for every game
+ 
+
+
+### Authors: 
+  * Amanda Fillip
+  * Mike Fleming
+  * Tom LeConey
+  * Shane McQuerter
+  * Kenny Torng

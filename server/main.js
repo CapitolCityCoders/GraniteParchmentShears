@@ -18,12 +18,14 @@ app.use(express.static(path.join(__dirname, "../client/public")));
 // Parse the body of response
 app.use(bodyParser.json());
 
-// Generic error handling,
-  // Commented out because express comes with default error handling
-// app.use(function(err, req, res, next) {
-//   console.error(err.stack);
-//   res.status(500).send('Something broke!');
-// });
+/* Generic error handling: Commented out because express comes with default error handling
+    app.use(function(err, req, res, next) {
+      console.error(err.stack);
+      res.status(500).send('Something broke!');
+  }); */
+
+//----------------- Server/Database Calls--------------------//
+//----------------------------------------------------------//
 
 // taking accessCode from request body, create new game record in db
 app.post('/api/games', (req, res) => {
@@ -79,6 +81,7 @@ app.get('/api/games/:gameId', (req, res) => {
 });
 
 //----- updates game status that matches a given gameId----//
+//---------------------------------------------------------//
 app.patch('/api/gameStatus', (req, res) => {
   db('games').where('id', req.body.gameId).update('status', req.body.status)
     .then(() => {
@@ -96,7 +99,6 @@ app.patch('/api/userMove', (req, res) => {
   db('users').where('id', userId).update({status: move})
     .then(() => {
       res.send({move});
-	    // res.sendStatus(200);
     })
 });
 
@@ -105,7 +107,6 @@ app.delete('/api/users', (req,res) => {
   db('users').where('id', req.body.userId).del()
     .then(() => {
       res.send({});
-	    // res.sendStatus(200);
     })
 });
 
@@ -114,7 +115,6 @@ app.delete('/api/games', (req,res) => {
   db('games').where('id', req.body.gameId).del()
     .then(() => {
       res.send({});
-	    // res.sendStatus(200);
     })
 });
 
@@ -148,6 +148,7 @@ app.get('/api/users/:userId/opponent/:gameId', (req,res) => {
       res.send(data)
     })
 })
+//---------------------------------------------------------------------------//
 
 // use history api fallback middleware after defining db routes
 // to not interfere with get requests
@@ -160,8 +161,8 @@ app.get('/app-bundle.js',
   })
 );
 
-//  socket.io is listening for queues triggered by
-//    players, then emits information to both
+//---  socket.io is listening for queues triggered by ----//
+//---  players, then emits information to both     ----//
 io.on('connection', function(socket){
 	socket.on('join game', gameId => {
 		io.emit('join game', gameId)

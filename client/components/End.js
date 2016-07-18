@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-
+//--------------------Game Over Page-------------//
 export default class End extends React.Component{
   render() {
     return (

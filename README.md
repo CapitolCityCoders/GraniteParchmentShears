@@ -34,11 +34,11 @@ Uses a Menu component that routes to Game component based on access code.
 
 ### Next Product Iterations:
  * Spectators / more than 2 players in room
- *Rematch functionality
- *Player Stats
- *Implement Gulp
+ * Rematch functionality
+ * Player Stats
+ * Implement Gulp
 
 
 ### Outstanding Bugs:
- * When refreshed inGame, goes to Lobby
+ * When browser window is refreshed in Game, redirects to Lobby
  * Sockets left open for every game

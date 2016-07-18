@@ -110,8 +110,8 @@ input[type="text"] {
 }
 
 .arena {
-	height:200px;
-	width:200px;
+  height:200px;
+  width:200px;
   border-radius: 10px;
 }
 
@@ -200,4 +200,23 @@ img {
   15% {-webkit-transform: scale(1.1); opacity: 0.4;}
   30% {-webkit-transform: scale(1.2); opacity: 0.2;}
   100% {opacity: 0; -webkit-transform: scale(1.4);}
+}
+
+
+/*Iphone 6*/
+@media only screen 
+  and (min-device-width : 375px) 
+  and (max-device-width : 667px) 
+  and (orientation : portrait) {
+    h1 {
+      font-size: 10em
+    }
+    button {
+      width: 100%;
+      height: 50%;
+      font-size: 40px
+    }
+    .button-container{
+      height: 600px;
+  }
 }

@@ -132,18 +132,17 @@ app.patch('/api/incUserScore', (req,res) => {
 
 //------------ get player object by id-------//
 //-------------------------------------------//
-app.post('/api/getPlayerById', (req,res) => {
-  let userId = req.body.userId;
-  db.select('*').from('users').where('id', userId)
+app.get('/api/users/:id', (req,res) => {
+  db.select('*').from('users').where('id', req.params.id)
     .then((data) => {
       res.send(data)
     })
 })
 //------get opponent object by player id-----//
 //-------------------------------------------//
-app.post('/api/getOpponentByPlayerId', (req,res) => {
-  let userId = req.body.userId;
-  let gameId = req.body.gameId;
+app.get('/api/users/:userId/opponent/:gameId', (req,res) => {
+  let userId = req.params.userId;
+  let gameId = req.params.gameId;
   db.select('*').from('users').where('game_id', '=', gameId).whereNot('id', '=', userId)
     .then((data) => {
       res.send(data)

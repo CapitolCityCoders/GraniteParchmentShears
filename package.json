@@ -2,6 +2,7 @@
   "name": "TheRockShop",
   "version": "1.0.0",
   "description": "A two player game of Rock-Paper-Scissors.",
+  "engines" : { "node" : "6.2.2" },
   "main": "main.js",
   "scripts": {
     "start": "nodemon ./server/main.js --ignore client/",
@@ -28,6 +29,5 @@
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
     "sqlite3": "^3.1.4"
-  },
-  "engines" : { "node" : "6.2.2" }
+  }
 }

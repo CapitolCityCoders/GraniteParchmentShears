@@ -112,3 +112,17 @@ export function deleteUserById(userId) {
   .catch(error => console.error(error));
 }
 //-----------------------------------------//
+
+export function resetUser(userId) {
+  return fetch('/api/resetUser', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId,
+    })
+  })
+  .then(data => data.json())
+  .catch(error => console.error(error));
+}

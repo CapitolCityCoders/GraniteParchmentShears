@@ -89,6 +89,16 @@ app.patch('/api/gameStatus', (req, res) => {
     })
 });
 
+app.patch('/api/resetUser', (req, res) => {
+  db('users').where('id', req.body.userId).update({
+    status: 'waiting',
+    score: 0
+  })
+    .then(() => {
+      res.send({});
+    })
+});
+
 //------------ post player throw-------------//
 //--------------------------------------------//
 app.patch('/api/userMove', (req, res) => {
@@ -183,6 +193,10 @@ io.on('connection', function(socket){
 
 	socket.on('end game', data => {
 		io.emit('end game', data)
+	})
+
+	socket.on('rematch', gameId => {
+		io.emit('rematch', gameId)
 	})
 })
 

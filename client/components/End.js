@@ -13,7 +13,7 @@ export default class End extends React.Component{
         <hr />
 
         <div className="button-container">
-          <button>Rematch</button>
+          <button onClick={this.props.rematch}>Rematch</button>
           <Link to="/"><button>Leave Game</button></Link>
         </div>
 

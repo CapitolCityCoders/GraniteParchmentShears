@@ -70,8 +70,8 @@ export default class BattleContainer extends React.Component {
         .then(() => {
           if (this.state.opponent.status !== 'waiting') {
             // chance for god hands
-            const playerMove = Math.random() < 0.1 ? 'godHand' : move;
-            const opponentMove = Math.random() < 0.1 ? 'godHand' : this.state.opponent.status;
+            const playerMove = Math.random() < .1 ? 'godHand' : move;
+            const opponentMove = Math.random() < .1 ? 'godHand' : this.state.opponent.status;
             Promise.all([
               Game.playerMove(playerMove, this.userId),
               Game.playerMove(opponentMove, this.state.opponent.id)
@@ -101,6 +101,7 @@ export default class BattleContainer extends React.Component {
   }
 
   resolveRound() {
+    console.log(this.state.player.score)
     // check winner
     const playerMove = this.state.player.status;
     const opponentMove = this.state.opponent.status;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as db from '../models/menu';
+import * as Menu from '../models/menu';
 import Lobby from './Lobby';
 import BattleContainer from './BattleContainer';
 import End from './End';
@@ -11,6 +11,7 @@ export default class Game extends React.Component {
     super();
     this.state = {
       view: 'lobby',
+      rematch: false,
       winner: ''
     };
   }
@@ -26,6 +27,12 @@ export default class Game extends React.Component {
         this.startGame();
       }
     });
+
+    socket.on('rematch', gameId => {
+      if (gameId === this.gameId) { 
+        this.setState({rematch: true});
+      }
+    });
   }
 
   startGame() {
@@ -39,6 +46,34 @@ export default class Game extends React.Component {
     });
   }
 
+  //  make a rematch function to pass to the end component
+  //  upon clicking rematch, it sets the view state back to lobby
+
+  rematch(){
+    if (!this.state.rematch) {
+      // emit socket stuff
+      // reset db
+      //    reset player scores and status
+      Promise.all([
+        Menu.updateGameStatus(this.gameId, 'waiting'),
+        Menu.resetUser(this.userId)
+      ])
+        .then(() => {
+          socket.emit('rematch', this.gameId);
+          this.setState({view: 'lobby'});
+        });
+    } else {
+      Promise.all([
+        Menu.updateGameStatus(this.gameId, 'full'),
+        Menu.resetUser(this.userId)
+      ])
+        .then(() => {
+          socket.emit('join game', this.gameId);
+          this.setState({view: 'lobby'});
+        });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -51,7 +86,8 @@ export default class Game extends React.Component {
           endGame={this.endGame.bind(this)} 
         /> : 
         <End 
-          winner={this.state.winner} 
+          winner={this.state.winner}
+          rematch={this.rematch.bind(this)} 
         />}
       </div>
     );

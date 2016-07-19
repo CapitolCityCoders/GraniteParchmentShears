@@ -1,8 +1,14 @@
 {
   "name": "TheRockShop",
-  "version": "1.0.0",
+  "version": "1.5.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoodNews-MKS-39/RockPaperScissors.git"
+  },
   "description": "A two player game of Rock-Paper-Scissors.",
-  "engines" : { "node" : "6.2.2" },
+  "engines": {
+    "node": "6.2.2"
+  },
   "main": "main.js",
   "scripts": {
     "start": "nodemon ./server/main.js --ignore client/",

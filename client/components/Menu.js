@@ -24,18 +24,17 @@ export default class Menu extends React.Component{
       this.setState({view: 'menu'});
       db.generateNewSession(userId, accessToken) // add session to db
       .then(function(sessionId) {
-        return;
-      })
-      .then(function(){
-        let name = sessionStorage.getItem("name");
-        let photo_url = sessionStorage.getItem("photo_url");
-        let friends = sessionStorage.getItem("friends");
-        console.log('hi', 'name', name, 'photo_url', photo_url, 'friends', friends);
-        db.createNewUser(userId, name, photo_url, friends) // add user to db
-        .then(function(userId) {
-          sessionStorage.clear();
-          return;
-        })
+        setTimeout(function(){
+          let name = sessionStorage.getItem("name");
+          let photo_url = sessionStorage.getItem("photo_url");
+          let friends = sessionStorage.getItem("friends");
+          console.log('hi', 'name', name, 'photo_url', photo_url, 'friends', friends);
+          db.createNewUser(userId, name, photo_url, friends) // add user to db
+          .then(function(userId) {
+            sessionStorage.clear();
+            return;
+          })
+        }, 500);
       });
     } else {
       this.setState({view: 'loggedOut'});
@@ -68,7 +67,6 @@ export default class Menu extends React.Component{
     db.deleteSessionByToken(accessToken)
     .then(function() {
       console.log('backend tells frontend that the session is deleted');
-      debugger;
       document.getElementById('log-out').click();
       return;
     });

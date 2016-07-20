@@ -30,7 +30,7 @@
       // they are logged into this app or not.
       document.getElementById('status').innerHTML = 'Login with Facebook';
         // very small image that can not be seen
-      document.getElementById('img').src ="data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+      // document.getElementById('img').src ="data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
     }
   }
 
@@ -81,7 +81,6 @@
     // api call to retrive a large profile image for user
     FB.api('/me/picture?type=large', function(response) {
       sessionStorage.setItem('imgUrl', response.data.url);
-      document.getElementById('img').src = response.data.url;
     });
   }
 </script>
@@ -96,7 +95,6 @@
 </fb:login-button>
 
 <div id="status"></div>
-<img id='img' />
 
 
 

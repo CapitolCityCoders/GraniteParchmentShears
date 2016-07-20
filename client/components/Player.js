@@ -7,8 +7,6 @@ export default class Player extends React.Component {
   }
 
   render() {
-    // trying to see if the prop is getting the url.  
-    alert(this.props.fbName)
     return (
       <div className="player six columns">
         <div>

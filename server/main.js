@@ -199,7 +199,7 @@ io.on('connection', function(socket){
 		io.emit('rematch', gameId)
 	})
   socket.on('message', body => {
-    socket.emit('message', {
+    socket.broadcast.emit('message', {
       body: body,
       from: socket.id.slice(8)
     })

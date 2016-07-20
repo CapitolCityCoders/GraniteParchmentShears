@@ -22,11 +22,11 @@ class ChatApp extends React.Component {
 			const message = {
 				body: body,
 				from: 'Me'
-			}
+			}	
 			console.log('this', this)
 			this.setState({ messages: [message, ...this.state.messages] })
 	  	this.socket.emit('message', body)
-			event.target.value = '';
+			event.target.value = ''
 		}
 	}
 
@@ -37,7 +37,7 @@ class ChatApp extends React.Component {
 
 		return (
 			<div>
-				<h1>Messages</h1>
+				<h4>Messages</h4>
 				<input type='text' placeholder='enter message...' onKeyUp={this.handleSubmit} />
 				{messages}
 			</div>

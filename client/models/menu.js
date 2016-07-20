@@ -17,18 +17,20 @@ export function generateNewGame(accessCode) {
 
 //--------------Generate a new Session------------//
 export function generateNewSession(user_id, access_token) {
-  return fetch('/api/sessions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      user_id: user_id,
-      access_token: access_token
+  if (user_id && access_token) {
+    return fetch('/api/sessions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+        access_token: access_token
+      })
     })
-  })
-  .then(sessionId => sessionId.json())
-  .catch(error => console.error(error));
+    .then(sessionId => sessionId.json())
+    .catch(error => console.error(error));
+  }
 }
 
 //--------------Create a new USer------------//

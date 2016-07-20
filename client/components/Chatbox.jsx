@@ -77,12 +77,10 @@ class Messages extends React.Component {
 class Message extends React.Component {
   render() {
     return (
-
           <tr className="message">
             <td>{this.props.name}</td>
             <td style={{textAlign: 'right'}}>{this.props.message}</td>
           </tr>
-
     )
   }
 }

@@ -215,9 +215,36 @@ io.on('connection', function(socket){
 	socket.on('rematch', gameId => {
 		io.emit('rematch', gameId)
 	})
-  socket.on('chat message', msg => {
-    io.emit('chat message', msg)
+  
+  // socket.on('chat message', msg => {
+  //   io.emit('chat message', msg)
+  // })
+  
+  socket.on('subscribe', function(room) { 
+      console.log('joining room', room);
+      socket.join(room); 
   })
+
+  socket.on('unsubscribe', function(room) {  
+      console.log('leaving room', room);
+      socket.leave(room); 
+  })
+
+  socket.on('send', function(data) {
+      console.log('sending message: ', data);
+      io.sockets.in(data.room).emit('chat message', data.message);
+  });
+
+  // app.post('/send/:room/', function(req, res) {
+  //   var room = req.params.room
+  //       message = req.body;
+
+  //   io.sockets.in(room).emit('chat message', { room: room, message: message });
+
+  //   res.end('message sent');
+  // });
+
+
 })
 
 var port = process.env.PORT || 4000;

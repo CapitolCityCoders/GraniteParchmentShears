@@ -12,6 +12,7 @@ export default class Chat extends React.Component {
 
   componentDidMount() {
   	this.gameId = sessionStorage.getItem('gameId');
+  	socket.emit('subscribe', this.gameId);
   	var self = this
 		socket.on('chat message', function(msg){
 			console.log("socket.on: ", msg)
@@ -27,8 +28,10 @@ export default class Chat extends React.Component {
           	<input value={this.state.chatText}
 							onChange={event => this.setState({chatText: event.target.value})}/>
 								<button type="button" onClick={() => {
+									this.gameId = sessionStorage.getItem('gameId');
+  								console.log("uh ", this.gameId)
             			console.log("socket.emit: ", this.state.chatText)
-            			socket.emit('chat message', this.state.chatText)}}>send</button>
+            			socket.emit('send', {room: this.gameId, message: this.state.chatText})}}>send</button>
           </form>
         </div>
     )

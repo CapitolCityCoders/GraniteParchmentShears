@@ -218,7 +218,9 @@ export default class BattleContainer extends React.Component {
             icon={this.state.opponentIcon}
           />
         </div>
-        <Chat />
+        <Chat 
+          player={this.state.player}
+        />
     </div>
     );
   }

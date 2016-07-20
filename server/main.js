@@ -216,10 +216,6 @@ io.on('connection', function(socket){
 		io.emit('rematch', gameId)
 	})
   
-  // socket.on('chat message', msg => {
-  //   io.emit('chat message', msg)
-  // })
-  
   socket.on('subscribe', function(room) { 
       console.log('joining room', room);
       socket.join(room); 
@@ -232,18 +228,8 @@ io.on('connection', function(socket){
 
   socket.on('send', function(data) {
       console.log('sending message: ', data);
-      io.sockets.in(data.room).emit('chat message', data.message);
+      io.sockets.in(data.room).emit('chat message', data);
   });
-
-  // app.post('/send/:room/', function(req, res) {
-  //   var room = req.params.room
-  //       message = req.body;
-
-  //   io.sockets.in(room).emit('chat message', { room: room, message: message });
-
-  //   res.end('message sent');
-  // });
-
 
 })
 

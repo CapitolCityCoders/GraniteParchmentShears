@@ -15,8 +15,8 @@ export function generateNewGame(accessCode) {
   .catch(error => console.error(error));
 }
 
-//--------------Create a new User------------//
-export function generateNewUser(gameId, name) {
+//--------------Create a new Session------------//
+export function generateNewSession(userId, name) {
   return fetch('/api/users', {
     method: 'POST',
     headers: {

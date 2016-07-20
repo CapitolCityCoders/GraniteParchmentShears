@@ -4,6 +4,7 @@ import { Link, browserHistory } from 'react-router';
 import Create from './Create';
 import Join from './Join';
 import * as db from '../models/menu';
+import ChatApp from './ChatApp';
 
 export default class Menu extends React.Component{
   constructor(){
@@ -83,6 +84,9 @@ export default class Menu extends React.Component{
         }
         <div id="status">Loading...</div>
         <hr />
+        <div className="chat-app">
+          <ChatApp />
+        </div>
       </div>
     );
   }

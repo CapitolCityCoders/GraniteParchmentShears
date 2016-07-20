@@ -198,6 +198,12 @@ io.on('connection', function(socket){
 	socket.on('rematch', gameId => {
 		io.emit('rematch', gameId)
 	})
+  socket.on('message', body => {
+    socket.emit('message', {
+      body: body,
+      from: socket.id.slice(8)
+    })
+  })
 })
 
 var port = process.env.PORT || 4000;

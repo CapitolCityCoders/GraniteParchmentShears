@@ -3,6 +3,7 @@ import { Link, browserHistory } from 'react-router';
 
 import Create from './Create';
 import Join from './Join';
+import Chatbox from './Chatbox.jsx';
 import * as db from '../models/menu';
 
 export default class Menu extends React.Component{
@@ -11,7 +12,7 @@ export default class Menu extends React.Component{
     this.state = {
       accessCode: '',
       username: '',
-      view: 'menu', 
+      view: 'menu',
     };
   }
 
@@ -30,7 +31,7 @@ export default class Menu extends React.Component{
     this.setState({view: view});
   }
 
-  // show buttons based on view in state 
+  // show buttons based on view in state
   render() {
     return (
       <div className="narrative container six columns offset-by-three">
@@ -43,13 +44,13 @@ export default class Menu extends React.Component{
               <button onClick={this.handleViewChange.bind(this, 'join')}>Join Game</button>
             </div>
           : this.state.view === 'create'
-          ? <Create 
+          ? <Create
               username={this.state.username}
               handleUsernameChange={this.handleUsernameChange.bind(this)}
               handleViewChange={this.handleViewChange.bind(this)}
             />
           : this.state.view === 'join'
-          ? <Join 
+          ? <Join
               username={this.state.username}
               accessCode={this.state.accessCode}
               handleUsernameChange={this.handleUsernameChange.bind(this)}
@@ -59,8 +60,8 @@ export default class Menu extends React.Component{
           : null
         }
         <hr />
+        <Chatbox/>
       </div>
     );
   }
 }
-

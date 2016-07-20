@@ -64,6 +64,8 @@
       // Get userID and accessToken
       sessionStorage.setItem('userId', authResponse.userID);
       sessionStorage.setItem('accessToken', authResponse.accessToken);
+      console.log('accessToken: ', accessToken)
+
       // Get name
       FB.api(`/${authResponse.userID}`, function(response) {
         sessionStorage.setItem('name', response.name);

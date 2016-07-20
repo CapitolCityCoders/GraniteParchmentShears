@@ -31,17 +31,17 @@ export default class Join extends React.Component {
                 sessionStorage.setItem('gameId', gameId);
                 return gameId;
               })
-              .then(gameId => {
-                // create new user using new gameId
-                db.generateNewUser(gameId, this.props.username)
-                  .then(userId => {
-                    userId = userId[0];
+              // .then(gameId => {
+              //   // create new user using new gameId
+              //   db.generateNewUser(gameId, this.props.username)
+              //     .then(userId => {
+              //       userId = userId[0];
 
-                    // set current userId to local storage
-                    sessionStorage.setItem('userId', userId);
-                    browserHistory.push(`/${accessCode}`);
-                  })
-              })
+              //       // set current userId to local storage
+              //       sessionStorage.setItem('userId', userId);
+              //       browserHistory.push(`/${accessCode}`);
+              //     })
+              // })
             gameGenerated = true;
           // re generate access code if already exist
           } else {

@@ -215,8 +215,8 @@ io.on('connection', function(socket){
 	socket.on('rematch', gameId => {
 		io.emit('rematch', gameId)
 	})
-  socket.on('chat message', gameId => {
-    io.emit('chat message', gameId)
+  socket.on('chat message', msg => {
+    io.emit('chat message', msg)
   })
 })
 

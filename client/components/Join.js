@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link, browserHistory } from 'react-router'
-import Menu from './Menu'
 
 import * as db from '../models/menu'
 

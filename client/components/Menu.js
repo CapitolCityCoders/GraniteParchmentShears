@@ -3,6 +3,8 @@ import { Link, browserHistory } from 'react-router';
 
 import Create from './Create';
 import Join from './Join';
+import Graph from './Graph';
+import PieChart from './PieChart';
 import * as db from '../models/menu';
 
 export default class Menu extends React.Component{
@@ -35,6 +37,8 @@ export default class Menu extends React.Component{
     return (
       <div className="narrative container six columns offset-by-three">
         <h1>The Rock Shop</h1>
+        <Graph />
+        <PieChart />
         <hr />
         {
           this.state.view === 'menu'

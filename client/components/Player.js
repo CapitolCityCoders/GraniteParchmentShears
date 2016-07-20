@@ -7,6 +7,7 @@ export default class Player extends React.Component {
   }
 
   render() {
+    // trying to see if the prop is getting the url.
     return (
       <div className="player six columns">
         <div>
@@ -14,7 +15,10 @@ export default class Player extends React.Component {
         </div>
         <div className="arena container">
           {this.props.icon ?
-          <img src = {this.props.icon}/> :
+          <img src = {this.props.icon}/> 
+          : this.props.fbPhoto ?
+          <img src={this.props.fbPhoto}/>
+          :
           <img src = "/images/qmark.png"/>}
         </div>
         <div>

@@ -38,7 +38,8 @@ export default class Menu extends React.Component{
       <div className="narrative container six columns offset-by-three">
         <h1>The Rock Shop</h1>
         <Graph />
-        <PieChart />
+      {/*To fix: users log in to see their profiles*/}
+        <userProfile username={this.state.username}/>
         <hr />
         {
           this.state.view === 'menu'

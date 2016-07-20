@@ -215,6 +215,10 @@ io.on('connection', function(socket){
 	socket.on('rematch', gameId => {
 		io.emit('rematch', gameId)
 	})
+
+  socket.on('Chatbox message', messages => {
+    io.emit('Chatbox message', messages)
+  })
 })
 
 var port = process.env.PORT || 4000;

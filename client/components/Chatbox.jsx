@@ -5,31 +5,43 @@ export default class Chatbox extends React.Component {
   constructor(){
     super();
     this.state = {
-      messages: [{name: 'Chris', message: 'this is a test'},{name: 'Kai', message: 'this is a test too'}]
+      text: '',
+      messages: []
     }
   }
 
-  componentWillMount () {
-    //this._fetchComments();
+  componentDidMount () {
+    var self = this
+		socket.on('Chatbox message', function(msg){
+			console.log("socket.on: ", msg)
+  		self.setState({messages: self.state.messages.concat(msg) })
+		});
   }
 
   _handleSubmit(event) {
-     event.preventDefault();
 
+    event.preventDefault();
+    socket.emit('Chatbox message', {name: this.state.name  || 'Anon', message: this.state.text})
+    // send request to the socket.io
 
-    //  this.props.addComment(this._author.value, this._body.value);
-     //
-    //  this._author.value = '';
-    //  this._body.value = '';
-     //
-    //  this.setState({ characters: 0  });
    }
+
 
   render() {
     return (
       <div>
         <Messages messages={this.state.messages}/>
-        <input className="u-full-width" placeholder="chat..." id="chatInput"/>
+        <form onSubmit={this._handleSubmit.bind(this)}>
+           <input
+             type="text"
+             value={this.state.text}
+             className="u-full-width"
+             placeholder="chat..."
+             id="chatInput"
+             onChange={event => this.setState({text: event.target.value})}
+           />
+           <input type="submit" style={{visibility: 'hidden'}} ></input>
+        </form>
       </div>
     )
   }

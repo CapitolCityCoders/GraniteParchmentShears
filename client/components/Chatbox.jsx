@@ -22,11 +22,10 @@ export default class Chatbox extends React.Component {
   }
 
   _handleSubmit(event) {
-
     event.preventDefault();
     socket.emit('Chatbox message', {name: this.state.username  || 'Anon', message: this.state.text})
     // send request to the socket.io
-
+    this.setState({text: ''})
    }
 
 
@@ -37,6 +36,7 @@ export default class Chatbox extends React.Component {
         <form onSubmit={this._handleSubmit.bind(this)}>
            <input
              type="text"
+             onFocus={event => this.value=''}
              value={this.state.text}
              className="u-full-width"
              placeholder="chat..."
@@ -53,8 +53,14 @@ export default class Chatbox extends React.Component {
 class Messages extends React.Component {
 
   _createMessages() {
-    return this.props.messages.map((msg, index) => {
-      return <Message key={index} name={msg.name} message={msg.message}/>
+    var msgTrim;
+    if(this.props.messages.length > 6) {
+      msgTrim = this.props.messages.slice(this.props.messages.length - 6);
+    } else {
+      msgTrim = this.props.messages;
+    }
+    return msgTrim.map((msg, index) => {
+      return <Message key={index} name={msg.name.substring(0,15)} message={msg.message.substring(0,31)}/>
     });
   }
 
@@ -77,7 +83,7 @@ class Message extends React.Component {
 
           <tr className="message">
             <td>{this.props.name}</td>
-            <td>{this.props.message}</td>
+            <td style={{textAlign: 'right'}}>{this.props.message}</td>
           </tr>
 
     )

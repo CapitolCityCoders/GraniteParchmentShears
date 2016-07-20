@@ -7,8 +7,9 @@ export default class Join extends React.Component {
   constructor(){
     super();
   }
-
-  // generate new access code and reroute to there
+componentWillMount(){
+  this.fbName = sessionStorage.getItem('fbUser');
+}
   handleCreate(e) {
     e.preventDefault();
     let gameGenerated = false;
@@ -32,8 +33,20 @@ export default class Join extends React.Component {
                 return gameId;
               })
               .then(gameId => {
+
+                var username;
+                sessionStorage.getItem('fbUser') ? 
+                username = sessionStorage.getItem('fbUser')
+                : username = this.props.username;
+
+                var imageUrl;
+                sessionStorage.getItem('imgUrl') ? 
+                imageUrl = sessionStorage.getItem('imgUrl')
+                : null;
+
+
                 // create new user using new gameId
-                db.generateNewUser(gameId, this.props.username)
+                db.generateNewUser(gameId, username, imageUrl)
                   .then(userId => {
                     userId = userId[0];
 
@@ -52,15 +65,19 @@ export default class Join extends React.Component {
   }
 
   // show create game username input and buttons 
-  render() {
-    return (
+ render() {
+     return (
       <form className="create-game">
+      {this.fbName ? 
+        <h4>{this.fbName}</h4>
+        :
         <input 
           type="text" 
           placeholder="Enter your name"
           value={this.props.username}
           onChange={this.props.handleUsernameChange}
         />
+      }
 
         <div className="button-container">
           <button type="submit" onClick={this.handleCreate.bind(this)}>Create Game</button>

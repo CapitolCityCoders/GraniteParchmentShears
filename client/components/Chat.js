@@ -1,5 +1,4 @@
 import React from 'react';
-import BattleChat from './BattleChat'
 
 export default class Chat extends React.Component {
 
@@ -22,7 +21,7 @@ export default class Chat extends React.Component {
 	render () {
 		return (
 		    <div className="chatBox">
-		      <BattleChat />
+		      <div className="messages">{this.state.messages.map(function(msg){return (<div>{msg}</div>)})}</div>
           <form>
           	<input value={this.state.chatText}
 							onChange={event => this.setState({chatText: event.target.value})}/>

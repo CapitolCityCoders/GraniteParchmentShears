@@ -7,11 +7,12 @@ exports.up = function(knex, Promise) {
       table.timestamps();
     }),
     knex.schema.createTable('users', function(table){
-      table.varchar('id').primary();
+      table.increments('id').primary();
+      table.string('user_id');
       table.integer('game_id').references('id').inTable('games');
       table.string('name');
-      table.string('email');
       table.string('photo_url');
+      table.string('friends');
       table.integer('score');
       table.string('status');
       table.string('room');
@@ -20,6 +21,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('sessions', function(table){
       table.increments('id').primary();
       table.string('user_id').references('id').inTable('users');
+      table.string('access_token');
       table.timestamps();
     }),
     knex.schema.createTable('challenges', function(table){

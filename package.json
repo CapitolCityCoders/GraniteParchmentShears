@@ -29,6 +29,7 @@
     "isomorphic-fetch": "^2.2.1",
     "knex": "^0.11.7",
     "nodemon": "^1.9.2",
+    "passport-facebook": "^2.1.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-router": "^2.5.2",

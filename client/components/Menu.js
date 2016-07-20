@@ -11,8 +11,16 @@ export default class Menu extends React.Component{
     this.state = {
       accessCode: '',
       username: '',
-      view: 'menu', 
+      view: null, 
     };
+  }
+
+  componentDidMount() {
+    if (sessionStorage.getItem("accessToken")) {
+      this.setState({view: 'menu'});
+    } else {
+      this.setState({view: 'loggedOut'});
+    }
   }
 
   // two-way binding for access code input
@@ -30,6 +38,16 @@ export default class Menu extends React.Component{
     this.setState({view: view});
   }
 
+  _handleLogIn(view, e) {
+    document.getElementById('log-in').click();
+    this.handleViewChange(view, e)
+  }
+
+  _handleLogOut(view, e) {
+    document.getElementById('log-out').click();
+    this.handleViewChange(view, e)
+  }
+
   // show buttons based on view in state 
   render() {
     return (
@@ -37,10 +55,15 @@ export default class Menu extends React.Component{
         <h1>The Rock Shop</h1>
         <hr />
         {
-          this.state.view === 'menu'
+          this.state.view === 'loggedOut'
+          ? <div className="button-container">
+              <button onClick={this._handleLogIn.bind(this, 'menu')}>Log In</button>
+            </div>
+          : this.state.view === 'menu'
           ? <div className="button-container">
               <button onClick={this.handleViewChange.bind(this, 'create')}>New Game</button>
               <button onClick={this.handleViewChange.bind(this, 'join')}>Join Game</button>
+              <button onClick={this._handleLogOut.bind(this)}>Log Out</button>
             </div>
           : this.state.view === 'create'
           ? <Create 
@@ -58,6 +81,7 @@ export default class Menu extends React.Component{
             />
           : null
         }
+        <div id="status">Loading...</div>
         <hr />
       </div>
     );

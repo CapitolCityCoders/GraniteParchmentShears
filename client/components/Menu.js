@@ -20,23 +20,19 @@ export default class Menu extends React.Component{
   componentDidMount() {
     let accessToken = sessionStorage.getItem("accessToken");
     let userId = sessionStorage.getItem("userId");
-    if (accessToken) {
+    if (accessToken && userId) {
       this.setState({view: 'menu'});
       db.generateNewSession(userId, accessToken) // add session to db
       .then(function(sessionId) {
-        setTimeout(function(){
-          let name = sessionStorage.getItem("name");
-          let photo_url = sessionStorage.getItem("photo_url");
-          let friends = sessionStorage.getItem("friends");
-          console.log('hi', 'name', name, 'photo_url', photo_url, 'friends', friends);
-          db.createNewUser(userId, name, photo_url, friends) // add user to db
-          .then(function(userId) {
-            sessionStorage.clear();
-            return;
-          })
-        }, 1000);
+        let name = sessionStorage.getItem("name");
+        let photo_url = sessionStorage.getItem("photo_url");
+        let friends = sessionStorage.getItem("friends");
+        db.createNewUser(userId, name, photo_url, friends) // add user to db
+        sessionStorage.clear();
+        sessionStorage.setItem('accessToken', accessToken);
       });
     } else {
+      sessionStorage.clear();
       this.setState({view: 'loggedOut'});
     }
   }
@@ -63,10 +59,11 @@ export default class Menu extends React.Component{
 
   _handleLogOut(view, e) { // delete session from database and sessionStorage
     let accessToken = sessionStorage.getItem("accessToken");
-    console.log('logout button clicked');
-    db.deleteSessionByToken(accessToken)
-    .then(function() {
-      console.log('backend tells frontend that the session is deleted');
+    console.log('logout button clicked', accessToken);
+    return db.deleteSessionByToken(accessToken)
+    .then(function(resp) {
+      console.log('backend tells frontend that the session is deleted', resp);
+      debugger;
       document.getElementById('log-out').click();
       return;
     });

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, browserHistory } from 'react-router'
+import Menu from './Menu'
 
 import * as db from '../models/menu'
 
@@ -52,12 +53,6 @@ export default class Join extends React.Component {
           placeholder="Enter an access code"
           value={this.props.accessCode}
           onChange={this.props.handleAccessCodeChange}
-        />
-        <input 
-          type="text" 
-          placeholder="Enter your name"
-          value={this.props.username}
-          onChange={this.props.handleUsernameChange}
         />
 
         <div className="button-container">

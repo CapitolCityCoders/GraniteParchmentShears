@@ -5,6 +5,7 @@ import Player from './Player'
 import Mike from './Mike' // opponent
 import Banner from './Banner'
 import Scoreboard from './Scoreboard'
+import Chat from './Chat'
 
 import * as Game from '../models/game'
 
@@ -202,6 +203,7 @@ export default class BattleContainer extends React.Component {
             icon={this.state.opponentIcon}
           />
         </div>
+        <Chat />
     </div>
     );
   }

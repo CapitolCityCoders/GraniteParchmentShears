@@ -125,8 +125,10 @@ input[type="text"] {
 }
 
 img {
-  width: 150px;
-  height: 150px;
+  max-width: 150px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
   border: none;
   margin-top: 15px;
 }

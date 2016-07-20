@@ -7,11 +7,14 @@ export default class Player extends React.Component {
   }
 
   render() {
-    // trying to see if the prop is getting the url.
+    // trying to see if the prop is getting the url.  
+    alert(this.props.fbName)
     return (
       <div className="player six columns">
         <div>
-          <h5>{this.props.player.name}</h5>
+        {this.props.fbName ? 
+          <h5>{this.props.fbName}</h5>
+          : <h5>{this.props.player.name}</h5>}
         </div>
         <div className="arena container">
           {this.props.icon ?

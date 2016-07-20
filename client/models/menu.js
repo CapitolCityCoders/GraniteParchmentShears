@@ -15,16 +15,34 @@ export function generateNewGame(accessCode) {
   .catch(error => console.error(error));
 }
 
-//--------------Create a new Session------------//
-export function generateNewSession(userId, name) {
+//--------------Generate a new Session------------//
+export function generateNewSession(user_id, access_token) {
+  return fetch('/api/sessions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      user_id: user_id,
+      access_token: access_token
+    })
+  })
+  .then(sessionId => sessionId.json())
+  .catch(error => console.error(error));
+}
+
+//--------------Create a new USer------------//
+export function createNewUser(user_id, name, photo_url, friends) {
   return fetch('/api/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      gameId: gameId,
-      name: name
+      user_id: user_id,
+      name: name,
+      photo_url: photo_url,
+      friends: friends
     })
   })
   .then(userId => userId.json())
@@ -106,6 +124,21 @@ export function deleteUserById(userId) {
     },
     body: JSON.stringify({
       userId: userId,
+    })
+  })
+  .then(data => data.json())
+  .catch(error => console.error(error));
+}
+
+export function deleteSessionByToken(access_token) {
+  console.log('model tells backend to delete session');
+  return fetch('/api/sessions', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      access_token: access_token,
     })
   })
   .then(data => data.json())

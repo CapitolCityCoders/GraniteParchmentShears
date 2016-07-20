@@ -51,6 +51,27 @@ export function createNewUser(user_id, name, photo_url, friends) {
   .catch(error => console.error(error));
 }
 
+//-----------get username------------------------//
+export function getUserName(accessToken) {
+  return fetch('api/sessions/' + accessToken, {
+    method: 'GET', 
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(function(userId){
+    return fetch('/api/users/' + userId, {
+      method: 'GET',
+      headers: {
+        'Content-Type' : 'application/json'
+      }
+    })
+  })
+  .then(userName => userName.json())
+  .catch(error => console.error(error));
+}
+
+
 //-----------get all games from db--------------//
 export function gameList() {
   return fetch('/api/games', {

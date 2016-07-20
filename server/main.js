@@ -7,9 +7,16 @@ var bodyParser = require('body-parser');
 var browserify = require('browserify-middleware');
 var history = require('connect-history-api-fallback');
 var db = require('./db');
-
+var authom = require("authom");
 module.exports = app;
 
+var facebook = authom.createServer({
+  service: "facebook",
+  id: "269345560105374",
+  secret: "cbd502df3d0d1f6330f284ce7572da28",
+  scope: [],
+  fields: ["name", "picture"]
+})
 
 //--------------Express Middlware-------------//
 //--------------------------------------------//
@@ -17,6 +24,16 @@ module.exports = app;
 app.use(express.static(path.join(__dirname, "../client/public")));
 // Parse the body of response
 app.use(bodyParser.json());
+
+authom.on("auth", function(req, res, data) {
+  // called when a user is authenticated on any service
+})
+
+authom.on("error", function(req, res, data) {
+  // called when an error occurs during authentication
+})
+
+app.get("/auth/:service", authom.app)
 
 /* Generic error handling: Commented out because express comes with default error handling
     app.use(function(err, req, res, next) {

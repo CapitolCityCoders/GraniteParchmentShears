@@ -34,7 +34,7 @@ export default class Menu extends React.Component{
             sessionStorage.clear();
             return;
           })
-        }, 500);
+        }, 1000);
       });
     } else {
       this.setState({view: 'loggedOut'});

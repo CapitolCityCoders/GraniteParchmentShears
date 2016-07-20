@@ -5,7 +5,6 @@ export default class Chatbox extends React.Component {
   constructor(){
     super();
     this.state = {
-      username: '',
       text: '',
       messages: []
     }
@@ -21,9 +20,7 @@ export default class Chatbox extends React.Component {
 
   _handleSubmit(event) {
     event.preventDefault();
-    this.fbUser = sessionStorage.getItem('fbUser');
-    this.setState({username: this.fbUser})
-    socket.emit('Chatbox message', {name: this.state.username  || 'Anon', message: this.state.text})
+    socket.emit('Chatbox message', {name: sessionStorage.getItem('fbUser')  || 'Anon', message: this.state.text})
     // send request to the socket.io
     this.setState({text: ''})
    }

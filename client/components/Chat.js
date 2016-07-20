@@ -26,22 +26,51 @@ export default class Chat extends React.Component {
 		});
   }
 
+  _handleSubmit(e) {
+
+		e.preventDefault()
+		this.gameId = sessionStorage.getItem('gameId');
+		console.log("uh ", this.gameId)
+		console.log("socket.emit: ", this.state.chatText)
+		socket.emit('send', {room: this.gameId, message: this.state.chatText})
+  }
+
 	render () {
-		var self = this
+		var self = this;
 		return (
-		    <div className="chatBox">
-		      <div className="messages">{this.state.messages.map(function(msg){return (<div>{self.state.fbUser ? self.state.fbUser : self.props.player.name}:  {msg.message}</div>)})}</div>
-          <form>
-          	<input value={this.state.chatText}
-							onChange={event => this.setState({chatText: event.target.value})}/>
-								<button type="button" onClick={() => {
-									this.gameId = sessionStorage.getItem('gameId');
-  								console.log("uh ", this.gameId)
-            			console.log("socket.emit: ", this.state.chatText)
-            			socket.emit('send', {room: this.gameId, message: this.state.chatText})}}>send</button>
-          </form>
+	    <div className="chatBox">
+	      <div className="messages">
+	      <table className="u-full-width">
+	      	<tbody>
+	      		{this.state.messages.map(function(msg, index){return (<Message key={index} name={self.state.username ? self.state.username : self.props.player.name} message={msg.message} />)})}
+        	</tbody>
+        </table>
         </div>
+        <form onSubmit={this._handleSubmit.bind(this)}>
+        	<input 
+        		type="text"
+        		value={this.state.chatText}
+        		className="u-full-width"
+            placeholder="chat..."
+            id="chatInput"
+						onChange={event => this.setState({chatText: event.target.value})}/>
+
+          <input type="submit" style={{visibility: 'hidden'}} ></input>
+        </form>
+      </div>
     )
 	}
 }
 
+class Message extends React.Component {
+  render() {
+    return (
+
+          <tr className="message">
+            <td>{this.props.name}</td>
+            <td>{this.props.message}</td>
+          </tr>
+
+    )
+  }
+}

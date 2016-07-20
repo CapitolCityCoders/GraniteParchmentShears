@@ -6,12 +6,18 @@ export default class Chat extends React.Component {
     super();
     this.state = {
     	messages: [],
-    	chatText: ''
+    	chatText: '',
+    	username: ''
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
   	this.gameId = sessionStorage.getItem('gameId');
+  	this.fbUser = sessionStorage.getItem('fbUser');
+  	this.setState({username: this.fbUser})
+
+  	// this.userId = sessionStorage.getItem('userId');
+
   	socket.emit('subscribe', this.gameId);
   	var self = this
 		socket.on('chat message', function(msg){
@@ -21,9 +27,10 @@ export default class Chat extends React.Component {
   }
 
 	render () {
+		var self = this
 		return (
 		    <div className="chatBox">
-		      <div className="messages">{this.state.messages.map(function(msg){return (<div>{msg}</div>)})}</div>
+		      <div className="messages">{this.state.messages.map(function(msg){return (<div>{self.state.fbUser ? self.state.fbUser : self.props.player.name}:  {msg.message}</div>)})}</div>
           <form>
           	<input value={this.state.chatText}
 							onChange={event => this.setState({chatText: event.target.value})}/>

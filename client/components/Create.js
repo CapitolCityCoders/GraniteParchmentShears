@@ -33,8 +33,14 @@ componentWillMount(){
                 return gameId;
               })
               .then(gameId => {
+
+                var username;
+                sessionStorage.getItem('fbUser') ? 
+                username = sessionStorage.getItem('fbUser')
+                : username = this.props.username
+
                 // create new user using new gameId
-                db.generateNewUser(gameId, this.props.username)
+                db.generateNewUser(gameId, username)
                   .then(userId => {
                     userId = userId[0];
 

@@ -14,6 +14,7 @@ export default class BattleContainer extends React.Component {
     this.state = {
       playerIcon: '',
       opponentIcon: '',
+      fbPhoto: '',
       player: {},
       opponent: {},
       round: 1,
@@ -27,8 +28,10 @@ export default class BattleContainer extends React.Component {
   componentDidMount() {
     this.gameId = sessionStorage.getItem('gameId');
     this.userId = sessionStorage.getItem('userId');
-
+    //populate facebook photo image. either undefined or not.
+    this.fbPhoto = sessionStorage.getItem('imgUrl');
     // populate player and opponent state objects
+    this.setPhotoUrl(this.fbPhoto);
     this.updatePlayer();
     this.updateOpponent();
 
@@ -82,6 +85,10 @@ export default class BattleContainer extends React.Component {
           }
         });
     }
+  }
+  //set state for photo url.
+  setPhotoUrl(fbPhoto){
+    this.setState({fbPhoto:fbPhoto});
   }
 
   updatePlayer() {
@@ -195,6 +202,7 @@ export default class BattleContainer extends React.Component {
             player={this.state.player}
             handleMove={this.handleMove.bind(this)}
             icon={this.state.playerIcon}
+            fbPhoto={this.state.fbPhoto}
           />
           {/* opponent component */}
           <Mike

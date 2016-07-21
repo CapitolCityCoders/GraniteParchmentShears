@@ -145,9 +145,9 @@ export default class Lobby extends React.Component {
             <div className="button-container">
               {
                 this.state.gameStatus === "waiting"
-                  ? <button disabled>Start Game</button>
+                  ? <button className="btn btn-default" disabled>Start Game</button>
                   : this.state.gameStatus === "full"
-                    ? <button onClick={this.handleStartGame.bind(this)}>Start Game</button>
+                    ? <button className="btn btn-default" onClick={this.handleStartGame.bind(this)}>Start Game</button>
                     : null
               }
               <Link to="/">

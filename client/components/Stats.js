@@ -10,7 +10,7 @@ export default class Stats extends React.Component {
     this.state = {
       userScores: [], // [{uu1:4},{uu2:2}]
       chartValues: [{x: 'user1', y: 0}, {x: 'user2', y: 0}, {x: 'user3', y: 0}]
-    }   
+    }
   }
 
   componentDidMount() {
@@ -34,14 +34,14 @@ export default class Stats extends React.Component {
           const total = scores.reduce((sum,score) => {
             return sum += score;
           },0);
-          
+
           this.setState({userScores: this.state.userScores.concat({[user]:total})});
             //console.log('state is ~~', JSON.stringify(this.state.userScores));
              this.generateLeaderBoard();
         })
-       
-    })  
-    
+
+    })
+
   }
 
   generateLeaderBoard() {
@@ -52,9 +52,9 @@ export default class Stats extends React.Component {
     //console.log(values)
     this.setState({chartValues: values})
   }
- 
+
   render() {
-   
+
     var BarChart = ReactD3.BarChart;
 
     var data = [{
@@ -64,7 +64,7 @@ export default class Stats extends React.Component {
 
     return (
       <div>
-        <Link to="/"><button className='stats'>Back</button></Link> 
+        <Link to="/"><button className="btn btn-default stats">Back</button></Link>
         <div className="narrative container six columns offset-by-three">
         <h3>Leaderboard</h3>
 
@@ -75,7 +75,7 @@ export default class Stats extends React.Component {
                  margin={{top: 5, bottom: 40, left: 40, right: 20}}/>
         </div>
       </div>
-        
+
     )
   }
 }

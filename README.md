@@ -14,6 +14,7 @@ Uses a Menu component that routes to Game component based on access code.
   	* Join
   * Game
     * Lobby
+    * Sidebar
     * BattleContainer
       * Player
       * Opponent

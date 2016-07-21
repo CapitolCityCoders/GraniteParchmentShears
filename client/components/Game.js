@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as Menu from '../models/menu';
 import Lobby from './Lobby';
+import Sidebar  from './Sidebar';
 import BattleContainer from './BattleContainer';
 import End from './End';
 
@@ -81,7 +82,7 @@ export default class Game extends React.Component {
         <Lobby 
           accessCode={this.props.params.accessCode} 
           startGame={this.startGame.bind(this)}
-        /> : this.state.view === 'battle' ?
+        /> && <Sidebar /> : this.state.view === 'battle' ?
         <BattleContainer 
           endGame={this.endGame.bind(this)} 
         /> : 

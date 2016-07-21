@@ -98,7 +98,7 @@ class Message extends React.Component {
             <strong className="primary-font">{this.props.name}</strong>
             <small className="pull-right text-muted">12 mins ago</small>
           </div>
-          <p className="pull-right">{this.props.message}</p>
+          <strong className="text-success pull-right">{this.props.message}</strong>
         </div>
       </li>
     )

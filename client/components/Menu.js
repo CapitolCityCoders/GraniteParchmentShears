@@ -5,6 +5,7 @@ import Create from './Create';
 import Join from './Join';
 import * as db from '../models/menu';
 import ChatApp from './ChatApp';
+import Sidebar from './Sidebar';
 
 export default class Menu extends React.Component{
   constructor(){
@@ -74,7 +75,7 @@ export default class Menu extends React.Component{
   // show buttons based on view in state 
   render() {
     return (
-      <div className="narrative container six columns offset-by-three">
+      <div className="narrative container eleven column offset-by-one column">
         <h1>The Rock Shop</h1>
         <hr />
         {
@@ -106,9 +107,6 @@ export default class Menu extends React.Component{
         }
         <div id="status">Loading...</div>
         <hr />
-        <div className="chat-app">
-          <ChatApp />
-        </div>
       </div>
     );
   }

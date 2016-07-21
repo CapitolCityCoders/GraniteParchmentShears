@@ -9,12 +9,15 @@ Uses a Menu component that routes to Game component based on access code.
 -See /client/main.js
 
 ### Components
-  * Menu
-  	* Create
-  	* Join
+  * App
+    * Menu
+      * Create
+      * Join
+    * Sidebar
+     * Challenge
+     * ChatApp
   * Game
     * Lobby
-    * Sidebar
     * BattleContainer
       * Player
       * Opponent

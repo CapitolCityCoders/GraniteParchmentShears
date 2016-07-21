@@ -62,15 +62,20 @@ app.post('/api/games', (req, res) => {
 
 // taking gameId and username from request body, create new user record in db
 app.post('/api/users', (req, res) => {
-  // db('users').select('*').where("name", "=", req.body.name)
+  
+  console.log("server got new user request:", req.body);
+  // var userNumber = (req.body.)
   db('users').insert({
     game_id: req.body.gameId,
     name: req.body.name,
     score: 0,
-    status: 'waiting'
+    status: 'waiting',
+    wins: 0,
+    losses: 0
   })
   .then(userId => {
-    res.send(userId)
+    insertUserIntoGame(req.body.userType, req.body.gameId, userId[0])
+      .then(() => res.send(userId));  
   })
   .catch(err => {
     console.log("tried to insert existung user!:", err);
@@ -79,7 +84,8 @@ app.post('/api/users', (req, res) => {
       db('users').select('*').where('name', '=', req.body.name)
         .then((data) => {
           console.log("selected user!!!!!", data);
-          res.send(201, [data[0].id]);
+          insertUserIntoGame(req.body.userType, req.body.gameId, data[0].id)
+            .then(() => res.send(201, [data[0].id]))
         })
       
       // res.send({});
@@ -87,6 +93,12 @@ app.post('/api/users', (req, res) => {
     })
   })
 });
+
+function insertUserIntoGame(userType, gameId, userId) {
+  console.log("showing insertUserIntoGame info:", userType, gameId, userId);
+  var userNumber = (userType === 'create') ? 'user1_id' : 'user2_id'; 
+  return db('games').where('id', '=', gameId).update({[userNumber]: userId})
+}
 
 // returns all users
 app.get('/api/users', (req,res) => {

@@ -47,7 +47,7 @@ componentWillMount(){
                 console.log("showing username before insertion:", username);
 
                 // create new user using new gameId
-                db.generateNewUser(gameId, username, imageUrl)
+                db.generateNewUser(gameId, username, imageUrl, 'create')
                   .then(userId => {
                     console.log("showing returned user id in Create:", userId);
                     userId = userId[0];

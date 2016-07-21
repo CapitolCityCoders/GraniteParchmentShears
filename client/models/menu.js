@@ -16,7 +16,7 @@ export function generateNewGame(accessCode) {
 }
 
 //--------------Create a new User------------//
-export function generateNewUser(gameId, name) {
+export function generateNewUser(gameId, name, imageUrl, userType) {
   return fetch('/api/users', {
     method: 'POST',
     headers: {
@@ -24,7 +24,9 @@ export function generateNewUser(gameId, name) {
     },
     body: JSON.stringify({
       gameId: gameId,
-      name: name
+      name: name,
+      imageUrl: imageUrl,
+      userType: userType
     })
   })
   .then(userId => userId.json())

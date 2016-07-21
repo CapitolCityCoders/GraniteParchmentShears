@@ -36,20 +36,22 @@ export default class Chatbox extends React.Component {
     return (
       <div >
         <Messages messages={this.state.messages}/>
-        <form className="enclose" onSubmit={this._handleSubmit.bind(this)}>
-          <input
-            type="text"
-            onFocus={event => this.value = ""}
-            value={this.state.text}
-            className="u-full-width"
-            placeholder="chat..."
-            id="chatInput"
-            onChange={event => this.setState({
-            text: event.target.value
-          })}/>
-          <input type="submit" style={{
-            visibility: "hidden"
-          }}></input>
+        <form onSubmit={this._handleSubmit.bind(this)}>
+          <div className="input-group enclose">
+            <span className="input-group-btn">
+              <button className="btn btn-default" type="button" >Go!</button>
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              onFocus={event => this.value = ""}
+              value={this.state.text}
+              placeholder="chat..."
+              id="chatInput"
+              onChange={event => this.setState({text: event.target.value})}
+
+            />
+          </div>
         </form>
       </div>
     )

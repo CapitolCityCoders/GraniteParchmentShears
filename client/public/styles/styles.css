@@ -94,6 +94,12 @@ input[type="text"] {
     float: right;
 }
 
+.stats {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
 /*
   =========================================================
   Game

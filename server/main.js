@@ -82,7 +82,7 @@ app.get('/api/users', (req,res) => {
 })
 
 // returns array of all games a user has played
-app.get('/api/users/:name', (req,res) => {
+app.get('/api/userbyname/:name', (req,res) => {
   db.select('*').from('users').where('name', req.params.name)
     .then((data) => {
       res.send(data)

@@ -4,13 +4,20 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('access_code');
       table.string('status');
-      table.timestamps();
+      table.integer('user1_id');
+      table.integer('user2_id');
+      table.integer('user1_score');
+      table.integer('user2_score');
+      table.timestamp('created_at').defaultTo(knex.fn.now());
     }),
     knex.schema.createTable('users', function(table){
       table.increments('id').primary();
       table.integer('game_id').references('id').inTable('games');
-      table.string('name');
+      table.string('imageUrl');
+      table.string('name').unique();
       table.integer('score');
+      table.integer('wins');
+      table.integer('losses');
       table.string('status');
       table.timestamps();
     })

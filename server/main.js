@@ -7,9 +7,16 @@ var bodyParser = require('body-parser');
 var browserify = require('browserify-middleware');
 var history = require('connect-history-api-fallback');
 var db = require('./db');
-
+var authom = require("authom");
 module.exports = app;
 
+var facebook = authom.createServer({
+  service: "facebook",
+  id: "269345560105374",
+  secret: "cbd502df3d0d1f6330f284ce7572da28",
+  scope: [],
+  fields: ["name", "picture"]
+})
 
 //--------------Express Middlware-------------//
 //--------------------------------------------//
@@ -17,6 +24,16 @@ module.exports = app;
 app.use(express.static(path.join(__dirname, "../client/public")));
 // Parse the body of response
 app.use(bodyParser.json());
+
+authom.on("auth", function(req, res, data) {
+  // called when a user is authenticated on any service
+})
+
+authom.on("error", function(req, res, data) {
+  // called when an error occurs during authentication
+})
+
+app.get("/auth/:service", authom.app)
 
 /* Generic error handling: Commented out because express comes with default error handling
     app.use(function(err, req, res, next) {
@@ -48,13 +65,54 @@ app.post('/api/users', (req, res) => {
   db('users').insert({
     game_id: req.body.gameId,
     name: req.body.name,
+    imageUrl: req.body.imageUrl,
     score: 0,
-    status: 'waiting'
+    status: 'waiting',
+    wins: 0,
+    losses: 0
   })
   .then(userId => {
-    res.send(userId)
+    insertUserIntoGame(req.body.userType, req.body.gameId, userId[0])
+      .then(() => res.send(userId));  
+  })
+  .catch(err => {
+    // console.log("tried to insert existung user!:", err);
+    db('users').where('name', '=', req.body.name).update({game_id: req.body.gameId, score: 0})
+    .then((data) => {
+      db('users').select('*').where('name', '=', req.body.name)
+        .then((data) => {
+          // console.log("selected user!!!!!", data);
+          insertUserIntoGame(req.body.userType, req.body.gameId, data[0].id)
+            .then(() => res.send(201, [data[0].id]))
+        })
+      
+      // res.send({});
+      // res.sendStatus(200);
+    })
   })
 });
+
+function insertUserIntoGame(userType, gameId, userId) {
+  console.log("showing insertUserIntoGame info:", userType, gameId, userId);
+  var userNumber = (userType === 'create') ? 'user1_id' : 'user2_id'; 
+  return db('games').where('id', '=', gameId).update({[userNumber]: userId})
+}
+
+// returns all users
+app.get('/api/users', (req,res) => {
+  db.select('*').from('users')
+    .then((data) => {
+      res.send(data)
+    })
+})
+
+// returns array of all games a user has played
+app.get('/api/userbyname/:name', (req,res) => {
+  db.select('*').from('users').where('name', req.params.name)
+    .then((data) => {
+      res.send(data)
+    })
+})
 
 // returns array of game objects
 app.get('/api/games', (req, res) => {
@@ -87,6 +145,28 @@ app.patch('/api/gameStatus', (req, res) => {
     .then(() => {
       res.send({});
     })
+});
+
+//----- updates players record that matches a given userId----//
+app.patch('/api/userRecord', (req, res) => {
+
+  console.log("receiving user win/loss data from client:", req.body.userId, req.body.winner);
+  db('users').select('*').where('id', '=', req.body.userId)
+    .then((data) => {
+      // console.log("found matching user!:", data);
+      var record = (data[0].name === req.body.winner) ? 'wins' : 'losses'
+      var number = data[0][record];
+      // console.log("showing before win/loss update:", record, number);
+      db('users').where('id', '=', req.body.userId).update({[record]: number + 1})
+      .then(() => {
+        res.send({});
+      })
+
+    })
+  // db('users').where('id', '=', req.body.userId).update('status', req.body.status)
+  //   .then(() => {
+  //     res.send({});
+  //   })
 });
 
 app.patch('/api/resetUser', (req, res) => {
@@ -198,6 +278,26 @@ io.on('connection', function(socket){
 	socket.on('rematch', gameId => {
 		io.emit('rematch', gameId)
 	})
+
+  socket.on('subscribe', function(room) {
+      console.log('joining room', room);
+      socket.join(room);
+  })
+
+  socket.on('unsubscribe', function(room) {
+      console.log('leaving room', room);
+      socket.leave(room);
+  })
+
+  socket.on('send', function(data) {
+      console.log('sending message: ', data);
+      io.sockets.in(data.room).emit('chat message', data);
+  });
+
+  socket.on('Chatbox message', messages => {
+    io.emit('Chatbox message', messages)
+  })
+
 })
 
 var port = process.env.PORT || 4000;

@@ -1,3 +1,4 @@
+
 /*
   =========================================================
   Site Wide Styles
@@ -16,12 +17,17 @@ a {
 }
 
 .button-container button {
-  margin: 0 15px;
+  margin: 5px 15px;
+  width: 130px;
 }
 
 .container {
   text-align: center;
   padding: 10px;
+}
+
+.hidden {
+  display: none;
 }
 
 
@@ -92,6 +98,10 @@ input[type="text"] {
 
 .btn-edit-player {
     float: right;
+}
+
+#status {
+  margin-top: 15px;
 }
 
 /*

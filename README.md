@@ -9,9 +9,13 @@ Uses a Menu component that routes to Game component based on access code.
 -See /client/main.js
 
 ### Components
-  * Menu
-  	* Create
-  	* Join
+  * App
+    * Menu
+      * Create
+      * Join
+    * Sidebar
+     * Challenge
+     * ChatApp
   * Game
     * Lobby
     * BattleContainer
@@ -52,3 +56,8 @@ Uses a Menu component that routes to Game component based on access code.
   * Tom LeConey
   * Shane McQuerter
   * Kenny Torng
+  * Ashley Smith
+  * Kyhan Turner
+  * Ricardo D'Alessandro
+  * Tim Crane
+  * Tony Kung

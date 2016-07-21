@@ -250,13 +250,6 @@ io.on('connection', function(socket){
     })
   })
 
-  socket.on('new user', user => {
-    console.log('user server/main.js:258 ', user)
-    socket.broadcast.emit('new user', {
-      id: socket.id.slice(8)
-    })
-  })
-
   socket.on('disconnect', function(){
     console.log('user disconnected')
     io.emit('user disconnected');

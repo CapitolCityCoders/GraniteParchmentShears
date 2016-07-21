@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
 
-class Challenge extends React.Component {
+export default class Challenge extends React.Component {
   constructor(props){
     super(props);
     this.state = { onlineUsers: []} 

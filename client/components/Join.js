@@ -7,6 +7,9 @@ export default class Join extends React.Component {
   constructor(){
     super();
   }
+componentWillMount(){
+  this.fbName = sessionStorage.getItem('fbUser');
+}
 
   handleJoin(e) {
     e.preventDefault();
@@ -18,7 +21,17 @@ export default class Join extends React.Component {
 
         // check if entered access code exists 
         if (game && game.status === 'waiting') {
-          db.generateNewUser(game.id, this.props.username)
+            var username;
+            sessionStorage.getItem('fbUser') ? 
+            username = sessionStorage.getItem('fbUser')
+            : username = this.props.username;
+
+            var imageUrl;
+            sessionStorage.getItem('imgUrl') ? 
+            imageUrl = sessionStorage.getItem('imgUrl')
+            : null;
+
+          db.generateNewUser(game.id, username, imageUrl)
             .then(userId => {
               userId = userId[0];
 
@@ -53,12 +66,18 @@ export default class Join extends React.Component {
           value={this.props.accessCode}
           onChange={this.props.handleAccessCodeChange}
         />
+
+        {this.fbName ? 
+        <h4>{this.fbName}</h4>
+        :
         <input 
           type="text" 
           placeholder="Enter your name"
           value={this.props.username}
           onChange={this.props.handleUsernameChange}
         />
+      }
+
 
         <div className="button-container">
           <button type="submit" onClick={this.handleJoin.bind(this)}>Join Game</button>

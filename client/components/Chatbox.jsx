@@ -36,7 +36,6 @@ export default class Chatbox extends React.Component {
 
     return (
       <div className="row">
-        <div className="col-md-5">
           <Messages messages={this.state.messages}/>
           <form onSubmit={this._handleSubmit.bind(this)}>
               <div className="input-group">
@@ -51,7 +50,6 @@ export default class Chatbox extends React.Component {
               />
             </div>
           </form>
-        </div>
       </div>
     )
   }

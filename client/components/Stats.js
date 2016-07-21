@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
+import _ from 'underscore';
 import ReactD3 from 'react-d3-components';
 import * as db from '../models/menu';
 
@@ -17,13 +18,37 @@ export default class Stats extends React.Component {
     this.getUniqueUsers();
   }
 
+  // getGamesByUser() {
+  //   db.gamesByPlayerId()
+  //     .then(gameList => {
+  //               const scores = gameList.map(game => game.score)
+  //               const total = scores.reduce((sum,score) => {
+  //                 return sum += score;
+  //           },0);
+
+  //     this.setState({userScores: this.state.userScores.concat({[user]:total})});
+  //       console.log('state is ~~', JSON.stringify(this.state.userScores));
+  //        this.generateLeaderBoard();
+  //   })
+  // }
+
   getUniqueUsers() {
     //get all users
     db.playerList()
       .then(players => {
+        console.log('users,0~~~~~~',JSON.stringify(players))
+          players = this.GetTop5Users(players);
           const users = players.map(player => player.name).filter((name,index,self) => self.indexOf(name) === index)
+          console.log('users,1~~~~~~',users)
             this.updateUserScoresState(users);
         })
+  }
+
+  GetTop5Users(players){
+    const sortedPlayers = _.sortBy(players,'score')
+    const top5Players = _.first(sortedPlayers, 5) 
+    //console.log(top5Players);
+    return top5Players;
   }
 
   updateUserScoresState(users) {
@@ -34,7 +59,6 @@ export default class Stats extends React.Component {
           const total = scores.reduce((sum,score) => {
             return sum += score;
           },0);
-          
           this.setState({userScores: this.state.userScores.concat({[user]:total})});
             console.log('state is ~~', JSON.stringify(this.state.userScores));
              this.generateLeaderBoard();
@@ -53,13 +77,16 @@ export default class Stats extends React.Component {
     this.setState({chartValues: values})
   }
 
-  tooltipScatter(x, y) {
-    return "x: " + x + " y: " + y;
+  tooltipScatter(y) {
+    //console.log(x,y)
+    // y is wrong now...
+    return " scored " + y;
   }
  
   render() {
    
     var BarChart = ReactD3.BarChart;
+    var PieChart = ReactD3.PieChart;
 
     var data = [{
         label: 'Leaderboard',
@@ -75,12 +102,11 @@ export default class Stats extends React.Component {
           <BarChart
                  data={data}
                  width={400}
-                 height={200}
-                 margin={{top: 5, bottom: 40, left: 0, right: 20}}
+                 height={300}
+                 margin={{top: 65, bottom: 40, left: 0, right: 20}}
                  tooltipHtml={this.tooltipScatter}
                  xAxis={{label: "Users"}}
-                 yAxis={{label: "Scores"}}
-
+                 tooltipOffset={{top: -50, left: 0}}
                  />
         </div>
       </div>

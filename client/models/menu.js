@@ -56,6 +56,19 @@ export function gamesByUsername(username) {
   .catch(error => console.error(error));
 }
 
+//-----------get all games by player id from db------//
+export function gamesByPlayerId(playerId) {
+
+  return fetch(`/api/users/${playerId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(games => { return games.json()})
+  .catch(error => console.error(error));
+}
+
 //-----------get all players from db--------------//
 export function playerList() {
   return fetch('/api/users', {

@@ -1,53 +1,60 @@
-import React from 'react'
-import { Link } from 'react-router'
-import Chatbox from './Chatbox.jsx'
+import React from "react"
+import {Link} from "react-router"
+import Chatbox from "./Chatbox.jsx"
 
-import * as db from '../models/menu'
+import * as db from "../models/menu"
 
-export default class Lobby extends React.Component{
+export default class Lobby extends React.Component {
   constructor() {
     super();
     this.state = {
-      players: [],
-      gameStatus: 'waiting'
+      players   : [],
+      gameStatus: "waiting",
     };
   }
 
   componentDidMount() {
-    this.userId = +sessionStorage.getItem('userId');
-    this.gameId = +sessionStorage.getItem('gameId');
-
+    this.userId = +sessionStorage.getItem("userId");
+    this.gameId = +sessionStorage.getItem("gameId");
 
     this.refreshGameStatus();
     this.populatePlayers();
-    // listens for 'join game' broadcasts
-    // refreshes player list if gameId in broadcast matches current gameId
-    socket.on('join game', (gameId) => {
+    // listens for 'join game' broadcasts refreshes player list if gameId in
+    // broadcast matches current gameId
+    socket.on("join game",
+      (gameId) => {
       if (gameId === this.gameId) {
         this.populatePlayers();
         this.refreshGameStatus();
       }
-    });
+    }
+    );
 
-    socket.on('leave game', (gameId) => {
-      if (gameId === +sessionStorage.getItem('gameId')) {
+    socket.on("leave game",
+      (gameId) => {
+      if (gameId === + sessionStorage.getItem("gameId")) {
         this.populatePlayers();
         this.refreshGameStatus();
       }
-    });
+    }
+    );
   }
 
   populatePlayers() {
     db.userList(this.gameId)
       .then(players => {
-        this.setState({players: players});
+        this.setState({
+          players: players
+        });
       });
   }
 
   refreshGameStatus() {
-    db.getGameById(sessionStorage.getItem('gameId'))
+    db.getGameById(sessionStorage.getItem("gameId"))
       .then(game => {
-        this.setState({gameStatus: game[0].status});
+        this.setState({
+          gameStatus: game[0].status
+        });
       });
   }
 
@@ -57,89 +64,101 @@ export default class Lobby extends React.Component{
 
   handleStartGame() {
     // set game status to inProgress
-    db.updateGameStatus(this.gameId, 'inProgress').then();
+    db.updateGameStatus(this.gameId, "inProgress").then();
 
     // socket emit for other player to update state and start game
-    socket.emit('start game', this.gameId)
+    socket.emit("start game", this.gameId)
 
     this.props.startGame();
   }
 
   handleLeaveGame() {
     // if player is the only one in the game, delete user and game record from db
-    // else delete current user record from db and
-    // socket emit leave game to make the other client refresh player list
+    // else delete current user record from db and socket emit leave game to make
+    // the other client refresh player list
     if (this.state.players.length === 1) {
       db.deleteUserById(this.userId).then();
       db.deleteGameById(this.gameId).then();
-      sessionStorage.removeItem('gameId');
-      sessionStorage.removeItem('userId');
+      sessionStorage.removeItem("gameId");
+      sessionStorage.removeItem("userId");
     } else {
-      db.updateGameStatus(this.gameId, 'waiting').then(() => {
+      db.updateGameStatus(this.gameId, "waiting").then(() => {
         db.deleteUserById(this.userId).then();
-        sessionStorage.removeItem('gameId');
-        sessionStorage.removeItem('userId');
-        socket.emit('leave game', this.gameId);
+        sessionStorage.removeItem("gameId");
+        sessionStorage.removeItem("userId");
+        socket.emit("leave game", this.gameId);
       });
     }
   }
 
   render() {
     return (
-      <section className="narrative container six columns offset-by-three">
-        {this.state.gameStatus === 'waiting' ?
-          <h4>Waiting for opponent...</h4> :
-          this.state.gameStatus === 'full' ?
-          <h4>Game ready</h4> :
-          null}
 
-        <div className="access-code">
-          Access Code:
-          <span> {this.props.accessCode} </span>
-        </div>
+      <section className="container">
+        <div className="row">
+          <div className="col-xs-12">
+            {
+              this.state.gameStatus === "waiting"
+                ? <h4>Waiting for opponent...</h4>
+                : this.state.gameStatus === "full"
+                  ? <h4>Game ready</h4>
+                  : null
+            }
 
-        <hr />
+            <div className="access-code">
+              Access Code:
+              <span>
+                {this.props.accessCode}
+              </span>
+            </div>
 
-        <ol className="lobby-player-list">
-          {this.state.players.map(player =>
-            <li key={player.id}>
-              {player.name}
+            <hr/>
 
-              {/* show edit button if current player */}
-              {player.id === this.userId ?
-                <a
-                  href="#"
-                  className="btn-edit-player"
-                  onClick={this.handleNameChange.bind(this)}
-                >
-                  <i className="fa fa-pencil"></i>
-                </a> :
-                null}
+            <ol className="lobby-player-list">
+              {
+                this.state.players.map(player => <li key={player.id}>
+                  {player.name}
 
-              {/* add if not current player logic
+                  {/* show edit button if current player */}
+                  {
+                    player.id === this.userId
+                      ? <a
+                          href="#"
+                          className="btn-edit-player"
+                          onClick={this.handleNameChange.bind(this)}>
+                          <i className="fa fa-pencil"></i>
+                        </a>
+                      : null
+                  }
+                  {/* add if not current player logic
               <a href="#" className="btn-remove-player">
                 <i className="fa fa-close"></i>
               </a>
               */}
+                  }
+                </li>)
+              }
+            </ol>
 
-            </li>)}
-        </ol>
+            <hr/>
 
-        <hr />
-
-        <div className="button-container">
-          {this.state.gameStatus === 'waiting' ?
-            <button disabled>Start Game</button> :
-            this.state.gameStatus === 'full' ?
-            <button onClick={this.handleStartGame.bind(this)}>Start Game</button> :
-            null}
-          <Link to="/">
-            <button onClick={this.handleLeaveGame.bind(this)}>
-              Leave Game
-            </button>
-          </Link>
+            <div className="button-container">
+              {
+                this.state.gameStatus === "waiting"
+                  ? <button disabled>Start Game</button>
+                  : this.state.gameStatus === "full"
+                    ? <button onClick={this.handleStartGame.bind(this)}>Start Game</button>
+                    : null
+              }
+              <Link to="/">
+                <button onClick={this.handleLeaveGame.bind(this)}>
+                  Leave Game
+                </button>
+              </Link>
+            </div>
+            <Chatbox/>
+          </div>
         </div>
-        <Chatbox/>
       </section>
     );
   }

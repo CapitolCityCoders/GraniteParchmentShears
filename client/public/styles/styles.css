@@ -223,8 +223,9 @@ img {
 */
 
 .tooltip {
-  font-size: 1em;
-  background-color: #c1d9ee;
+  font-size: 4em;
   padding: 5px;
   border-radius: 2px;
+  display: block !important;
+  opacity: 1 !important;
 }

@@ -109,7 +109,7 @@ export default class Stats extends React.Component {
                  
                  tooltipHtml={this.tooltipScatter}
                  tooltipMode={'fixed'}
-                 tooltipOffset={{top: 175, left: 200}}
+                 tooltipOffset={{top: 135, left: 200}}
 
                  
                  />

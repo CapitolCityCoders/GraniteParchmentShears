@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import Menu from '../models/menu.js'
+import * as Menu from '../models/menu'
 //--------------------Game Over Page-------------//
 export default class End extends React.Component{
 

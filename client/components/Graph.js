@@ -9,13 +9,11 @@ export default class Graph extends React.Component {
     this.state = {
       userScores: [], // [{uu1:4},{uu2:2}]
       chartValues: [{x: 'user1', y: 4}, {x: 'user2', y: 2}, {x: 'user3', y: 1}]
-    }
-    
+    }   
   }
 
   componentDidMount() {
     this.getUniqueUsers();
-    console.log('after~')
   }
 
   getUniqueUsers() {
@@ -23,25 +21,21 @@ export default class Graph extends React.Component {
     db.playerList()
       .then(players => {
           const users = players.map(player => player.name).filter((name,index,self) => self.indexOf(name) === index)
-            //console.log(users)
             this.updateUserScoresState(users);
         })
   }
 
   updateUserScoresState(users) {
-    console.log('users~~~',users)
     users.forEach(user => {
       db.gamesByUsername(user)
         .then(gameList => {
-          const scoreArr = gameList.map(game => game.score)
-          const total = scoreArr.reduce((sum,score) => {
-            //console.log('sum~~~',sum)
+          const scores = gameList.map(game => game.score)
+          const total = scores.reduce((sum,score) => {
             return sum += score;
           },0);
-          //console.log(total)
           
           this.setState({userScores: this.state.userScores.concat({[user]:total})});
-            console.log('state is ~~', JSON.stringify(this.state.userScores));
+            //console.log('state is ~~', JSON.stringify(this.state.userScores));
              this.generateLeaderBoard();
         })
        
@@ -54,12 +48,10 @@ export default class Graph extends React.Component {
       const key = Object.keys(userScore)[0];
       return {x: key, y: userScore[key]}
     })
-    console.log(values)
+    //console.log(values)
     this.setState({chartValues: values})
   }
-  //[{"uu1":4},{"uu2":1}]
-
-
+ 
   render() {
    
     var BarChart = ReactD3.BarChart;
@@ -67,7 +59,6 @@ export default class Graph extends React.Component {
     var data = [{
         label: 'Leaderboard',
         values: this.state.chartValues
-        //values: [{x: 'user1', y: 4}, {x: 'user2', y: 2}, {x: 'user3', y: 1}]
     }];
 
     return (
@@ -83,6 +74,3 @@ export default class Graph extends React.Component {
     )
   }
 }
-
-
-

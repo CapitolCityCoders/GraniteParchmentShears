@@ -40,7 +40,6 @@ export default class Menu extends React.Component{
         <h1>The Rock Shop</h1>
         <Graph />
       {/*To fix: users log in to see their profiles*/}
-        <userProfile username={this.state.username}/>
         <hr />
         {
           this.state.view === 'menu'

@@ -94,9 +94,9 @@ export default class Stats extends React.Component {
     }];
 
     return (
-      <div>
+      <div className="container">
         <Link to="/"><button className='stats'>Back</button></Link> 
-        <div className="narrative container six columns offset-by-three">
+        <div className="col-xs-8 col-xs-offset-2">
         <h3>Leaderboard</h3>
 
           <BarChart

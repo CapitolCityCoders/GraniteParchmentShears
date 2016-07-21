@@ -107,6 +107,7 @@ export default class Menu extends React.Component{
         }
         <div id="status">Loading...</div>
         <hr />
+
       </div>
     );
   }

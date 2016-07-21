@@ -44,10 +44,12 @@ componentWillMount(){
                 imageUrl = sessionStorage.getItem('imgUrl')
                 : null;
 
+                console.log("showing username before insertion:", username);
 
                 // create new user using new gameId
                 db.generateNewUser(gameId, username, imageUrl)
                   .then(userId => {
+                    console.log("showing returned user id in Create:", userId);
                     userId = userId[0];
 
                     // set current userId to local storage

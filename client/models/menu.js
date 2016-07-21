@@ -16,8 +16,8 @@ export function generateNewGame(accessCode) {
 }
 
 //--------------Generate a new Session------------//
-export function generateNewSession(user_id, access_token) {
-  if (user_id && access_token) {
+export function generateNewSession(user_id) {
+  if (user_id) {
     return fetch('/api/sessions', {
       method: 'POST',
       headers: {
@@ -25,7 +25,6 @@ export function generateNewSession(user_id, access_token) {
       },
       body: JSON.stringify({
         user_id: user_id,
-        access_token: access_token
       })
     })
     .then(sessionId => sessionId.json())
@@ -132,7 +131,7 @@ export function deleteUserById(userId) {
   .catch(error => console.error(error));
 }
 
-export function deleteSessionByToken(access_token) {
+export function deleteSessionByUserId(user_id) {
   console.log('model tells backend to delete session');
   return fetch('/api/sessions', {
     method: 'DELETE',
@@ -140,7 +139,7 @@ export function deleteSessionByToken(access_token) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      access_token: access_token,
+      user_id: user_id,
     })
   })
   .then(data => data.json())

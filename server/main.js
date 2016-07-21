@@ -43,7 +43,7 @@ app.post('/api/games', (req, res) => {
   });
 });
 
-// taking user_id and access_token from request body, create new or update existing session record in db
+// taking user_id from request body, create new session record in db if it does not exist
 app.post('/api/sessions', (req, res) => {
   db.select('*').from('sessions')
   .then(rows => {
@@ -51,16 +51,10 @@ app.post('/api/sessions', (req, res) => {
     if (!userIds.includes(req.body.user_id)) {
       db('sessions').insert({
         user_id: req.body.user_id,
-        access_token: req.body.access_token
       })
       .then(resp => {
         res.send({});
       });
-    } else {
-      db('sessions').where('user_id', req.body.user_id).update('access_token', req.body.access_token)
-      .then((resp) => {
-        res.send({});
-      })
     }
   })
 });
@@ -94,10 +88,10 @@ app.post('/api/users', (req, res) => {
   })
 });
 
-// delete session by token
+// delete session by user_id
 app.delete('/api/sessions', (req,res) => {
   console.log('back end tells database to delete session');
-  db('sessions').where('access_token', req.body.access_token).del()
+  db('sessions').where('user_id', req.body.user_id).del()
   .then((response) => {
     console.log('database tells backend that session is deleted', response);
     res.send({});

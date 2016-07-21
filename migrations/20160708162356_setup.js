@@ -21,7 +21,6 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('sessions', function(table){
       table.increments('id').primary();
       table.string('user_id').references('id').inTable('users');
-      table.string('access_token');
       table.timestamps();
     }),
     knex.schema.createTable('challenges', function(table){

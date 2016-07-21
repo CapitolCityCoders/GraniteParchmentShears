@@ -61,9 +61,8 @@
     }(document, 'script', 'facebook-jssdk'));
 
     function fbAPI(authResponse) {
-      // Get userID and accessToken
+      // Get userID
       sessionStorage.setItem('userId', authResponse.userID);
-      sessionStorage.setItem('accessToken', authResponse.accessToken);
       // Get name
       FB.api(`/${authResponse.userID}`, function(response) {
         sessionStorage.setItem('name', response.name);
@@ -103,7 +102,7 @@
 
     function login() {
       FB.login(function(response) {
-        statusChangeCallback(response);
+        //statusChangeCallback(response);
         document.location.reload();
       }, {
         scope: 'public_profile, user_friends, email', 
@@ -113,7 +112,6 @@
   </script>
 
   <div class="hidden" id="fb-button">
-  <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" autologoutlink="true"></fb:login-button>
   <button id="log-in" onclick="login()">Log In</button> 
   <button id="log-out" onclick="logout()">Log Out</button> 
   </div>

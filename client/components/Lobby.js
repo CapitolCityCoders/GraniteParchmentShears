@@ -150,7 +150,7 @@ export default class Lobby extends React.Component {
                     : null
               }
               <Link to="/">
-                <button onClick={this.handleLeaveGame.bind(this)}>
+                <button className="btn btn-default" onClick={this.handleLeaveGame.bind(this)}>
                   Leave Game
                 </button>
               </Link>

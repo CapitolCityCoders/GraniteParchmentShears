@@ -13,7 +13,6 @@ export default class Chatbox extends React.Component {
   componentDidMount () {
     var self = this
 		socket.on('Chatbox message', function(msg){
-			console.log("socket.on: ", msg)
   		self.setState({messages: self.state.messages.concat(msg) })
 		});
   }

@@ -3,7 +3,12 @@
   Site Wide Styles
   =========================================================
 */
-.enclose {margin:auto;position:fixed;bottom:0px;width:100%;}
+.enclose {
+    margin: auto;
+    /* position: fixed; */
+    bottom: 0px;
+    width: 100%;
+}
 /*Applies to all but Battle page*/
 .narrative {
     position: absolute;

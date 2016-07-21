@@ -5,6 +5,7 @@ import Player from './Player'
 import Mike from './Mike' // opponent
 import Banner from './Banner'
 import Scoreboard from './Scoreboard'
+import Chat from './Chat'
 
 import * as Game from '../models/game'
 
@@ -14,7 +15,9 @@ export default class BattleContainer extends React.Component {
     this.state = {
       playerIcon: '',
       opponentIcon: '',
+      fbPhoto: '',
       player: {},
+      fbName: '',
       opponent: {},
       round: 1,
       winners: ['', '', ''],
@@ -27,8 +30,12 @@ export default class BattleContainer extends React.Component {
   componentDidMount() {
     this.gameId = sessionStorage.getItem('gameId');
     this.userId = sessionStorage.getItem('userId');
-
+    //populate facebook photo image. either undefined or not.
+    this.fbPhoto = sessionStorage.getItem('imgUrl');
+    this.fbName = sessionStorage.getItem('fbUser')
     // populate player and opponent state objects
+    this.setFbUrl(this.fbPhoto);
+    this.setFbName(this.fbName)
     this.updatePlayer();
     this.updateOpponent();
 
@@ -83,11 +90,22 @@ export default class BattleContainer extends React.Component {
         });
     }
   }
+  //set state for photo url.
+  setFbUrl(fbPhoto){
+    this.setState({fbPhoto:fbPhoto});
+  }
+  setFbName(fbName){
+    this.setState({fbName:fbName});
+  }
 
   updatePlayer() {
     return Game.getPlayerById(this.userId)
       .then(data => {
-        this.setState({player: data[0]});
+        //console.log(`${this.userId}: ${data}`);
+        // this if checker is a safety net
+        if (data[0] !== undefined) {
+          this.setState({player: data[0]});
+        }
         return;
       });
   }
@@ -195,6 +213,8 @@ export default class BattleContainer extends React.Component {
             player={this.state.player}
             handleMove={this.handleMove.bind(this)}
             icon={this.state.playerIcon}
+            fbPhoto={this.state.fbPhoto}
+            fbName={this.state.fbName}
           />
           {/* opponent component */}
           <Mike
@@ -202,6 +222,9 @@ export default class BattleContainer extends React.Component {
             icon={this.state.opponentIcon}
           />
         </div>
+        <Chat 
+          player={this.state.player}
+        />
     </div>
     );
   }

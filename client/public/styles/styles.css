@@ -3,12 +3,17 @@
   Site Wide Styles
   =========================================================
 */
-
+.enclose {
+    margin: auto;
+    /* position: fixed; */
+    bottom: 0px;
+    width: 100%;
+}
 /*Applies to all but Battle page*/
 .narrative {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+    position: absolute;
+    top: 10%;
+    /* transform: translateY(-50%); */
 }
 
 a {
@@ -94,6 +99,12 @@ input[type="text"] {
     float: right;
 }
 
+.stats {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
 /*
   =========================================================
   Game
@@ -172,7 +183,7 @@ img {
   border-radius: 50%;
   /* Giving Animation Function */
   -webkit-animation: pulse 1.666s linear infinite;
-  -moz-animation: pulse 1.666s linear infinite; 
+  -moz-animation: pulse 1.666s linear infinite;
   border-image: initial;
 }
 

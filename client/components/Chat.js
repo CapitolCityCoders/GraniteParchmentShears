@@ -40,7 +40,7 @@ export default class Chat extends React.Component {
 		return (
 	    <div className="chatBox">
 	      <div className="messages">
-	      <table className="u-full-width">
+	      <table className="table table-hover">
 	      	<tbody>
 	      		{this.state.messages.map(function(msg, index){return (<Message key={index} name={msg.name} message={msg.message} />)})}
         	</tbody>
@@ -67,8 +67,8 @@ class Message extends React.Component {
     return (
 
           <tr className="message">
-            <td>{this.props.name}</td>
-            <td>{this.props.message}</td>
+            <td className="text-left">{this.props.name}</td>
+            <td className="text-right">{this.props.message}</td>
           </tr>
 
     )

@@ -65,7 +65,7 @@ export default class Menu extends React.Component {
                     : this.state.view === 'join'
                       ? <Join
                           username={this.state.username}
-                          accesscode={this.state.accesscode}
+                          accessCode={this.state.accessCode}
                           handleUsernameChange={this.handleUsernameChange.bind(this)}
                           handleAccessCodeChange={this.handleAccessCodeChange.bind(this)}
                           handleViewChange={this.handleViewChange.bind(this)}/>

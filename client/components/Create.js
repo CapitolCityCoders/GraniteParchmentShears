@@ -45,7 +45,7 @@ componentWillMount(){
                 : null;
 
                 console.log("showing username before insertion:", username);
-
+                console.log('showing imageurl before insertion:', imageUrl)
                 // create new user using new gameId
                 db.generateNewUser(gameId, username, imageUrl)
                   .then(userId => {

@@ -46,7 +46,8 @@ export default class Stats extends React.Component {
 
   GetTop5Users(players){
     const sortedPlayers = _.sortBy(players,'score')
-    const top5Players = _.first(sortedPlayers, 5) 
+    const noZeroPlayers = _.reject(sortedPlayers,player => player.score == 0)
+    const top5Players = _.first(noZeroPlayers, 5) 
     //console.log(top5Players);
     return top5Players;
   }
@@ -100,6 +101,7 @@ export default class Stats extends React.Component {
         <Link to="/"><button className='stats'>Back</button></Link> 
         <div className="col-xs-8 col-xs-offset-2">
         <h3>Leaderboard</h3>
+        <p>Top users and their scores</p>
 
           <PieChart
                  data={data}

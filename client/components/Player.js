@@ -27,9 +27,9 @@ export default class Player extends React.Component {
           <img src = "/images/qmark.png"/>}
         </div>
         <div>
-          <button onClick={this.props.handleMove.bind(null, 'rock')}>Rock</button>
-          <button onClick={this.props.handleMove.bind(null, 'paper')}>Paper</button>
-          <button onClick={this.props.handleMove.bind(null, 'scissors')}>Scissors</button>
+          <button className="btn btn-default" onClick={this.props.handleMove.bind(null, 'rock')}>Rock</button>
+          <button className="btn btn-default" onClick={this.props.handleMove.bind(null, 'paper')}>Paper</button>
+          <button className="btn btn-default" onClick={this.props.handleMove.bind(null, 'scissors')}>Scissors</button>
         </div>
       </div>
     );

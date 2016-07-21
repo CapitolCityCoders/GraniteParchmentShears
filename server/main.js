@@ -67,19 +67,23 @@ app.post('/api/users', (req, res) => {
     name: req.body.name,
     imageUrl: req.body.imageUrl,
     score: 0,
-    status: 'waiting'
+    status: 'waiting',
+    wins: 0,
+    losses: 0
   })
   .then(userId => {
-    res.send(userId)
+    insertUserIntoGame(req.body.userType, req.body.gameId, userId[0])
+      .then(() => res.send(userId));  
   })
   .catch(err => {
-    console.log("tried to insert existung user!:", err);
+    // console.log("tried to insert existung user!:", err);
     db('users').where('name', '=', req.body.name).update({game_id: req.body.gameId, score: 0})
     .then((data) => {
       db('users').select('*').where('name', '=', req.body.name)
         .then((data) => {
-          console.log("selected user!!!!!", data);
-          res.send(201, [data[0].id]);
+          // console.log("selected user!!!!!", data);
+          insertUserIntoGame(req.body.userType, req.body.gameId, data[0].id)
+            .then(() => res.send(201, [data[0].id]))
         })
       
       // res.send({});
@@ -87,6 +91,12 @@ app.post('/api/users', (req, res) => {
     })
   })
 });
+
+function insertUserIntoGame(userType, gameId, userId) {
+  console.log("showing insertUserIntoGame info:", userType, gameId, userId);
+  var userNumber = (userType === 'create') ? 'user1_id' : 'user2_id'; 
+  return db('games').where('id', '=', gameId).update({[userNumber]: userId})
+}
 
 // returns all users
 app.get('/api/users', (req,res) => {
@@ -135,6 +145,28 @@ app.patch('/api/gameStatus', (req, res) => {
     .then(() => {
       res.send({});
     })
+});
+
+//----- updates players record that matches a given userId----//
+app.patch('/api/userRecord', (req, res) => {
+
+  console.log("receiving user win/loss data from client:", req.body.userId, req.body.winner);
+  db('users').select('*').where('id', '=', req.body.userId)
+    .then((data) => {
+      // console.log("found matching user!:", data);
+      var record = (data[0].name === req.body.winner) ? 'wins' : 'losses'
+      var number = data[0][record];
+      // console.log("showing before win/loss update:", record, number);
+      db('users').where('id', '=', req.body.userId).update({[record]: number + 1})
+      .then(() => {
+        res.send({});
+      })
+
+    })
+  // db('users').where('id', '=', req.body.userId).update('status', req.body.status)
+  //   .then(() => {
+  //     res.send({});
+  //   })
 });
 
 app.patch('/api/resetUser', (req, res) => {

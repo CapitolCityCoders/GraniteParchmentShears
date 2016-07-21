@@ -46,7 +46,7 @@ export default class Menu extends React.Component {
         <div className="row">
           <div className="col-xs-12">
             <Link to="/stats">
-              <button className='stats'>Stats</button>
+              <button className="btn btn-default stats">Stats</button>
             </Link>
             <div >
               <h1>The Rock Shop</h1>
@@ -54,8 +54,8 @@ export default class Menu extends React.Component {
               <hr/> {
                 this.state.view === 'menu'
                   ? <div className="button-container">
-                      <button onClick={this.handleViewChange.bind(this, 'create')}>New Game</button>
-                      <button onClick={this.handleViewChange.bind(this, 'join')}>Join Game</button>
+                      <button className="btn btn-default" onClick={this.handleViewChange.bind(this, 'create')}>New Game</button>
+                      <button className="btn btn-default" onClick={this.handleViewChange.bind(this, 'join')}>Join Game</button>
                     </div>
                   : this.state.view === 'create'
                     ? <Create

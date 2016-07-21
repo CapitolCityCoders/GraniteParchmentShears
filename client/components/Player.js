@@ -8,6 +8,7 @@ export default class Player extends React.Component {
 
   render() {
     // trying to see if the prop is getting the url.
+    //console.log("showing player.name:", this.props.player);
     console.log("showing player.name:", this.props.player);
     console.log('new');
     return (

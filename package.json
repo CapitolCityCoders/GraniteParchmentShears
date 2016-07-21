@@ -32,6 +32,7 @@
     "react-router": "^2.5.2",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
-    "sqlite3": "^3.1.4"
+    "sqlite3": "^3.1.4",
+    "underscore": "^1.8.3"
   }
 }

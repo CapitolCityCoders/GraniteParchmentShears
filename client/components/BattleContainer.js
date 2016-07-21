@@ -32,8 +32,6 @@ export default class BattleContainer extends React.Component {
     this.fbPhoto = sessionStorage.getItem('imgUrl');
     this.fbName = sessionStorage.getItem('fbUser')
     // populate player and opponent state objects
-    this.setFbUrl(this.fbPhoto);
-    this.setFbName(this.fbName)
     this.updatePlayer();
     this.updateOpponent();
 

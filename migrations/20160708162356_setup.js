@@ -6,6 +6,8 @@ exports.up = function(knex, Promise) {
       table.string('status');
       table.integer('user1_id');
       table.integer('user2_id');
+      table.integer('user1_score');
+      table.integer('user2_score');
       table.timestamps();
     }),
     knex.schema.createTable('users', function(table){
@@ -14,6 +16,8 @@ exports.up = function(knex, Promise) {
       table.string('imageUrl');
       table.string('name').unique();
       table.integer('score');
+      table.integer('wins');
+      table.integer('losses');
       table.string('status');
       table.timestamps();
     })

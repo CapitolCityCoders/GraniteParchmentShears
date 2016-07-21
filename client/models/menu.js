@@ -16,7 +16,9 @@ export function generateNewGame(accessCode) {
 }
 
 //--------------Create a new User------------//
-export function generateNewUser(gameId, name, imageUrl) {
+
+export function generateNewUser(gameId, name, imageUrl, userType) {
+
   return fetch('/api/users', {
     method: 'POST',
     headers: {
@@ -25,7 +27,9 @@ export function generateNewUser(gameId, name, imageUrl) {
     body: JSON.stringify({
       gameId: gameId,
       name: name,
-      imageUrl: imageUrl
+      imageUrl: imageUrl,
+      userType: userType
+
     })
   })
   .then(userId => userId.json())
@@ -108,6 +112,22 @@ export function updateGameStatus(gameId, status) {
   })
   .then(data => data.json())
   .catch(error => console.error(error));
+}
+
+//------- updates player wins/losses -------------------//
+export function updateUserRecord(userId, winner) {
+  return fetch('/api/userRecord', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId,
+      winner: winner
+    })
+  })
+  .then(function() {})
+  .catch(error => console.error(error))
 }
 
 //----------Get a Game by ID---------//

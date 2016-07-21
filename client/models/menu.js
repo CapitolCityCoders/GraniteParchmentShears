@@ -43,6 +43,31 @@ export function gameList() {
   .catch(error => console.error(error));
 }
 
+//-----------get all games by username from db------//
+export function gamesByUsername(username) {
+
+  return fetch('/api/userbyname/' + username, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(games => { return games.json()})
+  .catch(error => console.error(error));
+}
+
+//-----------get all players from db--------------//
+export function playerList() {
+  return fetch('/api/users', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(players => players.json())
+  .catch(error => console.error(error));
+}
+
 //-------get players in a certain game---------//
 export function userList(gameId) {
   return fetch('/api/games/' + gameId + '/users', {

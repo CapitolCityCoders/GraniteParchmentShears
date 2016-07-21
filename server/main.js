@@ -62,7 +62,6 @@ app.post('/api/games', (req, res) => {
 
 // taking gameId and username from request body, create new user record in db
 app.post('/api/users', (req, res) => {
-  console.log('req.body:', req.body)
   db('users').insert({
     game_id: req.body.gameId,
     name: req.body.name,

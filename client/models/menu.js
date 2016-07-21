@@ -32,7 +32,7 @@ export function generateNewSession(user_id) {
   }
 }
 
-//--------------Create a new USer------------//
+//--------------Create a new User------------//
 export function createNewUser(user_id, name, photo_url, friends) {
   return fetch('/api/users', {
     method: 'POST',
@@ -50,26 +50,17 @@ export function createNewUser(user_id, name, photo_url, friends) {
   .catch(error => console.error(error));
 }
 
-//-----------get username------------------------//
-export function getUserName(accessToken) {
-  return fetch('api/sessions/' + accessToken, {
-    method: 'GET', 
+//----------Get a User by ID---------//
+export function getUserById(userId) {
+  return fetch('/api/users/' + userId, {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
   })
-  .then(function(userId){
-    return fetch('/api/users/' + userId, {
-      method: 'GET',
-      headers: {
-        'Content-Type' : 'application/json'
-      }
-    })
-  })
-  .then(userName => userName.json())
+  .then(user => user.json())
   .catch(error => console.error(error));
 }
-
 
 //-----------get all games from db--------------//
 export function gameList() {
@@ -179,5 +170,17 @@ export function resetUser(userId) {
     })
   })
   .then(data => data.json())
+  .catch(error => console.error(error));
+}
+
+//-----------get all sessions from db--------------//
+export function getSessions() {
+  return fetch('/api/sessions', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(sessions => sessions.json())
   .catch(error => console.error(error));
 }

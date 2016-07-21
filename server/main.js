@@ -98,6 +98,22 @@ app.delete('/api/sessions', (req,res) => {
   })
 });
 
+// returns array of session records
+app.get('/api/sessions', (req, res) => {
+  db.select('*').from('sessions')
+  .then(rows => {
+    res.send(rows);
+  })
+});
+
+// returns the user that matches a given userId
+app.get('/api/users/:userId', (req, res) => {
+  db('users').where('user_id', req.params.userId)
+    .then(rows => {
+      res.send(rows);
+    })
+});
+
 // returns array of game objects
 app.get('/api/games', (req, res) => {
   db.select('*').from('games')
@@ -217,6 +233,7 @@ app.get('/app-bundle.js',
 //---  socket.io is listening for queues triggered by ----//
 //---  players, then emits information to both     ----//
 io.on('connection', function(socket){
+
 	socket.on('join game', gameId => {
 		io.emit('join game', gameId)
 	})
@@ -240,11 +257,16 @@ io.on('connection', function(socket){
 	socket.on('rematch', gameId => {
 		io.emit('rematch', gameId)
 	})
+
   socket.on('message', body => {
     socket.broadcast.emit('message', {
       body: body,
       from: socket.id.slice(8)
     })
+  })
+
+  socket.on('disconnect', function(){
+    io.emit('user disconnected');
   })
 })
 

@@ -49,8 +49,14 @@ Uses a Menu component that routes to Game component based on access code.
  * Sockets left open for every game
  
 
+### V2.0.0 Authors 
+  * Ashley Smith
+  * Kyhan Turner
+  * Ricardo D'Alessandro
+  * Tim Crane
+  * Tony Kung
 
-### Authors: 
+### V1.0.0 Authors: 
   * Amanda Fillip
   * Mike Fleming
   * Tom LeConey

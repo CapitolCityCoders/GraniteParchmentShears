@@ -129,10 +129,34 @@ input[type="text"] {
 }
 
 .player .arena {
+  margin-right:70px;
+  border-radius:0px;
+  width:215px;
   background-color: #ecffe6;
 }
+.player  {
+  display:inline-block
+}
 
+.opponent {
+  display:inline-block
+}
+.opponent-name{
+  margin-left:70px
+}
+.player-name{
+  margin-right:70px
+}
+.opponent-choices{
+ margin-left:70px
+}
+.player-choices{
+  margin-right:70px
+}
 .opponent .arena {
+  margin-left:70px;
+  border-radius:0px;
+  width:215px;
   background-color: #ffe5ea;
 }
 

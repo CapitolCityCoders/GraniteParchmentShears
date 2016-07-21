@@ -37,10 +37,7 @@ export default class Chatbox extends React.Component {
       <div >
         <Messages messages={this.state.messages}/>
         <form onSubmit={this._handleSubmit.bind(this)}>
-          <div className="input-group enclose">
-            <span className="input-group-btn">
-              <button className="btn btn-default" type="button" >Go!</button>
-            </span>
+          <div className="input-group">
             <input
               type="text"
               className="form-control"
@@ -49,7 +46,6 @@ export default class Chatbox extends React.Component {
               placeholder="chat..."
               id="chatInput"
               onChange={event => this.setState({text: event.target.value})}
-
             />
           </div>
         </form>
@@ -62,8 +58,8 @@ class Messages extends React.Component {
 
   _createMessages() {
     var msgTrim;
-    if (this.props.messages.length > 6) {
-      msgTrim = this.props.messages.slice(this.props.messages.length - 6);
+    if (this.props.messages.length > 10) {
+      msgTrim = this.props.messages.slice(this.props.messages.length - 10);
     } else {
       msgTrim = this.props.messages;
     }

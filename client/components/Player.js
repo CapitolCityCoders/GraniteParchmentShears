@@ -14,9 +14,7 @@ export default class Player extends React.Component {
     return (
       <div className="player six columns">
         <div>
-          {console.log(this.props.player)}
           <h5>{this.props.player.name}</h5>
-        }
         </div>
         <div className="arena container">
           {this.props.icon ?
@@ -26,7 +24,7 @@ export default class Player extends React.Component {
           :
           <img src = "/images/qmark.png"/>}
         </div>
-        <div>
+        <div className='player-choices'>
           <button className="btn btn-default" onClick={this.props.handleMove.bind(null, 'rock')}>Rock</button>
           <button className="btn btn-default" onClick={this.props.handleMove.bind(null, 'paper')}>Paper</button>
           <button className="btn btn-default" onClick={this.props.handleMove.bind(null, 'scissors')}>Scissors</button>

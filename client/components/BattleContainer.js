@@ -101,7 +101,11 @@ export default class BattleContainer extends React.Component {
   updatePlayer() {
     return Game.getPlayerById(this.userId)
       .then(data => {
-        this.setState({player: data[0]});
+        //console.log(`${this.userId}: ${data}`);
+        // this if checker is a safety net
+        if (data[0] !== undefined) {
+          this.setState({player: data[0]});
+        }
         return;
       });
   }

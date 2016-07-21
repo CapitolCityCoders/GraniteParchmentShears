@@ -38,7 +38,7 @@ export default class Menu extends React.Component{
     return (
       <div className="narrative container six columns offset-by-three">
         <h1>The Rock Shop</h1>
-        <Graph />
+      
       {/*To fix: users log in to see their profiles*/}
         <hr />
         {

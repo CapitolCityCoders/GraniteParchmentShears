@@ -28,9 +28,9 @@ export default class Chatbox extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         <Messages messages={this.state.messages}/>
-        <form onSubmit={this._handleSubmit.bind(this)}>
+        <form className="enclose" onSubmit={this._handleSubmit.bind(this)}>
            <input
              type="text"
              onFocus={event => this.value=''}

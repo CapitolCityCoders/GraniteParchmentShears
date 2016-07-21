@@ -36,7 +36,7 @@ export default class Stats extends React.Component {
           },0);
           
           this.setState({userScores: this.state.userScores.concat({[user]:total})});
-            //console.log('state is ~~', JSON.stringify(this.state.userScores));
+            console.log('state is ~~', JSON.stringify(this.state.userScores));
              this.generateLeaderBoard();
         })
        
@@ -51,6 +51,10 @@ export default class Stats extends React.Component {
     })
     //console.log(values)
     this.setState({chartValues: values})
+  }
+
+  tooltipScatter(x, y) {
+    return "x: " + x + " y: " + y;
   }
  
   render() {
@@ -72,7 +76,12 @@ export default class Stats extends React.Component {
                  data={data}
                  width={400}
                  height={200}
-                 margin={{top: 5, bottom: 40, left: 40, right: 20}}/>
+                 margin={{top: 5, bottom: 40, left: 0, right: 20}}
+                 tooltipHtml={this.tooltipScatter}
+                 xAxis={{label: "Users"}}
+                 yAxis={{label: "Scores"}}
+
+                 />
         </div>
       </div>
         

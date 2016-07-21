@@ -86,6 +86,8 @@ export default class Game extends React.Component {
           endGame={this.endGame.bind(this)} 
         /> : 
         <End 
+          gameId={this.gameId}
+          userId={this.userId}
           winner={this.state.winner}
           rematch={this.rematch.bind(this)} 
         />}

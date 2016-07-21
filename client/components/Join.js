@@ -20,7 +20,7 @@ componentWillMount(){
         const game = gameList.find(e => e.access_code === this.props.accessCode);
 
         // check if entered access code exists 
-        console.log("showing games in join.js:", gameList, game);
+        // console.log("showing games in join.js:", gameList, game);
         if (game && game.status === 'waiting') {
             var username;
             sessionStorage.getItem('fbUser') ? 
@@ -34,7 +34,7 @@ componentWillMount(){
 
           db.generateNewUser(game.id, username, imageUrl, 'join')
             .then(userId => {
-              console.log("showing returned user id in Create:", userId);
+              // console.log("showing returned user id in Create:", userId);
               userId = userId[0];
 
               // set current userId to local storage

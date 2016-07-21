@@ -63,7 +63,7 @@ app.post('/api/games', (req, res) => {
 // taking gameId and username from request body, create new user record in db
 app.post('/api/users', (req, res) => {
   
-  console.log("server got new user request:", req.body);
+  // console.log("server got new user request:", req.body);
   // var userNumber = (req.body.)
   db('users').insert({
     game_id: req.body.gameId,
@@ -78,12 +78,12 @@ app.post('/api/users', (req, res) => {
       .then(() => res.send(userId));  
   })
   .catch(err => {
-    console.log("tried to insert existung user!:", err);
+    // console.log("tried to insert existung user!:", err);
     db('users').where('name', '=', req.body.name).update({game_id: req.body.gameId, score: 0})
     .then((data) => {
       db('users').select('*').where('name', '=', req.body.name)
         .then((data) => {
-          console.log("selected user!!!!!", data);
+          // console.log("selected user!!!!!", data);
           insertUserIntoGame(req.body.userType, req.body.gameId, data[0].id)
             .then(() => res.send(201, [data[0].id]))
         })
@@ -147,6 +147,28 @@ app.patch('/api/gameStatus', (req, res) => {
     .then(() => {
       res.send({});
     })
+});
+
+//----- updates players record that matches a given userId----//
+app.patch('/api/userRecord', (req, res) => {
+
+  console.log("receiving user win/loss data from client:", req.body.userId, req.body.winner);
+  db('users').select('*').where('id', '=', req.body.userId)
+    .then((data) => {
+      // console.log("found matching user!:", data);
+      var record = (data[0].name === req.body.winner) ? 'wins' : 'losses'
+      var number = data[0][record];
+      // console.log("showing before win/loss update:", record, number);
+      db('users').where('id', '=', req.body.userId).update({[record]: number + 1})
+      .then(() => {
+        res.send({});
+      })
+
+    })
+  // db('users').where('id', '=', req.body.userId).update('status', req.body.status)
+  //   .then(() => {
+  //     res.send({});
+  //   })
 });
 
 app.patch('/api/resetUser', (req, res) => {

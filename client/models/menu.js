@@ -98,6 +98,22 @@ export function updateGameStatus(gameId, status) {
   .catch(error => console.error(error));
 }
 
+//------- updates player wins/losses -------------------//
+export function updateUserRecord(userId, winner) {
+  return fetch('/api/userRecord', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId,
+      winner: winner
+    })
+  })
+  .then(function() {})
+  .catch(error => console.error(error))
+}
+
 //----------Get a Game by ID---------//
 export function getGameById(gameId) {
   return fetch('/api/games/' + gameId, {

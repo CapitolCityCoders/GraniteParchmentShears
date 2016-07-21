@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import ChatApp from './ChatApp.js'
+import Challenge from './Challenge'
 
 import * as db from '../models/menu'
 
@@ -22,9 +23,8 @@ render() {
     return (
       <div className="sidebar narrative container three columns offset-by-nine column vertical">
         <div className="challenge-app">
-          <h4>Challenge App will Go here</h4>
+          <Challenge />
         </div>
-        <hr />
         <div className="chat-app">
           <ChatApp />
         </div>

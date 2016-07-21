@@ -79,8 +79,9 @@ export default class Stats extends React.Component {
 
   tooltipScatter(x,y) {
     console.log(x,y)
-    // y is wrong now...
-    return "x: " + x + " y: " + y;
+    
+    //return "x: " + x + " y: " + y;
+    return y.toString();
   }
  
   render() {
@@ -107,6 +108,9 @@ export default class Stats extends React.Component {
                  margin={{top: 30, bottom: 10, left: 100, right: 100}}
                  
                  tooltipHtml={this.tooltipScatter}
+                 tooltipMode={'fixed'}
+                 tooltipOffset={{top: 175, left: 200}}
+
                  
                  />
         </div>

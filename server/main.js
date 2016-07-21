@@ -62,6 +62,7 @@ app.post('/api/games', (req, res) => {
 
 // taking gameId and username from request body, create new user record in db
 app.post('/api/users', (req, res) => {
+  // db('users').select('*').where("name", "=", req.body.name)
   db('users').insert({
     game_id: req.body.gameId,
     name: req.body.name,
@@ -70,6 +71,20 @@ app.post('/api/users', (req, res) => {
   })
   .then(userId => {
     res.send(userId)
+  })
+  .catch(err => {
+    console.log("tried to insert existung user!:", err);
+    db('users').where('name', '=', req.body.name).update({game_id: req.body.gameId, score: 0})
+    .then((data) => {
+      db('users').select('*').where('name', '=', req.body.name)
+        .then((data) => {
+          console.log("selected user!!!!!", data);
+          res.send(201, [data[0].id]);
+        })
+      
+      // res.send({});
+      // res.sendStatus(200);
+    })
   })
 });
 

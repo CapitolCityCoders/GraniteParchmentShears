@@ -20,6 +20,7 @@ export default class Join extends React.Component {
         if (game && game.status === 'waiting') {
           db.generateNewUser(game.id, this.props.username)
             .then(userId => {
+              console.log("showing returned user id in Create:", userId);
               userId = userId[0];
 
               // set current userId to local storage

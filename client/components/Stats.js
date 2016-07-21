@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
-import _ from 'underscore';
 import ReactD3 from 'react-d3-components';
 import * as db from '../models/menu';
 
@@ -11,44 +10,20 @@ export default class Stats extends React.Component {
     this.state = {
       userScores: [], // [{uu1:4},{uu2:2}]
       chartValues: [{x: 'user1', y: 0}, {x: 'user2', y: 0}, {x: 'user3', y: 0}]
-    }   
+    }
   }
 
   componentDidMount() {
     this.getUniqueUsers();
   }
 
-  // getGamesByUser() {
-  //   db.gamesByPlayerId()
-  //     .then(gameList => {
-  //               const scores = gameList.map(game => game.score)
-  //               const total = scores.reduce((sum,score) => {
-  //                 return sum += score;
-  //           },0);
-
-  //     this.setState({userScores: this.state.userScores.concat({[user]:total})});
-  //       console.log('state is ~~', JSON.stringify(this.state.userScores));
-  //        this.generateLeaderBoard();
-  //   })
-  // }
-
   getUniqueUsers() {
     //get all users
     db.playerList()
       .then(players => {
-        console.log('users,0~~~~~~',JSON.stringify(players))
-          players = this.GetTop5Users(players);
           const users = players.map(player => player.name).filter((name,index,self) => self.indexOf(name) === index)
-          console.log('users,1~~~~~~',users)
             this.updateUserScoresState(users);
         })
-  }
-
-  GetTop5Users(players){
-    const sortedPlayers = _.sortBy(players,'score')
-    const top5Players = _.first(sortedPlayers, 5) 
-    //console.log(top5Players);
-    return top5Players;
   }
 
   updateUserScoresState(users) {
@@ -59,13 +34,14 @@ export default class Stats extends React.Component {
           const total = scores.reduce((sum,score) => {
             return sum += score;
           },0);
+
           this.setState({userScores: this.state.userScores.concat({[user]:total})});
-            console.log('state is ~~', JSON.stringify(this.state.userScores));
+            //console.log('state is ~~', JSON.stringify(this.state.userScores));
              this.generateLeaderBoard();
         })
-       
-    })  
-    
+
+    })
+
   }
 
   generateLeaderBoard() {
@@ -77,16 +53,9 @@ export default class Stats extends React.Component {
     this.setState({chartValues: values})
   }
 
-  tooltipScatter(y) {
-    //console.log(x,y)
-    // y is wrong now...
-    return " scored " + y;
-  }
- 
   render() {
-   
+
     var BarChart = ReactD3.BarChart;
-    var PieChart = ReactD3.PieChart;
 
     var data = [{
         label: 'Leaderboard',
@@ -95,22 +64,18 @@ export default class Stats extends React.Component {
 
     return (
       <div>
-        <Link to="/"><button className='stats'>Back</button></Link> 
+        <Link to="/"><button className="btn btn-default stats">Back</button></Link>
         <div className="narrative container six columns offset-by-three">
         <h3>Leaderboard</h3>
 
           <BarChart
                  data={data}
                  width={400}
-                 height={300}
-                 margin={{top: 65, bottom: 40, left: 0, right: 20}}
-                 tooltipHtml={this.tooltipScatter}
-                 xAxis={{label: "Users"}}
-                 tooltipOffset={{top: -50, left: 0}}
-                 />
+                 height={200}
+                 margin={{top: 5, bottom: 40, left: 40, right: 20}}/>
         </div>
       </div>
-        
+
     )
   }
 }

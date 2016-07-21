@@ -19,7 +19,7 @@ componentWillMount(){
     db.gameList()
       .then(gameList => {
         const accessCodes = gameList.map(game => game.access_code);
-        // check if generated access code already exists 
+        // check if generated access code already exists
         while (!gameGenerated) {
           if (!accessCodes.includes(accessCode)) {
             // create new game using access code
@@ -35,12 +35,12 @@ componentWillMount(){
               .then(gameId => {
 
                 var username;
-                sessionStorage.getItem('fbUser') ? 
+                sessionStorage.getItem('fbUser') ?
                 username = sessionStorage.getItem('fbUser')
                 : username = this.props.username;
 
                 var imageUrl;
-                sessionStorage.getItem('imgUrl') ? 
+                sessionStorage.getItem('imgUrl') ?
                 imageUrl = sessionStorage.getItem('imgUrl')
                 : null;
 
@@ -66,15 +66,15 @@ componentWillMount(){
       })
   }
 
-  // show create game username input and buttons 
+  // show create game username input and buttons
  render() {
      return (
       <form className="create-game">
-      {this.fbName ? 
+      {this.fbName ?
         <h4>{this.fbName}</h4>
         :
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Enter your name"
           value={this.props.username}
           onChange={this.props.handleUsernameChange}
@@ -82,8 +82,8 @@ componentWillMount(){
       }
 
         <div className="button-container">
-          <button type="submit" onClick={this.handleCreate.bind(this)}>Create Game</button>
-          <button onClick={this.props.handleViewChange.bind(null, 'menu')}>Back</button>
+          <button className="btn btn-default" type="submit" onClick={this.handleCreate.bind(this)}>Create Game</button>
+          <button className="btn btn-default" onClick={this.props.handleViewChange.bind(null, 'menu')}>Back</button>
         </div>
       </form>
     );

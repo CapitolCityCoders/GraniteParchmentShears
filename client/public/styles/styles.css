@@ -214,3 +214,44 @@ img {
   30% {-webkit-transform: scale(1.2); opacity: 0.2;}
   100% {opacity: 0; -webkit-transform: scale(1.4);}
 }
+
+/*
+  =========================================================
+  Sidebar
+  =========================================================
+*/
+
+.sidebar {
+  position: absolute;
+}
+
+a {
+    color: #999;
+}
+
+.button-container button {
+  margin: 5px 15px;
+  width: 130px;
+}
+
+.container {
+  text-align: center;
+  padding: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.challenge-app {
+  position: relative;
+  vertical-align: middle
+}
+
+.chat-app {
+  position: relative;
+  vertical-align: middle;
+}
+
+
+

@@ -21,13 +21,9 @@ render() {
 	      <div className="menu">
 	      	<Menu />
 	      </div>
-	      {
-          this.state.view !== 'loggedOut'
-    			? <div className="sidebar-container">
-	      		  <Sidebar />
-	      	  </div>
-      	  : console.log('no sidebar on this view')
-		    }
+			  <div className="sidebar-container vertical">
+    		  <Sidebar />
+    	  </div>
       </div>
     );
   }

@@ -77,36 +77,37 @@ export default class Stats extends React.Component {
     this.setState({chartValues: values})
   }
 
-  tooltipScatter(y) {
-    //console.log(x,y)
+  tooltipScatter(x,y) {
+    console.log(x,y)
     // y is wrong now...
-    return " scored " + y;
+    return "x: " + x + " y: " + y;
   }
  
   render() {
    
-    var BarChart = ReactD3.BarChart;
-    var PieChart = ReactD3.PieChart;
+    const BarChart = ReactD3.BarChart;
+    const PieChart = ReactD3.PieChart;
 
-    var data = [{
+    const data = {
         label: 'Leaderboard',
         values: this.state.chartValues
-    }];
+    };
 
+    const sort = null;
     return (
       <div className="container">
         <Link to="/"><button className='stats'>Back</button></Link> 
         <div className="col-xs-8 col-xs-offset-2">
         <h3>Leaderboard</h3>
 
-          <BarChart
+          <PieChart
                  data={data}
-                 width={400}
-                 height={300}
-                 margin={{top: 65, bottom: 40, left: 0, right: 20}}
+                 width={600}
+                 height={400}
+                 margin={{top: 30, bottom: 10, left: 100, right: 100}}
+                 
                  tooltipHtml={this.tooltipScatter}
-                 xAxis={{label: "Users"}}
-                 tooltipOffset={{top: -50, left: 0}}
+                 
                  />
         </div>
       </div>

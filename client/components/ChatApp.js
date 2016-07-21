@@ -38,8 +38,8 @@ class ChatApp extends React.Component {
 		return (
 			<div>
 				<h4>Messages</h4>
-				<input type='text' placeholder='enter message...' onKeyUp={this.handleSubmit} />
 				{messages}
+				<input type='text' placeholder='enter message...' onKeyUp={this.handleSubmit} />
 			</div>
 		)
 	}

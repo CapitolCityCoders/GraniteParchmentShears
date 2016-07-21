@@ -4,13 +4,15 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('access_code');
       table.string('status');
+      table.integer('user1_id');
+      table.integer('user2_id');
       table.timestamps();
     }),
     knex.schema.createTable('users', function(table){
       table.increments('id').primary();
       table.integer('game_id').references('id').inTable('games');
       table.string('imageUrl');
-      table.string('name');
+      table.string('name').unique();
       table.integer('score');
       table.string('status');
       table.timestamps();

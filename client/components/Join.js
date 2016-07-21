@@ -33,6 +33,7 @@ componentWillMount(){
 
           db.generateNewUser(game.id, username, imageUrl)
             .then(userId => {
+              console.log("showing returned user id in Create:", userId);
               userId = userId[0];
 
               // set current userId to local storage

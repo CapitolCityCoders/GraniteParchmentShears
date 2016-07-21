@@ -45,6 +45,7 @@ export function gameList() {
 
 //-----------get all games by username from db------//
 export function gamesByUsername(username) {
+
   return fetch('/api/userbyname/' + username, {
     method: 'GET',
     headers: {

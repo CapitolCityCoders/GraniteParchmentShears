@@ -3,6 +3,7 @@ import { Link, browserHistory } from 'react-router';
 
 import Create from './Create';
 import Join from './Join';
+
 import Stats from './Stats';
 import PieChart from './PieChart';
 import Chatbox from './Chatbox.jsx';

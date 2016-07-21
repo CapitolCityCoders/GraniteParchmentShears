@@ -216,3 +216,16 @@ img {
   30% {-webkit-transform: scale(1.2); opacity: 0.2;}
   100% {opacity: 0; -webkit-transform: scale(1.4);}
 }
+
+/*
+  =========================================================
+  Stats 
+  =========================================================
+*/
+
+.tooltip {
+  font-size: 1em;
+  background-color: #c1d9ee;
+  padding: 5px;
+  border-radius: 2px;
+}

@@ -52,24 +52,24 @@ export function createNewUser(user_id, name, photo_url, friends) {
 }
 
 //-----------get username------------------------//
-export function getUserName(accessToken) {
-  return fetch('api/sessions/' + accessToken, {
-    method: 'GET', 
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(function(userId){
-    return fetch('/api/users/' + userId, {
-      method: 'GET',
-      headers: {
-        'Content-Type' : 'application/json'
-      }
-    })
-  })
-  .then(userName => userName.json())
-  .catch(error => console.error(error));
-}
+// export function getUserName(access_token) {
+//   return fetch('api/sessions/' + access_token, {
+//     method: 'GET', 
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   })
+//   .then(function(userId){
+//     return fetch('/api/users/' + userId, {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type' : 'application/json'
+//       }
+//     })
+//   })
+//   .then(userName => userName.json())
+//   .catch(error => console.error(error));
+// }
 
 
 //-----------get all games from db--------------//

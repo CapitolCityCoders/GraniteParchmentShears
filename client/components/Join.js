@@ -53,12 +53,6 @@ export default class Join extends React.Component {
           value={this.props.accessCode}
           onChange={this.props.handleAccessCodeChange}
         />
-        <input 
-          type="text" 
-          placeholder="Enter your name"
-          value={this.props.username}
-          onChange={this.props.handleUsernameChange}
-        />
 
         <div className="button-container">
           <button type="submit" onClick={this.handleJoin.bind(this)}>Join Game</button>

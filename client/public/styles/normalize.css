@@ -18,6 +18,20 @@ html {
 
 body {
   margin: 0;
+  background-image:url('http://www.babylonclub.ca/wp-content/uploads/2012/12/RPS.png');
+  background-repeat:no-repeat;
+  background-position: center 450px;
+  background-size:700px 270px;
+}
+
+#app {
+  margin-top:70px;
+}
+.dropdown-toggle{
+  float:right;
+}
+.fb{
+  float:right;
 }
 
 /* HTML5 display definitions

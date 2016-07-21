@@ -5,106 +5,77 @@
   <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/styles/normalize.css"/>
-  <link rel="stylesheet" href="/styles/skeleton.css"/>
   <link rel="stylesheet" href="/styles/styles.css"/>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' /></head>
 <body>
+  <!-- Fixed navbar -->
+      <div class="navbar navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">       
+            </button>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">             
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Choose a theme! <b class="caret"></b></a>
+
+                <ul class="dropdown-menu">
+                  <li><a href="#" data-theme="default" class="theme-link">Default</a></li>
+                  <li><a href="#" data-theme="cosmo" class="theme-link">Cosmo</a></li>
+                  <li><a href="#" data-theme="flatly" class="theme-link">Flatly</a></li>
+                  <li><a href="#" data-theme="journal" class="theme-link">Journal</a></li>
+                  <li><a href="#" data-theme="readable" class="theme-link">Readable</a></li>
+                  <li><a href="#" data-theme="simplex" class="theme-link">Simplex</a></li>
+                </ul>
+              </li>
+            </ul>
+          <div class='fb'>
+          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true">
+        </fb:login-button>
+        <div id="status"></div>
+        </div>
+            
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
 <div id="fb-root"></div>
+<script src="facebook.js"></script>
 <script>
-  
-  function statusChangeCallback(response) {
-
-    if (response.status === 'connected') {
-      //retrive the photo for the for fb user
-      getPhoto();
-      //retrive the name and id of the fb user
-      testAPI();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      sessionStorage.removeItem('imgUrl')
-      sessionStorage.removeItem('fbUser')
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Login with Facebook';
-        // very small image that can not be seen
-      // document.getElementById('img').src ="data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E";
+    var themes = {
+      "default": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css",
+      "amelia" : "//bootswatch.com/amelia/bootstrap.min.css",
+      "cerulean" : "https://bootswatch.com/cerulean/bootstrap.min.css",
+      "cosmo" : "https://bootswatch.com/cosmo/bootstrap.min.css",
+      "cyborg" : "https://bootswatch.com/cyborg/bootstrap.min.css",
+      "flatly" : "https://bootswatch.com/flatly/bootstrap.min.css",
+      "journal" : "https://bootswatch.com/journal/bootstrap.min.css",
+      "readable" : "https://bootswatch.com/readable/bootstrap.min.css",
+      "simplex" : "https://bootswatch.com/simplex/bootstrap.min.css",
+      "slate" : "https://bootswatch.com/slate/bootstrap.min.css",
+      "spacelab" : "https://bootswatch.com/spacelab/bootstrap.min.css",
     }
-  }
-
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
+    $(function(){
+     var themesheet = $('<link href="'+themes['default']+'" rel="stylesheet" />');
+      themesheet.appendTo('head');
+      $('.theme-link').click(function(){
+         var themeurl = themes[$(this).attr('data-theme')];
+          themesheet.attr('href',themeurl);
+      });
     });
-  }
-
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '269345560105374',
-    cookie     : true,  // enable cookies to allow the server to access 
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.5' // use graph api version 2.5
-  });
-
-
-  FB.getLoginStatus(function(response) {  
-    statusChangeCallback(response);
-  });
-
-  };
-
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  function testAPI() {
-    //api call to retrive name and id
-    FB.api('/me', function(response) {
-      sessionStorage.setItem('fbUser', response.name)
-     
-      document.getElementById('status').innerHTML =
-        'Welcome to Rock Shop ' + response.name + '!';
-    });
-  }
-
-   function getPhoto() {
-    // api call to retrive a large profile image for user
-    FB.api('/me/picture?type=large', function(response) {
-      sessionStorage.setItem('imgUrl', response.data.url);
-    });
-  }
 </script>
-
 <!--
   Below we include the Login Button social plugin. This button uses
   the JavaScript SDK to present a graphical Login button that triggers
   the FB.login() function when clicked.
 -->
 
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-auto-logout-link="true">
-</fb:login-button>
-
-<div id="status"></div>
-
-
-
-
-
-  <div id="app"></div>
-
+  <div id="app">
+  </div>
   <script src="/socket.io/socket.io.js"></script>
   <script>var socket = io();</script>
   <script src="/app-bundle.js"></script>
-
 </body>
 </html>

@@ -16,7 +16,9 @@ export function generateNewGame(accessCode) {
 }
 
 //--------------Create a new User------------//
+
 export function generateNewUser(gameId, name, imageUrl, userType) {
+
   return fetch('/api/users', {
     method: 'POST',
     headers: {
@@ -27,6 +29,7 @@ export function generateNewUser(gameId, name, imageUrl, userType) {
       name: name,
       imageUrl: imageUrl,
       userType: userType
+
     })
   })
   .then(userId => userId.json())
@@ -49,6 +52,19 @@ export function gameList() {
 export function gamesByUsername(username) {
 
   return fetch('/api/userbyname/' + username, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(games => { return games.json()})
+  .catch(error => console.error(error));
+}
+
+//-----------get all games by player id from db------//
+export function gamesByPlayerId(playerId) {
+
+  return fetch(`/api/users/${playerId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

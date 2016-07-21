@@ -19,16 +19,14 @@ componentWillMount(){
       .then(gameList => {
         const game = gameList.find(e => e.access_code === this.props.accessCode);
 
-        // check if entered access code exists 
-        // console.log("showing games in join.js:", gameList, game);
         if (game && game.status === 'waiting') {
             var username;
-            sessionStorage.getItem('fbUser') ? 
+            sessionStorage.getItem('fbUser') ?
             username = sessionStorage.getItem('fbUser')
             : username = this.props.username;
 
             var imageUrl;
-            sessionStorage.getItem('imgUrl') ? 
+            sessionStorage.getItem('imgUrl') ?
             imageUrl = sessionStorage.getItem('imgUrl')
             : null;
 
@@ -56,12 +54,12 @@ componentWillMount(){
       });
   }
 
-  // show join game username and access code input and buttons 
+  // show join game username and access code input and buttons
   render() {
     return (
       <form className="join-game">
-        <input 
-          type="text" 
+        <input
+          type="text"
           autoCorrect="off"
           autoCapitalize="off"
           placeholder="Enter an access code"
@@ -69,11 +67,11 @@ componentWillMount(){
           onChange={this.props.handleAccessCodeChange}
         />
 
-        {this.fbName ? 
+        {this.fbName ?
         <h4>{this.fbName}</h4>
         :
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Enter your name"
           value={this.props.username}
           onChange={this.props.handleUsernameChange}
@@ -82,8 +80,8 @@ componentWillMount(){
 
 
         <div className="button-container">
-          <button type="submit" onClick={this.handleJoin.bind(this)}>Join Game</button>
-          <button onClick={this.props.handleViewChange.bind(null, 'menu')}>Back</button>
+          <button className="btn btn-default" type="submit" onClick={this.handleJoin.bind(this)}>Join Game</button>
+          <button className="btn btn-default" onClick={this.props.handleViewChange.bind(null, 'menu')}>Back</button>
         </div>
       </form>
     );

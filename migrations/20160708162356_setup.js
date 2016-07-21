@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
       table.integer('user2_id');
       table.integer('user1_score');
       table.integer('user2_score');
-      table.timestamps();
+      table.timestamp('created_at').defaultTo(knex.fn.now());
     }),
     knex.schema.createTable('users', function(table){
       table.increments('id').primary();

@@ -14,7 +14,9 @@ export default class Player extends React.Component {
     return (
       <div className="player six columns">
         <div>
+          {console.log(this.props.player)}
           <h5>{this.props.player.name}</h5>
+        }
         </div>
         <div className="arena container">
           {this.props.icon ?

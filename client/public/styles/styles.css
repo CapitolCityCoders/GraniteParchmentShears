@@ -223,9 +223,13 @@ img {
   =========================================================
 */
 
+.stats {
+  background: #fff !important;
+}
+
 .tooltip {
-  font-size: 1em;
-  background-color: #c1d9ee;
+  font-size: 4em !important;
   padding: 5px;
-  border-radius: 2px;
+  display: block !important;
+  opacity: 1 !important;
 }

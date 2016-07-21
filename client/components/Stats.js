@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
+import _ from 'underscore';
 import ReactD3 from 'react-d3-components';
 import * as db from '../models/menu';
 
@@ -21,9 +22,19 @@ export default class Stats extends React.Component {
     //get all users
     db.playerList()
       .then(players => {
+          players = this.GetTop5Users(players);
           const users = players.map(player => player.name).filter((name,index,self) => self.indexOf(name) === index)
             this.updateUserScoresState(users);
         })
+  }
+
+
+  GetTop5Users(players){
+    const sortedPlayers = _.sortBy(players,'score')
+    const noZeroPlayers = _.reject(sortedPlayers,player => player.score == 0)
+    const top5Players = _.first(noZeroPlayers, 5) 
+    //console.log(top5Players);
+    return top5Players;
   }
 
   updateUserScoresState(users) {
@@ -53,26 +64,39 @@ export default class Stats extends React.Component {
     this.setState({chartValues: values})
   }
 
+
+  tooltipScatter(x,y) {
+    //console.log(x,y)
+    return y.toString();
+  }
+
+
   render() {
 
-    var BarChart = ReactD3.BarChart;
-
-    var data = [{
+    const BarChart = ReactD3.BarChart;
+    const PieChart = ReactD3.PieChart;
+    const data = {
         label: 'Leaderboard',
         values: this.state.chartValues
-    }];
+    };
 
+    const sort = null;
     return (
-      <div>
-        <Link to="/"><button className="btn btn-default stats">Back</button></Link>
-        <div className="narrative container six columns offset-by-three">
+      <div className="container stats">
+        <Link to="/"><button className='btn btn-default'>Back</button></Link> 
+        <div className="col-xs-8 col-xs-offset-2">
         <h3>Leaderboard</h3>
+        <p>Top users and their scores</p>
 
-          <BarChart
+          <PieChart
                  data={data}
-                 width={400}
-                 height={200}
-                 margin={{top: 5, bottom: 40, left: 40, right: 20}}/>
+                 width={600}
+                 height={400}
+                 margin={{top: 30, bottom: 10, left: 100, right: 100}}                
+                 tooltipHtml={this.tooltipScatter}
+                 tooltipMode={'fixed'}
+                 tooltipOffset={{top: 135, left: 200}}
+               />
         </div>
       </div>
 

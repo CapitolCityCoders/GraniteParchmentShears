@@ -217,7 +217,6 @@ app.get('/app-bundle.js',
 //---  socket.io is listening for queues triggered by ----//
 //---  players, then emits information to both     ----//
 io.on('connection', function(socket){
-  console.log('new socket.id: ', socket.id)
 
 	socket.on('join game', gameId => {
 		io.emit('join game', gameId)
@@ -251,7 +250,6 @@ io.on('connection', function(socket){
   })
 
   socket.on('disconnect', function(){
-    console.log('user disconnected')
     io.emit('user disconnected');
   })
 })

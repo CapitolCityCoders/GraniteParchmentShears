@@ -181,3 +181,15 @@ export function resetUser(userId) {
   .then(data => data.json())
   .catch(error => console.error(error));
 }
+
+//-----------get all sessions from db--------------//
+export function getSessions() {
+  return fetch('/api/sessions', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(sessions => sessions.json())
+  .catch(error => console.error(error));
+}

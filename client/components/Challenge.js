@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
+import * as db from '../models/menu'
+
 
 export default class Challenge extends React.Component {
   constructor(props){
     super(props);
     this.state = { onlineUsers: []} 
-    this.handleNewUser = this.handleNewUser.bind(this)
+    this.getOnlineUsers = this.getOnlineUsers.bind(this)
   }
-
 
   componentDidMount() {
     this.socket = io('/')
@@ -19,22 +20,20 @@ export default class Challenge extends React.Component {
     console.log('this.state ', this.state)
   }
 
-  handleNewUser(event) {
-      const newUser = {
-        username: username,
-        imageUrl: imageUrl
-      } 
-      console.log('this', this)
-      this.setState({ onlineUsers: [user, ...this.state.onlineUsers] })
-      this.socket.emit('new user', newUser)
+
+  getOnlineUsers() {
+    console.log('getOnlineUsers Running!')
+    db.getSessions()
+      .then((sessions)=>console.log('sessions ch:27', sessions))
   }
+
 
   render() {
     var onlineUsers = this.state.onlineUsers.map((user, index) => {
       return 
         <div>
-          <img src= {user.imageUrl} />
-          <h2> user.name </h2>
+          <img src= {user.photo_url} />
+          <h2> {user.name} </h2>
           <button>CHALLENGE</button>
         </div>
     })

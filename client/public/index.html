@@ -3,15 +3,15 @@
 <head>
   <title>RPS</title>
   <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/styles/normalize.css"/>
-  <link rel="stylesheet" href="/styles/skeleton.css"/>
   <link rel="stylesheet" href="/styles/styles.css"/>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' /></head>
 <body>
 <div id="fb-root"></div>
 <script>
-  
+
   function statusChangeCallback(response) {
 
     if (response.status === 'connected') {
@@ -46,14 +46,14 @@
   window.fbAsyncInit = function() {
   FB.init({
     appId      : '269345560105374',
-    cookie     : true,  // enable cookies to allow the server to access 
+    cookie     : true,  // enable cookies to allow the server to access
                         // the session
     xfbml      : true,  // parse social plugins on this page
     version    : 'v2.5' // use graph api version 2.5
   });
 
 
-  FB.getLoginStatus(function(response) {  
+  FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
 
@@ -71,7 +71,7 @@
     //api call to retrive name and id
     FB.api('/me', function(response) {
       sessionStorage.setItem('fbUser', response.name)
-     
+
       document.getElementById('status').innerHTML =
         'Welcome to Rock Shop ' + response.name + '!';
     });

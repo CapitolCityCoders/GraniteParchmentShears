@@ -10,12 +10,14 @@ export default class Stats extends React.Component {
     super(props);
     this.state = {
       userScores: [], // [{uu1:4},{uu2:2}]
-      chartValues: [{x: 'user1', y: 0}, {x: 'user2', y: 0}, {x: 'user3', y: 0}]
+      pieChartValues: [{x: 'user1', y: 0}, {x: 'user2', y: 0}, {x: 'user3', y: 0}]
+
     }
   }
 
   componentDidMount() {
     this.getUniqueUsers();
+
   }
 
   getUniqueUsers() {
@@ -61,15 +63,19 @@ export default class Stats extends React.Component {
       return {x: key, y: userScore[key]}
     })
     //console.log(values)
-    this.setState({chartValues: values})
+    this.setState({pieChartValues: values})
   }
 
 
-  tooltipScatter(x,y) {
+  tooltipPieChart(x,y) {
     //console.log(x,y)
     return y.toString();
   }
 
+  tooltipStacked(x, y0, y, total) {
+    //console.log('3~~~~',x,y0,y,total)
+    return y.toString();
+  }
 
   render() {
 
@@ -77,26 +83,60 @@ export default class Stats extends React.Component {
     const PieChart = ReactD3.PieChart;
     const data = {
         label: 'Leaderboard',
-        values: this.state.chartValues
+        values: this.state.pieChartValues
     };
+    const dataStacked = [
+    {
+    label: 'somethingA',
+          values: [
+              {x: 'SomethingA', y: 10}, //{x: user1.name, y: user1.wins}
+              {x: 'SomethingC', y: 3}//{x: user2.name, y: user2.wins}
+          ]
+    },
+    {
+    label: 'somethingB',
+          values: [
+              {x: 'SomethingA', y: 6},//{x: user1.name, y: user1.losses}
+              {x: 'SomethingC', y: 5}//{x: user2.name, y: user2.losses}
+          ]
+    }   
+    ];
 
     const sort = null;
     return (
       <div className="container stats">
         <Link to="/"><button className='btn btn-default'>Back</button></Link> 
         <div className="col-xs-8 col-xs-offset-2">
-        <h3>Leaderboard</h3>
-        <p>Top users and their scores</p>
+          <h3>Leaderboard</h3>
+          <p>Top users and their scores</p>
 
-          <PieChart
-                 data={data}
-                 width={600}
-                 height={400}
-                 margin={{top: 30, bottom: 10, left: 100, right: 100}}                
-                 tooltipHtml={this.tooltipScatter}
-                 tooltipMode={'fixed'}
-                 tooltipOffset={{top: 135, left: 200}}
-               />
+            <PieChart
+                   data={data}
+                   width={600}
+                   height={400}
+                   margin={{top: 30, bottom: 10, left: 100, right: 100}}                
+                   tooltipHtml={this.tooltipPieChart}
+                   tooltipMode={'fixed'}
+                   tooltipOffset={{top: 135, left: 200}}
+                 />
+
+
+
+            {
+              sessionStorage.getItem('fbUser') ?
+
+              <BarChart
+                   data={dataStacked}
+                   width={600}
+                   height={400}
+                   margin={{top: 30, bottom: 30, left: 100, right: 100}}                
+                   tooltipHtml={this.tooltipStacked}
+                   tooltipMode={'element'}
+                   tooltipOffset={{top: 0, left: 10}}
+                 />
+                 : console.log(sessionStorage.getItem('fbUser'))
+
+            }
         </div>
       </div>
 

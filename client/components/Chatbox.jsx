@@ -12,13 +12,11 @@ export default class Chatbox extends React.Component {
 
   componentDidMount() {
     var self = this
-    socket.on("Chatbox message",
-      function (msg) {
+    socket.on("Chatbox message", function (msg) {
       self.setState({
         messages: self.state.messages.concat(msg)
       })
-    }
-    );
+    });
   }
 
   _handleSubmit(event) {
@@ -26,8 +24,7 @@ export default class Chatbox extends React.Component {
     socket.emit("Chatbox message", {
       name   : sessionStorage.getItem("fbUser") || "Anon",
       message: this.state.text,
-    }
-    )
+    })
     // send request to the socket.io
     this.setState({
       text: ""
@@ -80,7 +77,7 @@ class Messages extends React.Component {
   render() {
     return (
       <div className="messages">
-        <table className="u-full-width">
+        <table className="table table-hover">
           <tbody>
             {this._createMessages()}
           </tbody>
@@ -94,10 +91,8 @@ class Message extends React.Component {
   render() {
     return (
       <tr className="message">
-        <td>{this.props.name}</td>
-        <td style={{
-          textalign: "right"
-        }}>{this.props.message}</td>
+        <td className="text-left">{this.props.name}</td>
+        <td className="text-right">{this.props.message}</td>
       </tr>
     )
   }

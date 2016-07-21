@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
+import Chatbox from './Chatbox.jsx'
 
 import * as db from '../models/menu'
 
@@ -22,14 +23,14 @@ export default class Lobby extends React.Component{
     // listens for 'join game' broadcasts
     // refreshes player list if gameId in broadcast matches current gameId
     socket.on('join game', (gameId) => {
-      if (gameId === this.gameId) { 
+      if (gameId === this.gameId) {
         this.populatePlayers();
         this.refreshGameStatus();
       }
     });
 
     socket.on('leave game', (gameId) => {
-      if (gameId === +sessionStorage.getItem('gameId')) { 
+      if (gameId === +sessionStorage.getItem('gameId')) {
         this.populatePlayers();
         this.refreshGameStatus();
       }
@@ -51,7 +52,7 @@ export default class Lobby extends React.Component{
   }
 
   handleNameChange() {
-    // db call to update player name 
+    // db call to update player name
   }
 
   handleStartGame() {
@@ -66,7 +67,7 @@ export default class Lobby extends React.Component{
 
   handleLeaveGame() {
     // if player is the only one in the game, delete user and game record from db
-    // else delete current user record from db and 
+    // else delete current user record from db and
     // socket emit leave game to make the other client refresh player list
     if (this.state.players.length === 1) {
       db.deleteUserById(this.userId).then();
@@ -93,21 +94,21 @@ export default class Lobby extends React.Component{
           null}
 
         <div className="access-code">
-          Access Code: 
+          Access Code:
           <span> {this.props.accessCode} </span>
         </div>
 
         <hr />
 
         <ol className="lobby-player-list">
-          {this.state.players.map(player => 
+          {this.state.players.map(player =>
             <li key={player.id}>
-              {player.name} 
+              {player.name}
 
               {/* show edit button if current player */}
               {player.id === this.userId ?
-                <a 
-                  href="#" 
+                <a
+                  href="#"
                   className="btn-edit-player"
                   onClick={this.handleNameChange.bind(this)}
                 >
@@ -138,7 +139,7 @@ export default class Lobby extends React.Component{
             </button>
           </Link>
         </div>
-
+        <Chatbox/>
       </section>
     );
   }

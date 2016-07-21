@@ -7,6 +7,9 @@ export default class Player extends React.Component {
   }
 
   render() {
+    // trying to see if the prop is getting the url.
+    console.log("showing player.name:", this.props.player);
+    console.log('new');
     return (
       <div className="player six columns">
         <div>
@@ -14,7 +17,10 @@ export default class Player extends React.Component {
         </div>
         <div className="arena container">
           {this.props.icon ?
-          <img src = {this.props.icon}/> :
+          <img src = {this.props.icon}/>
+          : this.props.player.imageUrl ?
+          <img src={this.props.player.imageUrl}/>
+          :
           <img src = "/images/qmark.png"/>}
         </div>
         <div>

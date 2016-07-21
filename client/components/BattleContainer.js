@@ -5,6 +5,7 @@ import Player from './Player'
 import Mike from './Mike' // opponent
 import Banner from './Banner'
 import Scoreboard from './Scoreboard'
+import Chat from './Chat'
 
 import * as Game from '../models/game'
 
@@ -27,8 +28,12 @@ export default class BattleContainer extends React.Component {
   componentDidMount() {
     this.gameId = sessionStorage.getItem('gameId');
     this.userId = sessionStorage.getItem('userId');
-
+    //populate facebook photo image. either undefined or not.
+    this.fbPhoto = sessionStorage.getItem('imgUrl');
+    this.fbName = sessionStorage.getItem('fbUser')
     // populate player and opponent state objects
+    this.setFbUrl(this.fbPhoto);
+    this.setFbName(this.fbName)
     this.updatePlayer();
     this.updateOpponent();
 
@@ -84,10 +89,16 @@ export default class BattleContainer extends React.Component {
     }
   }
 
+
   updatePlayer() {
     return Game.getPlayerById(this.userId)
       .then(data => {
-        this.setState({player: data[0]});
+        console.log('here is our data,', data)
+        //console.log(`${this.userId}: ${data}`);
+        // this if checker is a safety net
+        if (data[0] !== undefined) {
+          this.setState({player: data[0]});
+        }
         return;
       });
   }
@@ -95,6 +106,7 @@ export default class BattleContainer extends React.Component {
   updateOpponent() {
     return Game.getOpponentByPlayerId(this.userId, this.gameId)
       .then(data => {
+        console.log('here is opponent data:', data)
         this.setState({opponent: data[0]});
         return;
       });
@@ -202,6 +214,9 @@ export default class BattleContainer extends React.Component {
             icon={this.state.opponentIcon}
           />
         </div>
+        <Chat 
+          player={this.state.player}
+        />
     </div>
     );
   }

@@ -98,6 +98,22 @@ app.delete('/api/sessions', (req,res) => {
   })
 });
 
+// returns array of session records
+app.get('/api/sessions', (req, res) => {
+  db.select('*').from('sessions')
+  .then(rows => {
+    res.send(rows);
+  })
+});
+
+// returns the user that matches a given userId
+app.get('/api/users/:userId', (req, res) => {
+  db('users').where('user_id', req.params.userId)
+    .then(rows => {
+      res.send(rows);
+    })
+});
+
 // returns array of game objects
 app.get('/api/games', (req, res) => {
   db.select('*').from('games')

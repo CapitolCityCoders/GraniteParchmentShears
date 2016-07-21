@@ -27,12 +27,14 @@ export default class Menu extends React.Component{
         this.setState({view: 'menu'});
         db.generateNewSession(userId) // add session to db
         .then(function(sessionId) {
-          let name = sessionStorage.getItem("name");
-          let photo_url = sessionStorage.getItem("photo_url");
-          let friends = sessionStorage.getItem("friends");
-          db.createNewUser(userId, name, photo_url, friends) // add user to db
-          sessionStorage.clear();
-          sessionStorage.setItem('userId', userId);
+          setTimeout(function(){
+            let name = sessionStorage.getItem("name");
+            let photo_url = sessionStorage.getItem("photo_url");
+            let friends = sessionStorage.getItem("friends");
+            db.createNewUser(userId, name, photo_url, friends) // add user to db
+            sessionStorage.clear();
+            sessionStorage.setItem('userId', userId);
+          },500);
         });
       } else {
         sessionStorage.clear();

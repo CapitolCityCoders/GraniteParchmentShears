@@ -8,39 +8,48 @@ export default class Challenge extends React.Component {
   constructor(props){
     super(props);
     this.state = { onlineUsers: []} 
-    this.getOnlineUsers = this.getOnlineUsers.bind(this)
   }
 
   componentDidMount() {
-    this.socket = io('/')
-    this.socket.on('new user', user => {
-      console.log('user in compDidMount: ', user)
-      this.setState({onlineUsers: [user, ...this.state.onlineUsers] })
-    })  
-    console.log('this.state ', this.state)
+    setInterval(this.getOnlineUsers.bind(this), 1000);
   }
 
-
   getOnlineUsers() {
-    console.log('getOnlineUsers Running!')
+    var users = [];
     db.getSessions()
-      .then((sessions)=>console.log('sessions ch:27', sessions))
+    .then(sessions => {
+      sessions.forEach(session => {
+        db.getUserById(session.user_id)
+        .then(user => {
+          users.push(user[0]);
+        });
+      });
+      setTimeout(this.setOnlineUsers.bind(this, users), 500);
+    })
+  }
+
+  setOnlineUsers(users) {
+    this.setState({onlineUsers: users});
+    console.log('this.state.onlineUsers', this.state.onlineUsers);
   }
 
 
   render() {
-    var onlineUsers = this.state.onlineUsers.map((user, index) => {
-      return 
-        <div>
-          <img src= {user.photo_url} />
-          <h2> {user.name} </h2>
-          <button>CHALLENGE</button>
-        </div>
-    })
     return (
       <div>
       <h4>Online Users</h4>
-        {onlineUsers}
+        {
+          this.state.onlineUsers
+          .map(user => {
+            return (
+              <div key={user.user_id} className="challenge">
+                <img src= {user.photo_url} />
+                <span> {user.name} </span>
+                <button>CHALLENGE</button>
+              </div>
+            )
+          })
+        }
       </div>
     );
   }

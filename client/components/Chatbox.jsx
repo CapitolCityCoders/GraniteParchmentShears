@@ -28,9 +28,9 @@ export default class Chatbox extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         <Messages messages={this.state.messages}/>
-        <form onSubmit={this._handleSubmit.bind(this)}>
+        <form className="enclose" onSubmit={this._handleSubmit.bind(this)}>
            <input
              type="text"
              onFocus={event => this.value=''}
@@ -77,12 +77,10 @@ class Messages extends React.Component {
 class Message extends React.Component {
   render() {
     return (
-
           <tr className="message">
             <td>{this.props.name}</td>
             <td style={{textAlign: 'right'}}>{this.props.message}</td>
           </tr>
-
     )
   }
 }

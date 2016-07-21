@@ -16,7 +16,9 @@ export function generateNewGame(accessCode) {
 }
 
 //--------------Create a new User------------//
-export function generateNewUser(gameId, name) {
+
+export function generateNewUser(gameId, name, imageUrl, userType) {
+
   return fetch('/api/users', {
     method: 'POST',
     headers: {
@@ -24,7 +26,10 @@ export function generateNewUser(gameId, name) {
     },
     body: JSON.stringify({
       gameId: gameId,
-      name: name
+      name: name,
+      imageUrl: imageUrl,
+      userType: userType
+
     })
   })
   .then(userId => userId.json())
@@ -40,6 +45,44 @@ export function gameList() {
     }
   })
   .then(games => games.json())
+  .catch(error => console.error(error));
+}
+
+//-----------get all games by username from db------//
+export function gamesByUsername(username) {
+
+  return fetch('/api/userbyname/' + username, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(games => { return games.json()})
+  .catch(error => console.error(error));
+}
+
+//-----------get all games by player id from db------//
+export function gamesByPlayerId(playerId) {
+
+  return fetch(`/api/users/${playerId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(games => { return games.json()})
+  .catch(error => console.error(error));
+}
+
+//-----------get all players from db--------------//
+export function playerList() {
+  return fetch('/api/users', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(players => players.json())
   .catch(error => console.error(error));
 }
 
@@ -69,6 +112,22 @@ export function updateGameStatus(gameId, status) {
   })
   .then(data => data.json())
   .catch(error => console.error(error));
+}
+
+//------- updates player wins/losses -------------------//
+export function updateUserRecord(userId, winner) {
+  return fetch('/api/userRecord', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      userId: userId,
+      winner: winner
+    })
+  })
+  .then(function() {})
+  .catch(error => console.error(error))
 }
 
 //----------Get a Game by ID---------//

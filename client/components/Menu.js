@@ -3,7 +3,8 @@ import { Link, browserHistory } from 'react-router';
 
 import Create from './Create';
 import Join from './Join';
-import Graph from './Graph';
+
+import Stats from './Stats';
 import PieChart from './PieChart';
 import Chatbox from './Chatbox.jsx';
 import * as db from '../models/menu';
@@ -36,35 +37,39 @@ export default class Menu extends React.Component{
   // show buttons based on view in state
   render() {
     return (
-      <div className="narrative container six columns offset-by-three">
-        <h1>The Rock Shop</h1>
-      
-      {/*To fix: users log in to see their profiles*/}
-        <hr />
-        {
-          this.state.view === 'menu'
-          ? <div className="button-container">
-              <button onClick={this.handleViewChange.bind(this, 'create')}>New Game</button>
-              <button onClick={this.handleViewChange.bind(this, 'join')}>Join Game</button>
-            </div>
-          : this.state.view === 'create'
-          ? <Create
-              username={this.state.username}
-              handleUsernameChange={this.handleUsernameChange.bind(this)}
-              handleViewChange={this.handleViewChange.bind(this)}
-            />
-          : this.state.view === 'join'
-          ? <Join
-              username={this.state.username}
-              accessCode={this.state.accessCode}
-              handleUsernameChange={this.handleUsernameChange.bind(this)}
-              handleAccessCodeChange={this.handleAccessCodeChange.bind(this)}
-              handleViewChange={this.handleViewChange.bind(this)}
-            />
-          : null
-        }
-        <hr />
-        <Chatbox/>
+      <div>
+        <Link to="/stats"><button className='stats'>Stats</button></Link> 
+        <div className="narrative container six columns offset-by-three">
+          
+          <h1>The Rock Shop</h1>
+        
+        {/*To fix: users log in to see their profiles*/}
+          <hr />
+          {
+            this.state.view === 'menu'
+            ? <div className="button-container">
+                <button onClick={this.handleViewChange.bind(this, 'create')}>New Game</button>
+                <button onClick={this.handleViewChange.bind(this, 'join')}>Join Game</button>
+              </div>
+            : this.state.view === 'create'
+            ? <Create
+                username={this.state.username}
+                handleUsernameChange={this.handleUsernameChange.bind(this)}
+                handleViewChange={this.handleViewChange.bind(this)}
+              />
+            : this.state.view === 'join'
+            ? <Join
+                username={this.state.username}
+                accessCode={this.state.accessCode}
+                handleUsernameChange={this.handleUsernameChange.bind(this)}
+                handleAccessCodeChange={this.handleAccessCodeChange.bind(this)}
+                handleViewChange={this.handleViewChange.bind(this)}
+              />
+            : null
+          }
+          <hr />
+          <Chatbox/>
+        </div>
       </div>
     );
   }

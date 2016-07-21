@@ -2,20 +2,31 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
 
-export default class Challenge extends React.Component {
+class Challenge extends React.Component {
   constructor(props){
     super(props);
     this.state = { onlineUsers: []} 
+    this.handleNewUser = this.handleNewUser.bind(this)
   }
 
 
   componentDidMount() {
     this.socket = io('/')
-    this.socket.on('connection', user => {
+    this.socket.on('new user', user => {
       console.log('user in compDidMount: ', user)
       this.setState({onlineUsers: [user, ...this.state.onlineUsers] })
     })  
     console.log('this.state ', this.state)
+  }
+
+  handleNewUser(event) {
+      const newUser = {
+        username: username,
+        imageUrl: imageUrl
+      } 
+      console.log('this', this)
+      this.setState({ onlineUsers: [user, ...this.state.onlineUsers] })
+      this.socket.emit('new user', newUser)
   }
 
   render() {

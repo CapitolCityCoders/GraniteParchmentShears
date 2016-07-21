@@ -1,3 +1,8 @@
+/*
+  =========================================================
+  Chat Box Styles
+  =========================================================
+*/
 .chat
 {
     list-style: none;
@@ -37,7 +42,7 @@
 .panel-body
 {
     overflow-y: scroll;
-    height: 250px;
+    height: 400px;;
 }
 
 ::-webkit-scrollbar-track

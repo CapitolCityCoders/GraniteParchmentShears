@@ -58,7 +58,7 @@ export default class Join extends React.Component {
   render() {
     return (
       <form className="create-game">
-      
+
         <div className="button-container">
           <button type="submit" onClick={this.handleCreate.bind(this)}>Create Game</button>
 

@@ -43,25 +43,73 @@ app.post('/api/games', (req, res) => {
   });
 });
 
-// taking gameId and username from request body, create new user record in db
-app.post('/api/users', (req, res) => {
-  db('users').insert({
-    game_id: req.body.gameId,
-    name: req.body.name,
-    score: 0,
-    status: 'waiting'
+// taking user_id and access_token from request body, create new or update existing session record in db
+app.post('/api/sessions', (req, res) => {
+  db.select('*').from('sessions')
+  .then(rows => {
+    var userIds = rows.map(session => session.user_id);
+    if (!userIds.includes(req.body.user_id)) {
+      db('sessions').insert({
+        user_id: req.body.user_id,
+        access_token: req.body.access_token
+      })
+      .then(resp => {
+        res.send({});
+      });
+    } else {
+      db('sessions').where('user_id', req.body.user_id).update('access_token', req.body.access_token)
+      .then((resp) => {
+        res.send({});
+      })
+    }
   })
-  .then(userId => {
-    res.send(userId)
+});
+
+// taking user_id, name and photo_url from request body,
+// create new or update existing user record in db
+app.post('/api/users', (req, res) => {
+  db.select('*').from('users')
+  .then(rows => {
+    var userIds = rows.map(user => user.user_id);
+    if (!userIds.includes(req.body.user_id)) {
+      db('users').insert({
+        user_id: req.body.user_id,
+        name: req.body.name,
+        photo_url: req.body.photo_url,
+        friends: req.body.friends
+      })
+      .then(resp => {
+        res.send(resp);
+      });
+    } else {
+      db('users').where('user_id', req.body.user_id).update({
+        'name': req.body.name,
+        'photo_url': req.body.photo_url,
+        'friends': req.body.friends
+      })
+      .then((resp) => {
+        res.send({});
+      })
+    }
+  })
+});
+
+// delete session by token
+app.delete('/api/sessions', (req,res) => {
+  console.log('back end tells database to delete session');
+  db('sessions').where('access_token', req.body.access_token).del()
+  .then((response) => {
+    console.log('database tells backend that session is deleted', response);
+    res.send({});
   })
 });
 
 // returns array of game objects
 app.get('/api/games', (req, res) => {
   db.select('*').from('games')
-    .then(rows => {
-      res.send(rows);
-    })
+  .then(rows => {
+    res.send(rows);
+  })
 });
 
 // returns array of player objects that match a given gameId
@@ -84,9 +132,9 @@ app.get('/api/games/:gameId', (req, res) => {
 //---------------------------------------------------------//
 app.patch('/api/gameStatus', (req, res) => {
   db('games').where('id', req.body.gameId).update('status', req.body.status)
-    .then(() => {
-      res.send({});
-    })
+  .then(() => {
+    res.send({});
+  })
 });
 
 app.patch('/api/resetUser', (req, res) => {
@@ -94,9 +142,9 @@ app.patch('/api/resetUser', (req, res) => {
     status: 'waiting',
     score: 0
   })
-    .then(() => {
-      res.send({});
-    })
+  .then(() => {
+    res.send({});
+  })
 });
 
 //------------ post player throw-------------//
@@ -198,6 +246,12 @@ io.on('connection', function(socket){
 	socket.on('rematch', gameId => {
 		io.emit('rematch', gameId)
 	})
+  socket.on('message', body => {
+    socket.broadcast.emit('message', {
+      body: body,
+      from: socket.id.slice(8)
+    })
+  })
 })
 
 var port = process.env.PORT || 4000;

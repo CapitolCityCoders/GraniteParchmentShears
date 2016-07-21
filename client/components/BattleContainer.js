@@ -15,9 +15,7 @@ export default class BattleContainer extends React.Component {
     this.state = {
       playerIcon: '',
       opponentIcon: '',
-      fbPhoto: '',
       player: {},
-      fbName: '',
       opponent: {},
       round: 1,
       winners: ['', '', ''],
@@ -34,8 +32,6 @@ export default class BattleContainer extends React.Component {
     this.fbPhoto = sessionStorage.getItem('imgUrl');
     this.fbName = sessionStorage.getItem('fbUser')
     // populate player and opponent state objects
-    this.setFbUrl(this.fbPhoto);
-    this.setFbName(this.fbName)
     this.updatePlayer();
     this.updateOpponent();
 
@@ -90,17 +86,12 @@ export default class BattleContainer extends React.Component {
         });
     }
   }
-  //set state for photo url.
-  setFbUrl(fbPhoto){
-    this.setState({fbPhoto:fbPhoto});
-  }
-  setFbName(fbName){
-    this.setState({fbName:fbName});
-  }
+
 
   updatePlayer() {
     return Game.getPlayerById(this.userId)
       .then(data => {
+        console.log('here is our data,', data)
         //console.log(`${this.userId}: ${data}`);
         // this if checker is a safety net
         if (data[0] !== undefined) {
@@ -113,6 +104,7 @@ export default class BattleContainer extends React.Component {
   updateOpponent() {
     return Game.getOpponentByPlayerId(this.userId, this.gameId)
       .then(data => {
+        console.log('here is opponent data:', data)
         this.setState({opponent: data[0]});
         return;
       });
@@ -213,8 +205,6 @@ export default class BattleContainer extends React.Component {
             player={this.state.player}
             handleMove={this.handleMove.bind(this)}
             icon={this.state.playerIcon}
-            fbPhoto={this.state.fbPhoto}
-            fbName={this.state.fbName}
           />
           {/* opponent component */}
           <Mike

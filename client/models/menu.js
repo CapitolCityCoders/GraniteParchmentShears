@@ -48,6 +48,18 @@ export function gameList() {
   .catch(error => console.error(error));
 }
 
+//-----------get all messages from db--------------//
+export function msgList() {
+  return fetch('/api/messages', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(messages => messages.json())
+  .catch(error => console.error(error));
+}
+
 //-----------get all games by username from db------//
 export function gamesByUsername(username) {
 

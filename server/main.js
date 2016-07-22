@@ -76,7 +76,7 @@ app.post('/api/users', (req, res) => {
   })
   .then(userId => {
     insertUserIntoGame(req.body.userType, req.body.gameId, userId[0])
-      .then(() => res.send(userId));  
+      .then(() => res.send(userId));
   })
   .catch(err => {
     // console.log("tried to insert existung user!:", err);
@@ -88,7 +88,7 @@ app.post('/api/users', (req, res) => {
           insertUserIntoGame(req.body.userType, req.body.gameId, data[0].id)
             .then(() => res.send(201, [data[0].id]))
         })
-      
+
       // res.send({});
       // res.sendStatus(200);
     })
@@ -97,7 +97,7 @@ app.post('/api/users', (req, res) => {
 
 function insertUserIntoGame(userType, gameId, userId) {
   console.log("showing insertUserIntoGame info:", userType, gameId, userId);
-  var userNumber = (userType === 'create') ? 'user1_id' : 'user2_id'; 
+  var userNumber = (userType === 'create') ? 'user1_id' : 'user2_id';
   return db('games').where('id', '=', gameId).update({[userNumber]: userId})
 }
 
@@ -143,7 +143,7 @@ app.get('/api/games/:gameId', (req, res) => {
 
 //----- updates game status that matches a given gameId----//
 //---------------------------------------------------------//
-app.patch('/api/gameStatus', (req, res) => { 
+app.patch('/api/gameStatus', (req, res) => {
 
 
 
@@ -164,7 +164,7 @@ app.patch('/api/userRecord', (req, res) => {
       var number = data[0][record];
       // console.log("showing before win/loss update:", record, number);
       db('users').where('id', '=', req.body.userId).update({[record]: number + 1})
-      .then(() => { 
+      .then(() => {
         if(record == 'wins') {
           db('games').where('id', '=', req.body.gameId).update({winner: req.body.userId})
             .then(() => res.send({}))
@@ -207,7 +207,7 @@ app.patch('/api/userMove', (req, res) => {
       else {
         res.send({});
       }
-      
+
 	    // res.sendStatus(200);
     })
 });
@@ -258,6 +258,14 @@ app.get('/api/users/:userId/opponent/:gameId', (req,res) => {
       res.send(data)
     })
 })
+// send all msgs to client on load
+app.get('/api/messages', (req,res) => {
+  db("messages").select("*").then((messages) => {
+    console.log(messages)
+    res.send(messages)
+  })
+})
+
 //---------------------------------------------------------------------------//
 
 // use history api fallback middleware after defining db routes
@@ -317,6 +325,21 @@ io.on('connection', function(socket){
     io.emit('Chatbox message', messages)
   })
 
+  socket.on('Chatbox message', msg => {
+    db("messages")
+      .insert({
+      name        : msg.name,
+      imgUrl      : msg.imgUrl,
+      message     : msg.message,
+      time        : msg.time,
+      messageCount: msg.messageCount
+    })
+      .then(() => {
+        db("messages").select("*").then(function (messages) {
+          io.emit("Chatbox message", messages)
+        })
+      })
+    })
 })
 
 var port = process.env.PORT || 4000;

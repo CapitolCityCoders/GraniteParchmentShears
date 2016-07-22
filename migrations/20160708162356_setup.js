@@ -22,6 +22,13 @@ exports.up = function(knex, Promise) {
       table.integer('scissors');
       table.string('status');
       table.timestamps();
+    }),
+    knex.schema.createTable('messages', function(table){
+      table.string('imgUrl');
+      table.string('name');
+      table.string('message');
+      table.string('time');
+      table.integer('messageCount');
     })
   ])
 };

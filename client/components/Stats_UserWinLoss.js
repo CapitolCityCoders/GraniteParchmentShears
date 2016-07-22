@@ -71,13 +71,14 @@ export default class ScoresChart extends React.Component {
 
     return (
         <div className="col-xs-12 text-center">
-         
+          <br/>
+          <br/>
           {sessionStorage.getItem('fbUser') 
             ?
             <div>
-            <br/>
-            <br/>
-            <h3> Stats for {this.state.fbName}: </h3>
+            <h2> Stats for {this.state.fbName}: </h2>
+            <hr/>
+            {(!this.state.losses)? <h4> No Losses so far!</h4>: null}
             <PieChart
                    data={data}
                    width={600}
@@ -88,7 +89,7 @@ export default class ScoresChart extends React.Component {
                    tooltipOffset={{top: 135, left: 200}}
                  />
             </div>
-            : <h4>Please log in to see your stats.</h4>
+            : <h2>Please log in to see your stats.</h2>
           }
         </div>
 

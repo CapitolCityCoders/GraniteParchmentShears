@@ -20,13 +20,16 @@ export default class Chatbox extends React.Component {
   }
 
   _handleSubmit(event) {
+    window.scrollTo(0, 600);
     event.preventDefault();
-    socket.emit("Chatbox message", {
-      name   : sessionStorage.getItem("fbUser") || "Anon",
-      message: this.state.text,
-      imgUrl    : sessionStorage.getItem("imgUrl") || "http://placehold.it/50/55C1E7/fff&text=Anon",
-      time: moment()
-    })
+    if(this.state.text) {
+      socket.emit("Chatbox message", {
+        name   : sessionStorage.getItem("fbUser") || "Anon",
+        message: this.state.text,
+        imgUrl    : sessionStorage.getItem("imgUrl") || "http://placehold.it/50/55C1E7/fff&text=Anon",
+        time: moment()
+      })
+    }
     // send request to the socket.io
     this.setState({
       text: ""

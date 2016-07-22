@@ -6,8 +6,7 @@ exports.up = function(knex, Promise) {
       table.string('status');
       table.integer('user1_id');
       table.integer('user2_id');
-      table.integer('user1_score');
-      table.integer('user2_score');
+      table.integer('winner');
       table.timestamp('created_at').defaultTo(knex.fn.now());
     }),
     knex.schema.createTable('users', function(table){

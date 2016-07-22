@@ -99,7 +99,7 @@ export function userList(gameId) {
 }
 
 //------- updates game status -------------------//
-export function updateGameStatus(gameId, status) {
+export function updateGameStatus(gameId, status, userId) {
   return fetch('/api/gameStatus', {
     method: 'PATCH',
     headers: {
@@ -115,7 +115,7 @@ export function updateGameStatus(gameId, status) {
 }
 
 //------- updates player wins/losses -------------------//
-export function updateUserRecord(userId, winner) {
+export function updateUserRecord(userId, winner, gameId) {
   return fetch('/api/userRecord', {
     method: 'PATCH',
     headers: {
@@ -123,7 +123,8 @@ export function updateUserRecord(userId, winner) {
     },
     body: JSON.stringify({
       userId: userId,
-      winner: winner
+      winner: winner,
+      gameId: gameId
     })
   })
   .then(function() {})

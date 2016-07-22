@@ -140,7 +140,10 @@ app.get('/api/games/:gameId', (req, res) => {
 
 //----- updates game status that matches a given gameId----//
 //---------------------------------------------------------//
-app.patch('/api/gameStatus', (req, res) => {
+app.patch('/api/gameStatus', (req, res) => { 
+
+
+
   db('games').where('id', req.body.gameId).update('status', req.body.status)
     .then(() => {
       res.send({});
@@ -150,7 +153,7 @@ app.patch('/api/gameStatus', (req, res) => {
 //----- updates players record that matches a given userId----//
 app.patch('/api/userRecord', (req, res) => {
 
-  console.log("receiving user win/loss data from client:", req.body.userId, req.body.winner);
+  console.log("receiving user win/loss data from client:", req.body.userId, req.body.winner, req.body.gameId);
   db('users').select('*').where('id', '=', req.body.userId)
     .then((data) => {
       // console.log("found matching user!:", data);
@@ -158,8 +161,14 @@ app.patch('/api/userRecord', (req, res) => {
       var number = data[0][record];
       // console.log("showing before win/loss update:", record, number);
       db('users').where('id', '=', req.body.userId).update({[record]: number + 1})
-      .then(() => {
-        res.send({});
+      .then(() => { 
+        if(record == 'wins') {
+          db('games').where('id', '=', req.body.gameId).update({winner: req.body.userId})
+            .then(() => res.send({}))
+        }
+        else {
+          res.send({});
+        }
       })
 
     })

@@ -46,7 +46,7 @@ export default class Menu extends React.Component {
         <div className="row">
           <div className="col-xs-12">
             <Link to="/stats">
-              <button className="btn btn-default stats">Stats</button>
+              <button className="btn btn-default statsButton">Stats</button>
             </Link>
             <div >
               <h1>The Rock Shop</h1>

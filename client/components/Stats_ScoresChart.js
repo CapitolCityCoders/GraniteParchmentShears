@@ -47,6 +47,11 @@ export default class ScoresChart extends React.Component {
         })
 
         var sortedFilteredPlayers = _.sortBy(pureData,'wins').reverse().filter(function(el) {return el.wins > el.losses;});
+        
+        if(sortedFilteredPlayers.length > 5) {
+          sortedFilteredPlayers = sortedFilteredPlayers.slice(0,5);
+        }
+
         console.log("showing after sorted:", sortedFilteredPlayers);
 
         var barChartData = [{label: 'wins', values:[]}, {label: 'losses', values: []}];

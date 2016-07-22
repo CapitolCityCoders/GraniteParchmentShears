@@ -6,15 +6,12 @@ import * as db from '../models/menu';
 
 import ScoresChart from './Stats_ScoresChart';
 import WinsChart from './Stats_WinsChart';
+import OpponentList from './Stats_OpponentList';
 
 export default class Stats extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      
-
-    }
   }
 
   
@@ -37,7 +34,9 @@ export default class Stats extends React.Component {
           <div className="row">
             <WinsChart />
           </div>
-
+          <div className="row">
+           
+          </div>
         </div>
       </div>
 

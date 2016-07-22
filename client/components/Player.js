@@ -20,7 +20,7 @@ export default class Player extends React.Component {
           {this.props.icon ?
           <img src = {this.props.icon}/>
           : this.props.player.imageUrl ?
-          <img src={this.props.player.imageUrl}/>
+          <img style={{borderRadius : "50%"}} src={this.props.player.imageUrl}/>
           :
           <img src = "/images/qmark.png"/>}
         </div>

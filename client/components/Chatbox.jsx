@@ -31,7 +31,7 @@ export default class Chatbox extends React.Component {
     event.preventDefault();
     if(this.state.text) {
       socket.emit("Chatbox message", {
-        name   : sessionStorage.getItem("fbUser").substring(0, 30) || "Anon",
+        name   : sessionStorage.getItem("fbUser") || "Anon",
         message: this.state.text.substring(0, 151),
         imgUrl    : sessionStorage.getItem("imgUrl") || "http://placehold.it/50/55C1E7/fff&text=Anon",
         time: moment()

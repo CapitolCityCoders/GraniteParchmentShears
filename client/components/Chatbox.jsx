@@ -71,7 +71,7 @@ class Messages extends React.Component {
 
   _createMessages() {
     return this.props.messages
-      //.sort((a,b) => b.messageCount - a.messageCount)
+      .sort((a,b) => b.time.replace(/\D/g,'') - a.time.replace(/\D/g,''))
       .map((msg, index) => {
         return <Message
           key={index}

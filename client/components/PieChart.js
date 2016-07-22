@@ -27,6 +27,7 @@ export default class PieChart extends React.Component {
   }
 
   render() {
+    console.log("piechart.js got run");
     var PieChart = ReactD3.PieChart;
 
     var data = {

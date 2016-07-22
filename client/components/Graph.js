@@ -53,7 +53,7 @@ export default class Graph extends React.Component {
   }
  
   render() {
-   
+    console.log("graph.js got run");
     var BarChart = ReactD3.BarChart;
 
     var data = [{

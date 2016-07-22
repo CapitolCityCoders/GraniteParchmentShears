@@ -64,20 +64,21 @@ export default class BattleContainer extends React.Component {
       // on move, set icon graphic
       this.setState({playerIcon: getIcon(move)});
       // send move to db with lookup by userId
-      Game.playerMove(move, this.userId)
+      Game.playerMove(move, this.userId, true)
         // update opponent to check status
         .then(() => {
           return this.updateOpponent();
         })
         // if opponent has moved, socket emit to opponent to resolve round
-        .then(() => {
+        .then(() => { 
+
           if (this.state.opponent.status !== 'waiting') {
             // chance for god hands
             const playerMove = Math.random() < .1 ? 'godHand' : move;
             const opponentMove = Math.random() < .1 ? 'godHand' : this.state.opponent.status;
             Promise.all([
-              Game.playerMove(playerMove, this.userId),
-              Game.playerMove(opponentMove, this.state.opponent.id)
+              Game.playerMove(playerMove, this.userId, false),
+              Game.playerMove(opponentMove, this.state.opponent.id, false)
             ])
               .then(() => {
                 socket.emit('resolve round', this.gameId);

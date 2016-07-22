@@ -69,7 +69,10 @@ app.post('/api/users', (req, res) => {
     score: 0,
     status: 'waiting',
     wins: 0,
-    losses: 0
+    losses: 0,
+    rock: 0,
+    paper: 0,
+    scissors: 0
   })
   .then(userId => {
     insertUserIntoGame(req.body.userType, req.body.gameId, userId[0])
@@ -193,11 +196,18 @@ app.patch('/api/resetUser', (req, res) => {
 app.patch('/api/userMove', (req, res) => {
   let move = req.body.move;
   let userId = req.body.userId;
-
+  console.log("inside api/userMove:", req.body);
   // insert the move under status where id === userId
   db('users').where('id', userId).update({status: move})
     .then(() => {
-      res.send({});
+      if(req.body.increment && ['rock', 'paper', 'scissors'].includes(move)) {
+        db('users').where('id', userId).increment(move, 1)
+          .then(() => { res.send({}) })
+      }
+      else {
+        res.send({});
+      }
+      
 	    // res.sendStatus(200);
     })
 });

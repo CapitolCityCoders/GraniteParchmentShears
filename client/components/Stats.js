@@ -82,6 +82,7 @@ export default class Stats extends React.Component {
 
   render() {
 
+    console.log("stats.js got run")
     const BarChart = ReactD3.BarChart;
     const PieChart = ReactD3.PieChart;
     const data = {

@@ -7,7 +7,7 @@ import fetch from 'isomorphic-fetch';
   // use "req.params" or "req.query" to grab the information with express
 
 //------update player's status to move-------//
-export function playerMove(move, userId){
+export function playerMove(move, userId, increment){
 	return fetch('/api/userMove',{
 		method: 'PATCH',
 		headers: {
@@ -15,7 +15,8 @@ export function playerMove(move, userId){
 		},
 		body: JSON.stringify({
 			move: move,
-      userId: userId
+      userId: userId,
+      increment: increment
 		})
 	})
   .then(data => data.json())

@@ -5,6 +5,7 @@ import Player from './Player'
 import Mike from './Mike' // opponent
 import Banner from './Banner'
 import Scoreboard from './Scoreboard'
+import Chat from './Chat'
 
 import * as Game from '../models/game'
 
@@ -27,7 +28,9 @@ export default class BattleContainer extends React.Component {
   componentDidMount() {
     this.gameId = sessionStorage.getItem('gameId');
     this.userId = sessionStorage.getItem('userId');
-
+    //populate facebook photo image. either undefined or not.
+    this.fbPhoto = sessionStorage.getItem('imgUrl');
+    this.fbName = sessionStorage.getItem('fbUser')
     // populate player and opponent state objects
     this.updatePlayer();
     this.updateOpponent();
@@ -61,20 +64,21 @@ export default class BattleContainer extends React.Component {
       // on move, set icon graphic
       this.setState({playerIcon: getIcon(move)});
       // send move to db with lookup by userId
-      Game.playerMove(move, this.userId)
+      Game.playerMove(move, this.userId, true)
         // update opponent to check status
         .then(() => {
           return this.updateOpponent();
         })
         // if opponent has moved, socket emit to opponent to resolve round
-        .then(() => {
+        .then(() => { 
+
           if (this.state.opponent.status !== 'waiting') {
             // chance for god hands
             const playerMove = Math.random() < .1 ? 'godHand' : move;
             const opponentMove = Math.random() < .1 ? 'godHand' : this.state.opponent.status;
             Promise.all([
-              Game.playerMove(playerMove, this.userId),
-              Game.playerMove(opponentMove, this.state.opponent.id)
+              Game.playerMove(playerMove, this.userId, false),
+              Game.playerMove(opponentMove, this.state.opponent.id, false)
             ])
               .then(() => {
                 socket.emit('resolve round', this.gameId);
@@ -84,10 +88,16 @@ export default class BattleContainer extends React.Component {
     }
   }
 
+
   updatePlayer() {
     return Game.getPlayerById(this.userId)
       .then(data => {
-        this.setState({player: data[0]});
+        console.log('here is our data,', data)
+        //console.log(`${this.userId}: ${data}`);
+        // this if checker is a safety net
+        if (data[0] !== undefined) {
+          this.setState({player: data[0]});
+        }
         return;
       });
   }
@@ -95,6 +105,7 @@ export default class BattleContainer extends React.Component {
   updateOpponent() {
     return Game.getOpponentByPlayerId(this.userId, this.gameId)
       .then(data => {
+        console.log('here is opponent data:', data)
         this.setState({opponent: data[0]});
         return;
       });
@@ -202,6 +213,9 @@ export default class BattleContainer extends React.Component {
             icon={this.state.opponentIcon}
           />
         </div>
+        <Chat 
+          player={this.state.player}
+        />
     </div>
     );
   }

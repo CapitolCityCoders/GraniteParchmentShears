@@ -4,15 +4,30 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('access_code');
       table.string('status');
-      table.timestamps();
+      table.integer('user1_id');
+      table.integer('user2_id');
+      table.integer('winner');
+      table.timestamp('created_at').defaultTo(knex.fn.now());
     }),
     knex.schema.createTable('users', function(table){
       table.increments('id').primary();
       table.integer('game_id').references('id').inTable('games');
-      table.string('name');
+      table.string('imageUrl');
+      table.string('name').unique();
       table.integer('score');
+      table.integer('wins');
+      table.integer('losses');
+      table.integer('rock');
+      table.integer('paper');
+      table.integer('scissors');
       table.string('status');
       table.timestamps();
+    }),
+    knex.schema.createTable('messages', function(table){
+      table.string('imgUrl');
+      table.string('name');
+      table.string('message');
+      table.string('time');
     })
   ])
 };

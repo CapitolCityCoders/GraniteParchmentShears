@@ -2,7 +2,9 @@
   "name": "TheRockShop",
   "version": "1.0.0",
   "description": "A two player game of Rock-Paper-Scissors.",
-  "engines" : { "node" : "6.2.2" },
+  "engines": {
+    "node": "6.2.2"
+  },
   "main": "main.js",
   "scripts": {
     "start": "nodemon ./server/main.js --ignore client/",
@@ -11,6 +13,7 @@
   "author": "GraniteParchmentShears",
   "license": "ISC",
   "dependencies": {
+    "authom": "^0.4.36",
     "babel-core": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
@@ -21,13 +24,17 @@
     "es6-promise": "^3.2.1",
     "express": "^4.13.4",
     "isomorphic-fetch": "^2.2.1",
+    "jquery": "^3.1.0",
     "knex": "^0.11.7",
+    "moment": "^2.14.1",
     "nodemon": "^1.9.2",
     "react": "^15.1.0",
+    "react-d3-components": "^0.6.4",
     "react-dom": "^15.1.0",
     "react-router": "^2.5.2",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
-    "sqlite3": "^3.1.4"
+    "sqlite3": "^3.1.4",
+    "underscore": "^1.8.3"
   }
 }

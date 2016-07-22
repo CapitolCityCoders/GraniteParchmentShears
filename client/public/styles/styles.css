@@ -1,22 +1,94 @@
 /*
   =========================================================
+  Chat Box Styles
+  =========================================================
+*/
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 400px;;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+/*
+  =========================================================
   Site Wide Styles
   =========================================================
 */
-
+.enclose {
+    margin: auto;
+    /* position: fixed; */
+    bottom: 0px;
+    width: 100%;
+}
 /*Applies to all but Battle page*/
 .narrative {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+    position: absolute;
+    top: 10%;
+    /* transform: translateY(-50%); */
 }
 
 a {
     color: #999;
 }
-
-.button-container button {
-  margin: 0 15px;
+#chatInput {
+  margin: auto;
+  /* position: fixed; */
+  bottom: 0px;
+  width: 100%;
 }
 
 .container {
@@ -36,16 +108,21 @@ a {
   max-width: 500px;
   margin: auto;
 }
-
-input[type="text"] {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 280px;
-  height: 48px;
-  margin: 10px auto;
+#btn-input {
+  margin: -21px auto !important;
+  width: 100% !important;
+  
 }
+input[type="text"] {
 
+  box-sizing: border-box;
+  /* max-width: 280px; */
+}
+.input-group {
+    position: relative;
+    display: block !important;
+    border-collapse: separate;
+}
 .lobby-player-list {
     margin-top: -15px;
     margin-bottom: -10px;
@@ -117,16 +194,41 @@ input[type="text"] {
 }
 
 .player .arena {
+  margin-right:70px;
+  border-radius:0px;
+  width:215px;
   background-color: #ecffe6;
 }
+.player  {
+  display:inline-block
+}
 
+.opponent {
+  display:inline-block
+}
+.opponent-name{
+  margin-left:70px
+}
+.player-name{
+  margin-right:70px
+}
+.opponent-choices{
+ margin-left:70px
+}
+.player-choices{
+  margin-right:70px
+}
 .opponent .arena {
+  margin-left:70px;
+  border-radius:0px;
+  width:215px;
   background-color: #ffe5ea;
 }
 
-img {
-  max-width: 150px;
-  max-height: 150px;
+
+.arena img {
+  max-width: 155px;
+  max-height: 155px;
   width: auto;
   height: auto;
   border: none;
@@ -172,7 +274,7 @@ img {
   border-radius: 50%;
   /* Giving Animation Function */
   -webkit-animation: pulse 1.666s linear infinite;
-  -moz-animation: pulse 1.666s linear infinite; 
+  -moz-animation: pulse 1.666s linear infinite;
   border-image: initial;
 }
 
@@ -203,4 +305,38 @@ img {
   15% {-webkit-transform: scale(1.1); opacity: 0.4;}
   30% {-webkit-transform: scale(1.2); opacity: 0.2;}
   100% {opacity: 0; -webkit-transform: scale(1.4);}
+}
+
+/*
+  =========================================================
+  Stats
+  =========================================================
+*/
+
+.stats {
+  background: #fff;
+}
+
+.statsButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.stats .header {
+  height: 120px;
+  width: 100%;
+  background: #fff;
+
+}
+
+.statsContent {
+  background: #fff;
+}
+
+.tooltip {
+  font-size: 4em !important;
+  padding: 5px;
+  display: block !important;
+  opacity: 1 !important;
 }

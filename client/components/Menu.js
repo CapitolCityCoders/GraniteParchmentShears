@@ -31,6 +31,7 @@ export default class Menu extends React.Component {
     this.setState({
       username: e.currentTarget.value
     });
+    localStorage.username = e.currentTarget.value;
   }
 
   handleViewChange(view, e) {

@@ -66,7 +66,7 @@ export default class ScoresChart extends React.Component {
   }
 
   render() {
-
+    console.log("stats_scores.js got run")
     const PieChart = ReactD3.PieChart;
     const data = {
         label: 'Leaderboard',

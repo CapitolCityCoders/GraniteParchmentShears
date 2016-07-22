@@ -21,7 +21,7 @@ export default class WinsChart extends React.Component {
   }
 
   render() {
-
+    console.log("stats_wins.js got run");
     const BarChart = ReactD3.BarChart;
     const dataStacked = [
     {
@@ -46,6 +46,7 @@ export default class WinsChart extends React.Component {
             
             
 
+
               <BarChart
                    data={dataStacked}
                    width={600}
@@ -55,7 +56,7 @@ export default class WinsChart extends React.Component {
                    tooltipMode={'element'}
                    tooltipOffset={{top: 0, left: 0}}
                  />
-                
+
       </div>
 
     )

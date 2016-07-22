@@ -17,6 +17,9 @@ exports.up = function(knex, Promise) {
       table.integer('score');
       table.integer('wins');
       table.integer('losses');
+      table.integer('rock');
+      table.integer('paper');
+      table.integer('scissors');
       table.string('status');
       table.timestamps();
     })

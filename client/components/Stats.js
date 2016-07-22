@@ -7,6 +7,8 @@ import * as db from '../models/menu';
 import ScoresChart from './Stats_ScoresChart';
 import WinsChart from './Stats_WinsChart';
 import OpponentList from './Stats_OpponentList';
+import Test from './Stats_ScoresChartTest';
+import UserWinLoss from './Stats_UserWinLoss';
 
 export default class Stats extends React.Component {
 
@@ -36,7 +38,7 @@ export default class Stats extends React.Component {
             <WinsChart />
           </div>
           <div className="row">
-           
+           <UserWinLoss />
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import React from "react"
 import moment from 'moment'
+import * as db from '../models/menu'
+
 export default class Chatbox extends React.Component {
 
   constructor() {
@@ -12,12 +14,16 @@ export default class Chatbox extends React.Component {
   }
 
   componentDidMount() {
-    var self = this
-    socket.on("Chatbox message", function (msg) {
-      self.setState({
-        messages: self.state.messages.concat(msg)
-      })
-    });
+    // get msgs from server
+    db.msgList().then(messages => {
+      console.log(messages)
+      this.setState({messages: messages})
+      return;
+    })
+    var self = this;
+    socket.on("Chatbox message", (messages) => {
+      this.setState({messages: messages})
+    })
   }
 
   _handleSubmit(event) {
@@ -65,7 +71,7 @@ class Messages extends React.Component {
 
   _createMessages() {
     return this.props.messages
-      .sort((a,b) => b.messageCount - a.messageCount)
+      //.sort((a,b) => b.messageCount - a.messageCount)
       .map((msg, index) => {
         return <Message
           key={index}

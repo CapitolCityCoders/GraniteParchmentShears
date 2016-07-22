@@ -1,5 +1,5 @@
 import React from "react"
-
+import moment from 'moment'
 export default class Chatbox extends React.Component {
 
   constructor() {
@@ -24,7 +24,8 @@ export default class Chatbox extends React.Component {
     socket.emit("Chatbox message", {
       name   : sessionStorage.getItem("fbUser") || "Anon",
       message: this.state.text,
-      imgUrl    : sessionStorage.getItem("imgUrl") || "http://placehold.it/50/55C1E7/fff&text=Anon"
+      imgUrl    : sessionStorage.getItem("imgUrl") || "http://placehold.it/50/55C1E7/fff&text=Anon",
+      time: moment()
     })
     // send request to the socket.io
     this.setState({
@@ -64,6 +65,7 @@ class Messages extends React.Component {
         name={msg.name.substring(0, 15)}
         message={msg.message.substring(0, 31)}
         imgUrl={msg.imgUrl}
+        time={msg.time}
         />
     });
   }
@@ -96,7 +98,7 @@ class Message extends React.Component {
         <div className="chat-body clearfix">
           <div className="header">
             <strong className="primary-font">{this.props.name}</strong>
-            <small className="pull-right text-muted">12 mins ago</small>
+            <small className="pull-right text-muted">{moment(this.props.time).fromNow()}</small>
           </div>
           <strong className="text-success pull-right">{this.props.message}</strong>
         </div>

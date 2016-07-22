@@ -7,6 +7,7 @@ export default class Chatbox extends React.Component {
     this.state = {
       text    : "",
       messages: [],
+      messageCount: 0
     }
   }
 
@@ -21,12 +22,16 @@ export default class Chatbox extends React.Component {
 
   _handleSubmit(event) {
     event.preventDefault();
-    socket.emit("Chatbox message", {
-      name   : sessionStorage.getItem("fbUser") || "Anon",
-      message: this.state.text,
-      imgUrl    : sessionStorage.getItem("imgUrl") || "http://placehold.it/50/55C1E7/fff&text=Anon",
-      time: moment()
-    })
+    if(this.state.text) {
+      this.setState({messageCount: this.state.messageCount + 1})
+      socket.emit("Chatbox message", {
+        name   : sessionStorage.getItem("fbUser") || "Anon",
+        message: this.state.text,
+        imgUrl    : sessionStorage.getItem("imgUrl") || "http://placehold.it/50/55C1E7/fff&text=Anon",
+        time: moment(),
+        messageCount: this.state.messageCount
+      })
+    }
     // send request to the socket.io
     this.setState({
       text: ""
@@ -59,15 +64,17 @@ export default class Chatbox extends React.Component {
 class Messages extends React.Component {
 
   _createMessages() {
-    return this.props.messages.map((msg, index) => {
-      return <Message
-        key={index}
-        name={msg.name.substring(0, 15)}
-        message={msg.message.substring(0, 31)}
-        imgUrl={msg.imgUrl}
-        time={msg.time}
-        />
-    });
+    return this.props.messages
+      .sort((a,b) => b.messageCount - a.messageCount)
+      .map((msg, index) => {
+        return <Message
+          key={index}
+          name={msg.name.substring(0, 30)}
+          message={msg.message.substring(0, 151)}
+          imgUrl={msg.imgUrl}
+          time={msg.time}
+          />
+      });
   }
 
   render() {

@@ -108,7 +108,7 @@ export default class Lobby extends React.Component {
             <div className="access-code">
               Access Code:
               <span>
-                {this.props.accessCode}
+                <strong>{` ${this.props.accessCode}`}</strong>
               </span>
             </div>
 

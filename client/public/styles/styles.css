@@ -108,15 +108,21 @@ a {
   max-width: 500px;
   margin: auto;
 }
-
-input[type="text"] {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 280px;
-  margin: 10px auto;
+#btn-input {
+  margin: -21px auto !important;
+  width: 100% !important;
+  
 }
+input[type="text"] {
 
+  box-sizing: border-box;
+  /* max-width: 280px; */
+}
+.input-group {
+    position: relative;
+    display: block !important;
+    border-collapse: separate;
+}
 .lobby-player-list {
     margin-top: -15px;
     margin-bottom: -10px;
@@ -308,7 +314,7 @@ img.arena {
 */
 
 .stats {
-  background: #fff !important;
+  background: #fff;
 }
 
 .statsButton {
@@ -318,8 +324,14 @@ img.arena {
 }
 
 .stats .header {
-  overflow-y: hidden;
-  /*position: fixed;*/
+  height: 120px;
+  width: 100%;
+  background: #fff;
+
+}
+
+.statsContent {
+  background: #fff;
 }
 
 .tooltip {

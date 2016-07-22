@@ -45,7 +45,7 @@ export default class WinsChart extends React.Component {
           <h3>Top users and their wins and losses</h3>
             
             
-              
+
 
               <BarChart
                    data={dataStacked}
@@ -56,9 +56,7 @@ export default class WinsChart extends React.Component {
                    tooltipMode={'element'}
                    tooltipOffset={{top: 0, left: 0}}
                  />
-              
 
-           
       </div>
 
     )

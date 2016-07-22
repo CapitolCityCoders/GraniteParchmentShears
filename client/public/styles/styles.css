@@ -100,12 +100,6 @@ input[type="text"] {
     float: right;
 }
 
-.stats {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-}
-
 /*
   =========================================================
   Game
@@ -225,6 +219,17 @@ img {
 
 .stats {
   background: #fff !important;
+}
+
+.statsButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.stats .header {
+  overflow-y: hidden;
+  /*position: fixed;*/
 }
 
 .tooltip {

@@ -28,8 +28,8 @@ export default class ScoresChart extends React.Component {
   }
 
   GetTop5Users(players){
-    const sortedPlayers = _.sortBy(players,'score')
-    const noZeroPlayers = _.reject(sortedPlayers,player => player.score == 0)
+    const sortedPlayers = _.sortBy(players,'wins')
+    const noZeroPlayers = _.reject(sortedPlayers,player => player.wins == 0)
     const top5Players = _.first(noZeroPlayers, 5) 
     //console.log(top5Players);
     return top5Players;
@@ -39,9 +39,9 @@ export default class ScoresChart extends React.Component {
     users.forEach(user => {
       db.gamesByUsername(user)
         .then(gameList => {
-          const scores = gameList.map(game => game.score)
-          const total = scores.reduce((sum,score) => {
-            return sum += score;
+          const wins = gameList.map(game => game.wins)
+          const total = wins.reduce((sum,win) => {
+            return sum += win;
           },0);
 
           this.setState({userScores: this.state.userScores.concat({[user]:total})});
@@ -75,7 +75,7 @@ export default class ScoresChart extends React.Component {
 
     return (
         <div className="col-xs-12 text-center">
-          <h3>Top users and their scores</h3>
+          <h3>Top Users and Their Wins</h3>
             <PieChart
                    data={data}
                    width={600}

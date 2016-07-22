@@ -107,7 +107,7 @@ export default class Stats extends React.Component {
 
     const sort = null;
     return (
-      <div className="container stats">
+      <div className="container">
         <div className="row header">
           <div className="col-xs-12">
             <Link to="/"><button className='btn btn-default statsButton'>Back</button></Link> 

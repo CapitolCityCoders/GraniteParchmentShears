@@ -218,7 +218,7 @@ img {
 */
 
 .stats {
-  background: #fff !important;
+  background: #fff;
 }
 
 .statsButton {
@@ -228,8 +228,14 @@ img {
 }
 
 .stats .header {
-  overflow-y: hidden;
-  /*position: fixed;*/
+  height: 120px;
+  width: 100%;
+  background: #fff;
+
+}
+
+.statsContent {
+  background: #fff;
 }
 
 .tooltip {

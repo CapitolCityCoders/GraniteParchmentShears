@@ -110,13 +110,17 @@ a {
 }
 
 input[type="text"] {
-  display: block;
+  display: block !important;
   box-sizing: border-box;
-  width: 100%;
-  max-width: 280px;
-  margin: 10px auto;
+  width: 100% !important;
+  /* max-width: 280px; */
+  margin: -21px auto;
 }
-
+.input-group {
+    position: relative;
+    display: block !important;
+    border-collapse: separate;
+}
 .lobby-player-list {
     margin-top: -15px;
     margin-bottom: -10px;

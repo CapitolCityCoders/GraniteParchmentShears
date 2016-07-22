@@ -63,7 +63,7 @@ class Messages extends React.Component {
       return <Message
         key={index}
         name={msg.name.substring(0, 15)}
-        message={msg.message.substring(0, 31)}
+        message={msg.message.substring(0, 151)}
         imgUrl={msg.imgUrl}
         time={msg.time}
         />

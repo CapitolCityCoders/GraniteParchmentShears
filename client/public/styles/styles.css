@@ -226,9 +226,9 @@ input[type="text"] {
 }
 
 
-img.arena {
-  max-width: 150px;
-  max-height: 150px;
+.arena img {
+  max-width: 155px;
+  max-height: 155px;
   width: auto;
   height: auto;
   border: none;

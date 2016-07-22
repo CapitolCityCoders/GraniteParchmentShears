@@ -331,8 +331,7 @@ io.on('connection', function(socket){
       name        : msg.name,
       imgUrl      : msg.imgUrl,
       message     : msg.message,
-      time        : msg.time,
-      messageCount: msg.messageCount
+      time        : msg.time
     })
       .then(() => {
         db("messages").select("*").then(function (messages) {

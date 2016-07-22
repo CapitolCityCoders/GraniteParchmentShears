@@ -8,8 +8,7 @@ export default class Chatbox extends React.Component {
     super();
     this.state = {
       text    : "",
-      messages: [],
-      messageCount: 0
+      messages: []
     }
   }
 
@@ -29,13 +28,11 @@ export default class Chatbox extends React.Component {
   _handleSubmit(event) {
     event.preventDefault();
     if(this.state.text) {
-      this.setState({messageCount: this.state.messageCount + 1})
       socket.emit("Chatbox message", {
         name   : sessionStorage.getItem("fbUser") || "Anon",
         message: this.state.text,
         imgUrl    : sessionStorage.getItem("imgUrl") || "http://placehold.it/50/55C1E7/fff&text=Anon",
-        time: moment(),
-        messageCount: this.state.messageCount
+        time: moment()
       })
     }
     // send request to the socket.io

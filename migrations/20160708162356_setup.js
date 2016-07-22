@@ -28,7 +28,6 @@ exports.up = function(knex, Promise) {
       table.string('name');
       table.string('message');
       table.string('time');
-      table.integer('messageCount');
     })
   ])
 };

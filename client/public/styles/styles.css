@@ -108,13 +108,15 @@ a {
   max-width: 500px;
   margin: auto;
 }
-
-input[type="text"] {
-  display: block !important;
-  box-sizing: border-box;
+#btn-input {
+  margin: -21px auto !important;
   width: 100% !important;
+  
+}
+input[type="text"] {
+
+  box-sizing: border-box;
   /* max-width: 280px; */
-  margin: -21px auto;
 }
 .input-group {
     position: relative;

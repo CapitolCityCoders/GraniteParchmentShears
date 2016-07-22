@@ -21,8 +21,6 @@ export default class Chatbox extends React.Component {
   }
 
   _handleSubmit(event) {
-
-    window.scrollTo(0, 600);
     event.preventDefault();
     if(this.state.text) {
       this.setState({messageCount: this.state.messageCount + 1})
@@ -66,17 +64,17 @@ export default class Chatbox extends React.Component {
 class Messages extends React.Component {
 
   _createMessages() {
-
-    //console.log(this.props.messages.map(m => m.messageCount))
-    return this.props.messages.sort((a,b) => b.messageCount - a.messageCount).map((msg, index) => {
-      return <Message
-        key={index}
-        name={msg.name.substring(0, 15)}
-        message={msg.message.substring(0, 151)}
-        imgUrl={msg.imgUrl}
-        time={msg.time}
-        />
-    });
+    return this.props.messages
+      .sort((a,b) => b.messageCount - a.messageCount)
+      .map((msg, index) => {
+        return <Message
+          key={index}
+          name={msg.name.substring(0, 15)}
+          message={msg.message.substring(0, 151)}
+          imgUrl={msg.imgUrl}
+          time={msg.time}
+          />
+      });
   }
 
   render() {

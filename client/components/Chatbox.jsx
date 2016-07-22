@@ -15,13 +15,15 @@ export default class Chatbox extends React.Component {
   componentDidMount() {
     // get msgs from server
     db.msgList().then(messages => {
-      console.log(messages)
       this.setState({messages: messages})
       return;
     })
-    var self = this;
+
     socket.on("Chatbox message", (messages) => {
-      this.setState({messages: messages})
+      db.msgList().then(messages => {
+        this.setState({messages: messages})
+        return;
+      })
     })
   }
 
@@ -35,6 +37,7 @@ export default class Chatbox extends React.Component {
         time: moment()
       })
     }
+
     // send request to the socket.io
     this.setState({
       text: ""

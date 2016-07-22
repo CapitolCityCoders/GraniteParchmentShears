@@ -261,7 +261,6 @@ app.get('/api/users/:userId/opponent/:gameId', (req,res) => {
 // send all msgs to client on load
 app.get('/api/messages', (req,res) => {
   db("messages").select("*").then((messages) => {
-    console.log(messages)
     res.send(messages)
   })
 })

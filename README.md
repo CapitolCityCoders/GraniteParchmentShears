@@ -1,6 +1,6 @@
 # The Rock Shop
 
-A two player game of Rock-Paper-Scissors.
+A two player game of Rock-Paper-Scissors. [The Rock Shop](http://granite-parchment-shears.herokuapp.com/)
 
 Created with: React, React Router, SocketIO, Express, SQLite3 w/ KNEX, Browserify, Skeleton.css
 
@@ -47,8 +47,8 @@ Uses a Menu component that routes to Game component based on access code.
 
 
 ### Authors: 
-  * Amanda Fillip
-  * Mike Fleming
-  * Tom LeConey
-  * Shane McQuerter
-  * Kenny Torng
+* [Amanda Fillip](https://github.com/afillip)
+* [Mike Fleming](https://github.com/mikemfleming)
+* [Tom LeConey](https://github.com/theTSLC)
+* [Shane McQuerter](https://github.com/Shanetou)
+* [Kenny Torng](https://github.com/ktorng)

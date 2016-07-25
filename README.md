@@ -1,8 +1,8 @@
-# The Rock Shop
+# Granite Parchment Shears
 
-A two player game of Rock-Paper-Scissors. [The Rock Shop](http://granite-parchment-shears.herokuapp.com/)
+A two player game of Rock-Paper-Scissors. [Granite Parchment Shears](http://granite-parchment-shears.herokuapp.com/)
 
-Created with: React, React Router, SocketIO, Express, SQLite3 w/ KNEX, Browserify, Skeleton.css
+Created with: React, React Router, SocketIO, Express, PostgreSQL w/ KNEX, Browserify, Skeleton.css
 
 
 Uses a Menu component that routes to Game component based on access code.

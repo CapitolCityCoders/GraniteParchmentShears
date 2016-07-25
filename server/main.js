@@ -34,6 +34,7 @@ app.post('/api/games', (req, res) => {
     status: 'waiting'
   })
   .then(gameId => {
+    console.log(gameId)
     res.send(gameId)
   })
   // We were handling errors this way:

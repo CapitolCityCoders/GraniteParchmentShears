@@ -33,6 +33,7 @@ app.post('/api/games', (req, res) => {
     access_code: req.body.accessCode,
     status: 'waiting'
   })
+  .returning('id')
   .then(gameId => {
     console.log(gameId)
     res.send(gameId)

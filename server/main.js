@@ -53,6 +53,7 @@ app.post('/api/users', (req, res) => {
     score: 0,
     status: 'waiting'
   })
+  .returning('id')
   .then(userId => {
     res.send(userId)
   })

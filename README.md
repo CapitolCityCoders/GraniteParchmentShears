@@ -1,7 +1,7 @@
 # Granite Parchment Shears
 
 [Granite Parchment Shears](http://granite-parchment-shears.herokuapp.com/) A two player game of Rock-Paper-Scissors. 
-Create a new game and access code, invite a friend and THROW!
+Create a new game and access code, invite a friend and THROW! Enjoy seamless and instantaneous game play.
 
 Created with: React, React Router, SocketIO, Express, PostgreSQL w/ KNEX, Browserify, Skeleton.css
 
